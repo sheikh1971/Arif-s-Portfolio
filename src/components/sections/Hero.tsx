@@ -52,7 +52,7 @@ export const Hero = () => {
             
             {/* Main Portrait with Glassmorphism Effect */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-72 h-72 rounded-3xl overflow-hidden border border-primary/30 shadow-2xl z-20">
+              <div className="relative w-72 h-72 rounded-full overflow-hidden border border-primary/30 shadow-2xl z-20">
                 <Image 
                   src={PERSONAL_INFO.images.hero} 
                   alt={PERSONAL_INFO.name}
