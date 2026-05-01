@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    --background: 222 47% 4%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 6%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 4%;
-    --popover-foreground: 210 40% 98%;
+    --background: 210 40% 98%;
+    --foreground: 222 47% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 4%;
     --primary: 262 83% 65%;
     --primary-foreground: 210 40% 98%;
     --secondary: 191 91% 50%;
     --secondary-foreground: 222 47% 4%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 262 83% 65%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
     --ring: 262 83% 65%;
     --radius: 0.75rem;
   }
@@ -54,7 +54,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply bg-background text-foreground transition-colors duration-500;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -74,20 +74,20 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: #020617;
+  background: hsl(var(--background));
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
+    radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.04) 0%, transparent 60%);
 }
 
 .neural-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: mesh-drift 100s linear infinite;
+  background-image: radial-gradient(rgba(139, 92, 246, 0.05) 1.5px, transparent 1.5px);
+  background-size: 50px 50px;
+  animation: mesh-drift 120s linear infinite;
 }
 
 @keyframes float {
@@ -98,13 +98,20 @@
 }
 
 @keyframes pulse-soft {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.05); }
 }
 
 @keyframes mesh-drift {
   0% { background-position: 0% 0%; }
   100% { background-position: 100% 100%; }
+}
+
+@keyframes synaptic-flow {
+  0% { stroke-dashoffset: 100; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
 }
 
 .animate-float {
@@ -115,11 +122,16 @@
   animation: pulse-soft 5s ease-in-out infinite;
 }
 
+.synaptic-line {
+  stroke-dasharray: 100;
+  animation: synaptic-flow 10s linear infinite;
+}
+
 .mesh-overlay {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(to right, rgba(139, 92, 246, 0.05) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-image: linear-gradient(to right, rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
   mask-image: radial-gradient(circle at center, black, transparent);
 }

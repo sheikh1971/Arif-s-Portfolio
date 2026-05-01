@@ -1,4 +1,3 @@
-
 "use client"
 
 import React from 'react';
@@ -50,49 +49,43 @@ export const Hero = () => {
           </div>
         </div>
 
-        {/* Right Visualization - Neural Network Vibe */}
+        {/* Right Visualization - Advanced Neural Network Mesh */}
         <div className="relative flex items-center justify-center animate-reveal [animation-delay:0.4s]">
-          {/* ML Illustration Background */}
-          <div className="absolute inset-0 opacity-10 blur-xl pointer-events-none">
-            <Image 
-              src={PERSONAL_INFO.images.ml_illustration} 
-              alt="ML Pattern"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          {/* Neural Connections SVG Background */}
-          <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" viewBox="0 0 400 400">
+          {/* Neural Connections SVG - The "Wire" Design */}
+          <svg className="absolute inset-0 w-[150%] h-[150%] -translate-x-[15%] -translate-y-[15%] opacity-40 pointer-events-none" viewBox="0 0 400 400">
             <defs>
               <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="hsl(var(--primary))" />
                 <stop offset="100%" stopColor="hsl(var(--secondary))" />
               </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
             </defs>
-            <path d="M100,100 L300,300" stroke="url(#lineGrad)" strokeWidth="0.5" strokeDasharray="5,5" className="animate-pulse-soft" />
-            <path d="M100,300 L300,100" stroke="url(#lineGrad)" strokeWidth="0.5" strokeDasharray="5,5" className="animate-pulse-soft" style={{ animationDelay: '1s' }} />
-            <circle cx="100" cy="100" r="2" fill="hsl(var(--primary))" className="animate-pulse" />
-            <circle cx="300" cy="300" r="2" fill="hsl(var(--secondary))" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
-            <circle cx="100" cy="300" r="2" fill="hsl(var(--primary))" className="animate-pulse" style={{ animationDelay: '1.5s' }} />
-            <circle cx="300" cy="100" r="2" fill="hsl(var(--secondary))" className="animate-pulse" style={{ animationDelay: '2s' }} />
+            
+            {/* Primary Neural Path 1 */}
+            <path d="M50,150 Q150,100 250,250 T350,200" fill="none" stroke="url(#lineGrad)" strokeWidth="0.5" className="synaptic-line" filter="url(#glow)" />
+            {/* Primary Neural Path 2 */}
+            <path d="M100,50 Q200,200 100,350" fill="none" stroke="url(#lineGrad)" strokeWidth="0.5" className="synaptic-line" style={{ animationDelay: '-3s' }} filter="url(#glow)" />
+            {/* Secondary Connections */}
+            <line x1="100" y1="100" x2="300" y2="300" stroke="url(#lineGrad)" strokeWidth="0.2" strokeDasharray="4,4" className="animate-pulse-soft" />
+            <line x1="300" y1="100" x2="100" y2="300" stroke="url(#lineGrad)" strokeWidth="0.2" strokeDasharray="4,4" className="animate-pulse-soft" style={{ animationDelay: '1s' }} />
+            
+            {/* Neural Nodes */}
+            <circle cx="100" cy="100" r="1.5" fill="hsl(var(--primary))" className="animate-pulse" />
+            <circle cx="300" cy="300" r="1.5" fill="hsl(var(--secondary))" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
+            <circle cx="200" cy="200" r="2.5" fill="hsl(var(--primary))" className="animate-pulse" style={{ animationDelay: '1.2s' }} />
+            <circle cx="150" cy="100" r="1" fill="hsl(var(--secondary))" />
+            <circle cx="250" cy="250" r="1" fill="hsl(var(--primary))" />
           </svg>
 
           <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
-            {/* Pulsing Neural Rings */}
-            <div className="absolute inset-0 border border-primary/10 rounded-full animate-[ping_10s_linear_infinite] opacity-50" />
-            <div className="absolute inset-4 border border-primary/5 rounded-full animate-[ping_15s_linear_infinite_reverse] opacity-30" />
-            
-            {/* Orbiting Nodes */}
-            <div className="absolute w-full h-full animate-[spin_30s_linear_infinite]">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary/40 blur-sm" />
-            </div>
-            <div className="absolute w-full h-full animate-[spin_20s_linear_infinite_reverse]">
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary/40 blur-sm" />
-            </div>
-
-            {/* Main Portrait Container - Square with rounded corners */}
-            <div className="relative w-72 h-72 rounded-3xl overflow-hidden border-2 border-primary/40 shadow-[0_0_50px_-12px_rgba(167,120,247,0.5)] z-20 bg-card/40">
+            {/* Main Portrait Container */}
+            <div className="relative w-72 h-72 rounded-3xl overflow-hidden border-2 border-primary/40 shadow-[0_0_50px_-12px_rgba(167,120,247,0.5)] z-20 bg-card/40 backdrop-blur-sm">
               <Image 
                 src={PERSONAL_INFO.images.hero} 
                 alt={PERSONAL_INFO.name}
