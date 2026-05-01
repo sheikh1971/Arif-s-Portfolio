@@ -124,7 +124,7 @@ Technical Stack: Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn �
 
 Key Contributions: Designed and implemented a custom SE-enhanced CNN architecture with batch normalization, dropout regularization, and global average pooling. Conducted comprehensive comparative benchmarking and ablation studies to empirically validate the impact of attention mechanisms. Evaluated model performance using multi-class precision, recall, F1-score, confusion matrices, and ROC-AUC curves. Proposed future directions including multimodal learning (integrating patient metadata), clinical validation workflows, and edge-device optimization for real-world deployment.`,
     tags: ["AI", "ML", "Computer Vision", "HealthTech"],
-    image: "/ML.jpeg",
+    image: "https://picsum.photos/seed/skin/600/400",
     reportData: {
       architecture: "SE-CNN Custom",
       dataset: "68,568 Clinical Images",
@@ -148,24 +148,11 @@ Key Contributions: Designed and implemented a custom SE-enhanced CNN architectur
   {
     id: "brain-disease",
     title: "🧠 Brain Disease Classification",
-    description: `Brain Disease Classification from fMRI-Derived Imaging Data using 3D Convolutional Neural Networks Overview: This project addresses the critical need for early and accurate diagnosis of neurodegenerative disorders—specifically Alzheimer's Disease (AD), Mild Cognitive Impairment (MCI), Early MCI (EMCI), and Cognitively Normal (CN)—by leveraging deep learning on volumetric neuroimaging data. Unlike conventional approaches that rely on complex time-series fMRI analysis, this work utilizes static fMRI-derived images to significantly reduce computational overhead while maintaining high diagnostic accuracy. A custom 3D Convolutional Neural Network was designed and implemented from scratch to capture spatial hierarchies within 64×64×64 voxel brain volumes. The architecture processes raw grayscale volumetric data through stacked 3D convolutional and max-pooling layers, followed by fully connected layers with ReLU activation and dropout regularization (rate=0.5) to prevent overfitting. The model outputs four-class probabilities via softmax activation.
+    description: `Brain Disease Classification from fMRI-Derived Imaging Data using 3D Convolutional Neural Networks Overview This project addresses the critical need for early and accurate diagnosis of neurodegenerative disorders—specifically Alzheimer's Disease (AD), Mild Cognitive Impairment (MCI), Early MCI (EMCI), and Cognitively Normal (CN)—by leveraging deep learning on volumetric neuroimaging data. Unlike conventional approaches that rely on complex time-series fMRI analysis, this work utilizes static fMRI-derived images to significantly reduce computational overhead while maintaining high diagnostic accuracy. A custom 3D Convolutional Neural Network was designed and implemented from scratch to capture spatial hierarchies within 64×64×64 voxel brain volumes. The architecture processes raw grayscale volumetric data through stacked 3D convolutional and max-pooling layers, followed by fully connected layers with ReLU activation and dropout regularization (rate=0.5) to prevent overfitting. The model outputs four-class probabilities via softmax activation.
 
-Key Results: 
-• Achieved 99% training accuracy and 100% validation accuracy on a dataset of 191,428 preprocessed fMRI-derived images (153,142 training / 38,286 validation). 
-• Delivered strong per-class performance with 96% precision/recall for AD, 97% for CN, and ~90-92% for MCI/EMCI classes. 
-• Implemented 5-fold cross-validation and data augmentation (random rotations, shifts) to ensure robustness and generalization across patient subsets. 
-• Standardized preprocessing pipeline including resizing, intensity normalization [0,1], and quality-controlled data curation from the ADNI database.
-
-Technical Stack: Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn · Matplotlib · Pandas · 3D CNN Architectures
-
-Key Contributions: 
-• Designed a lightweight yet effective 3D CNN architecture optimized for volumetric brain classification without relying on pre-trained models or transfer learning. 
-• Demonstrated that static fMRI-derived images, when processed through 3D convolutions, can achieve comparable or superior accuracy to multimodal approaches (MRI+PET) reported in literature. 
-• Applied rigorous regularization techniques including early stopping (patience=12 epochs), dropout, and cross-validation to mitigate overfitting risks inherent in high-dimensional medical imaging. 
-• Established a scalable preprocessing and augmentation framework for 3D neuroimaging data, enabling reproducible training pipelines for future clinical deployment. 
-• Proposed future integration of dynamic functional connectivity and multimodal imaging to further enhance early-stage detection capabilities.`,
+Key Results Achieved 99% training accuracy and 100% validation accuracy on a dataset of 191,428 preprocessed fMRI-derived images (153,142 training / 38,286 validation). Delivered strong per-class performance with 96% precision/recall for AD, 97% for CN, and ~90-92% for MCI/EMCI classes. Implemented 5-fold cross-validation and data augmentation (random rotations, shifts) to ensure robustness and generalization across patient subsets. Standardized preprocessing pipeline including resizing, intensity normalization [0,1], and quality-controlled data curation from the ADNI database. Technical Stack Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn · Matplotlib · Pandas · 3D CNN Architectures Key Contributions Designed a lightweight yet effective 3D CNN architecture optimized for volumetric brain classification without relying on pre-trained models or transfer learning. Demonstrated that static fMRI-derived images, when processed through 3D convolutions, can achieve comparable or superior accuracy to multimodal approaches (MRI+PET) reported in literature. Applied rigorous regularization techniques including early stopping (patience=12 epochs), dropout, and cross-validation to mitigate overfitting risks inherent in high-dimensional medical imaging. Established a scalable preprocessing and augmentation framework for 3D neuroimaging data, enabling reproducible training pipelines for future clinical deployment. Proposed future integration of dynamic functional connectivity and multimodal imaging to further enhance early-stage detection capabilities.`,
     tags: ["AI", "fMRI", "3D-CNN", "Neuroscience"],
-    image: "https://picsum.photos/seed/brain/600/400",
+    image: "/ML.jpeg",
     reportData: {
       architecture: "3D CNN (Custom)",
       dataset: "191,428 fMRI Images",
