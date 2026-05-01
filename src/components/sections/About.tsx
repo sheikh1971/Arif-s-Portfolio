@@ -20,7 +20,7 @@ export const About = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
             </div>
             <div className="absolute -bottom-6 -right-6 glass p-6 rounded-2xl hidden lg:block">
-              <p className="text-primary font-headline font-bold text-2xl">8+ Years</p>
+              <p className="text-primary font-headline font-bold text-2xl">10+ Years</p>
               <p className="text-xs text-muted-foreground uppercase tracking-widest">Social Leadership</p>
             </div>
           </div>
