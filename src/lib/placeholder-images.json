@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-image",
+      "description": "Professional portrait for hero section",
+      "imageUrl": "/halfgif.gif",
+      "imageHint": "professional engineer"
+    },
+    {
+      "id": "about-image",
+      "description": "Full portrait for about section",
+      "imageUrl": "/myfullpic.png",
+      "imageHint": "professional man"
+    },
+    {
+      "id": "resume-image",
+      "description": "Portrait for resume template",
+      "imageUrl": "/myhalfpic.png",
+      "imageHint": "id photo"
+    },
+    {
+      "id": "ml-illustration",
+      "description": "Machine learning background illustration",
+      "imageUrl": "/ML.jpeg",
+      "imageHint": "neural network"
+    },
+    {
+      "id": "skin-disease-project",
+      "description": "Skin disease detection clinical scan",
+      "imageUrl": "/skindisease.jpeg",
+      "imageHint": "dermatology"
+    },
+    {
+      "id": "brain-disease-project",
+      "description": "Brain MRI classification scan",
+      "imageUrl": "/ML.jpeg",
+      "imageHint": "brain scan"
+    },
+    {
+      "id": "4d-mri-project",
+      "description": "4D MRI segmentation scan",
+      "imageUrl": "https://picsum.photos/seed/medical-mri/600/400",
+      "imageHint": "medical imaging"
+    },
+    {
+      "id": "safe-driving-project",
+      "description": "Arduino safe driving system",
+      "imageUrl": "https://picsum.photos/seed/electronics/600/400",
+      "imageHint": "arduino"
+    },
+    {
+      "id": "flutter-apps-project",
+      "description": "Flutter mobile app UI",
+      "imageUrl": "https://picsum.photos/seed/mobile-ui/600/400",
+      "imageHint": "mobile app"
+    }
+  ]
 }

@@ -1,3 +1,4 @@
+
 export const PERSONAL_INFO = {
   name: "Mohammad (Md.) Ariful Islam",
   title: "Applied AI & Machine Learning Engineer",
@@ -176,23 +177,23 @@ Key Results Achieved 99% training accuracy and 100% validation accuracy on a dat
   {
     id: "4d-mri",
     title: "🧬 4D MRI Segmentation",
-    description: "My B.Sc. Thesis project. Deep learning for medical image segmentation using temporal and spatial data modeling techniques.",
+    description: "My B.Sc. Thesis project. Deep learning for medical image segmentation using temporal and spatial data modeling techniques. This research focuses on high-precision segmentation of 4D MRI sequences, utilizing advanced spatial-temporal architectures to analyze structural changes in biological tissues over time.",
     tags: ["AI", "Deep Learning", "Thesis"],
-    image: "https://picsum.photos/seed/mri/600/400"
+    image: "https://picsum.photos/seed/medical-mri/600/400"
   },
   {
     id: "safe-driving",
     title: "🚗 Arduino Safe Driving System",
-    description: "An embedded safety monitoring system designed to detect driver drowsiness and environmental hazards.",
+    description: "An embedded safety monitoring system designed to detect driver drowsiness and environmental hazards using ultrasonic sensors and real-time processing.",
     tags: ["Embedded", "IoT", "Arduino"],
-    image: "https://picsum.photos/seed/drive/600/400"
+    image: "https://picsum.photos/seed/electronics/600/400"
   },
   {
     id: "flutter-apps",
     title: "📱 Flutter E-commerce Apps",
-    description: "A collection of full-stack mobile applications with seamless backend integration and responsive UI/UX.",
+    description: "A collection of full-stack mobile applications with seamless backend integration and responsive UI/UX for cross-platform retail environments.",
     tags: ["Mobile", "Flutter", "Firebase"],
-    image: "https://picsum.photos/seed/flutter/600/400"
+    image: "https://picsum.photos/seed/mobile-ui/600/400"
   }
 ];
 
