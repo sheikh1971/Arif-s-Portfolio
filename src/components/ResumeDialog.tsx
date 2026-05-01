@@ -9,8 +9,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe, Layout, Image as ImageIcon, UserMinus } from 'lucide-react';
-import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT } from '@/lib/portfolio-data';
+import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe, Layout, Image as ImageIcon, UserMinus, User } from 'lucide-react';
+import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { cn } from '@/lib/utils';
@@ -34,9 +34,9 @@ export const ResumeDialog = () => {
   ];
 
   const layouts: { id: ResumeLayout; name: string; icon: any }[] = [
-    { id: 'single', name: 'Standard (Single Column)', icon: Layout },
-    { id: 'double', name: 'Corporate (Sidebar)', icon: Layout },
-    { id: 'grid', name: 'Modern (Grid)', icon: Layout },
+    { id: 'single', name: 'Standard', icon: Layout },
+    { id: 'double', name: 'Corporate', icon: Layout },
+    { id: 'grid', name: 'Modern', icon: Layout },
   ];
 
   const handleDownload = async () => {
@@ -69,10 +69,10 @@ export const ResumeDialog = () => {
     switch (activeTheme) {
       case 'modern':
         return {
-          primaryText: 'text-emerald-600',
+          primaryText: 'text-emerald-700',
           accentBorder: 'border-emerald-600',
           accentBg: 'bg-emerald-600',
-          headerBg: 'bg-slate-50',
+          headerBg: 'bg-emerald-50/50',
           fontFamily: 'font-sans'
         };
       case 'classic':
@@ -93,10 +93,10 @@ export const ResumeDialog = () => {
         };
       default:
         return {
-          primaryText: 'text-slate-900',
-          accentBorder: 'border-slate-900',
-          accentBg: 'bg-slate-900',
-          headerBg: 'bg-slate-50',
+          primaryText: 'text-blue-900',
+          accentBorder: 'border-blue-900',
+          accentBg: 'bg-blue-900',
+          headerBg: 'bg-slate-100/80',
           fontFamily: 'font-sans'
         };
     }
@@ -133,7 +133,7 @@ export const ResumeDialog = () => {
                   className="h-8 w-8 p-0 rounded-full"
                   title="With Photo"
                 >
-                  <ImageIcon className="h-4 w-4" />
+                  <User className="h-4 w-4" />
                 </Button>
                 <Button
                   size="sm"
@@ -151,7 +151,7 @@ export const ResumeDialog = () => {
 
             {/* Layout Selector */}
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Structure</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Layout</span>
               <div className="flex gap-2">
                 {layouts.map((l) => (
                   <Button
@@ -161,7 +161,7 @@ export const ResumeDialog = () => {
                     onClick={() => setActiveLayout(l.id)}
                     className="h-8 text-[10px] font-bold uppercase px-3 rounded-full"
                   >
-                    {l.id === 'single' ? 'Standard' : l.id === 'double' ? 'Sidebar' : 'Grid'}
+                    {l.name}
                   </Button>
                 ))}
               </div>
@@ -171,7 +171,7 @@ export const ResumeDialog = () => {
 
             {/* Theme Selector */}
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Theme</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Color</span>
               <div className="flex gap-2">
                 {themes.map((t) => (
                   <button
@@ -206,27 +206,31 @@ export const ResumeDialog = () => {
             style={{ color: '#111827' }}
           >
             {/* Header */}
-            <header className={cn("mb-10 p-8 rounded-2xl flex items-center gap-10", styles.headerBg, !showImage && "justify-center text-center")}>
+            <header className={cn(
+              "mb-10 p-10 rounded-2xl flex items-center gap-12 transition-all",
+              styles.headerBg, 
+              !showImage ? "justify-center text-center" : "text-left"
+            )}>
               {showImage && (
-                <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-slate-200 shadow-sm shrink-0">
+                <div className="relative w-40 h-40 rounded-xl overflow-hidden border-2 border-white shadow-md bg-white shrink-0">
                   <Image 
                     src={PERSONAL_INFO.images.resume} 
                     alt={PERSONAL_INFO.name} 
                     fill 
-                    className="object-cover" 
+                    className="object-contain" 
                     unoptimized 
                   />
                 </div>
               )}
               <div className="flex-1">
                 <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2 uppercase">{PERSONAL_INFO.name}</h1>
-                <p className={cn("text-lg font-bold mb-6", styles.primaryText)}>{PERSONAL_INFO.title}</p>
+                <p className={cn("text-xl font-bold mb-6", styles.primaryText)}>{PERSONAL_INFO.title}</p>
                 
-                <div className={cn("flex flex-wrap gap-y-2 gap-x-6 text-[10px] text-slate-500 font-bold uppercase tracking-widest", !showImage && "justify-center")}>
-                  <span className="flex items-center gap-1.5"><MapPin className="h-3 w-3" /> {PERSONAL_INFO.location}</span>
-                  <span className="flex items-center gap-1.5"><Phone className="h-3 w-3" /> {PERSONAL_INFO.phone}</span>
-                  <span className="flex items-center gap-1.5"><Mail className="h-3 w-3" /> {PERSONAL_INFO.email}</span>
-                  <span className="flex items-center gap-1.5"><Globe className="h-3 w-3" /> LINKEDIN.COM/IN/MARIFULISLAM</span>
+                <div className={cn("flex flex-wrap gap-y-2 gap-x-8 text-[11px] text-slate-500 font-bold uppercase tracking-widest", !showImage && "justify-center")}>
+                  <span className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5" /> {PERSONAL_INFO.location}</span>
+                  <span className="flex items-center gap-2"><Phone className="h-3.5 w-3.5" /> {PERSONAL_INFO.phone}</span>
+                  <span className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> {PERSONAL_INFO.email}</span>
+                  <span className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> LINKEDIN.COM/IN/MARIFULISLAM</span>
                 </div>
               </div>
             </header>
@@ -234,20 +238,20 @@ export const ResumeDialog = () => {
             {activeLayout === 'single' && (
               <div className="space-y-10">
                 <section>
-                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-4", styles.accentBorder)}>Professional Profile</h2>
+                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-5", styles.accentBorder)}>Professional Profile</h2>
                   <p className="text-[11px] leading-[1.8] text-slate-600 font-medium">{PERSONAL_INFO.subtext}</p>
                 </section>
                 <section>
-                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-6", styles.accentBorder)}>Experience</h2>
-                  <div className="space-y-8">
+                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Experience</h2>
+                  <div className="space-y-10">
                     {EXPERIENCE.map((exp, i) => (
                       <div key={i}>
-                        <div className="flex justify-between items-baseline mb-1">
-                          <h3 className="font-bold text-[13px] text-slate-900">{exp.company}</h3>
+                        <div className="flex justify-between items-baseline mb-1.5">
+                          <h3 className="font-bold text-[14px] text-slate-900">{exp.company}</h3>
                           <span className="text-[10px] font-bold text-slate-400 uppercase">{exp.period}</span>
                         </div>
-                        <p className={cn("text-[11px] font-bold italic mb-2", styles.primaryText)}>{exp.role}</p>
-                        <ul className="list-disc list-outside ml-4 space-y-1">
+                        <p className={cn("text-[11px] font-bold italic mb-3", styles.primaryText)}>{exp.role}</p>
+                        <ul className="list-disc list-outside ml-5 space-y-2">
                           {exp.highlightProject.responsibilities.map((res, j) => (
                             <li key={j} className="text-[11px] text-slate-600 leading-normal font-medium">{res}</li>
                           ))}
@@ -256,25 +260,26 @@ export const ResumeDialog = () => {
                     ))}
                   </div>
                 </section>
-                <div className="grid grid-cols-2 gap-10">
+                <div className="grid grid-cols-2 gap-12 pt-4">
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-5", styles.accentBorder)}>Education</h2>
-                    <div className="space-y-4">
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Education</h2>
+                    <div className="space-y-6">
                       {EDUCATION.map((edu, i) => (
                         <div key={i}>
-                          <h3 className="font-bold text-[11px] text-slate-900">{edu.degree}</h3>
-                          <p className="text-[10px] text-slate-500 font-bold">{edu.school} • {edu.period}</p>
+                          <h3 className="font-bold text-[12px] text-slate-900 leading-snug">{edu.degree}</h3>
+                          <p className="text-[11px] text-slate-500 font-bold mt-1">{edu.school}</p>
+                          <p className="text-[10px] text-slate-400 font-bold uppercase">{edu.period}</p>
                         </div>
                       ))}
                     </div>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-5", styles.accentBorder)}>Skills</h2>
-                    <div className="space-y-4">
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Technical Expertise</h2>
+                    <div className="space-y-5">
                       {SKILLS.slice(0, 4).map((group, i) => (
                         <div key={i}>
-                          <h3 className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">{group.category}</h3>
-                          <p className="text-[10px] text-slate-700 leading-relaxed font-bold">{group.items.join(' • ')}</p>
+                          <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{group.category}</h3>
+                          <p className="text-[11px] text-slate-700 leading-relaxed font-bold">{group.items.join(' • ')}</p>
                         </div>
                       ))}
                     </div>
@@ -284,23 +289,23 @@ export const ResumeDialog = () => {
             )}
 
             {activeLayout === 'double' && (
-              <div className="grid grid-cols-12 gap-10 flex-1">
-                <div className="col-span-8 space-y-10">
+              <div className="grid grid-cols-12 gap-12 flex-1">
+                <div className="col-span-8 space-y-12">
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-4", styles.accentBorder)}>Profile</h2>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-5", styles.accentBorder)}>Summary</h2>
                     <p className="text-[11px] leading-[1.8] text-slate-600 font-medium">{PERSONAL_INFO.subtext}</p>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-6", styles.accentBorder)}>Experience</h2>
-                    <div className="space-y-8">
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Experience</h2>
+                    <div className="space-y-10">
                       {EXPERIENCE.map((exp, i) => (
                         <div key={i}>
-                          <h3 className="font-bold text-[13px] text-slate-900 mb-0.5">{exp.company}</h3>
-                          <div className="flex justify-between mb-2">
+                          <h3 className="font-bold text-[14px] text-slate-900 mb-1">{exp.company}</h3>
+                          <div className="flex justify-between mb-3">
                             <p className={cn("text-[11px] font-bold italic", styles.primaryText)}>{exp.role}</p>
                             <span className="text-[10px] font-bold text-slate-400 uppercase">{exp.period}</span>
                           </div>
-                          <ul className="list-disc list-outside ml-4 space-y-1.5">
+                          <ul className="list-disc list-outside ml-5 space-y-2">
                             {exp.highlightProject.responsibilities.map((res, j) => (
                               <li key={j} className="text-[11px] text-slate-600 leading-normal font-medium">{res}</li>
                             ))}
@@ -310,26 +315,26 @@ export const ResumeDialog = () => {
                     </div>
                   </section>
                 </div>
-                <div className="col-span-4 space-y-10 border-l pl-10 border-slate-100">
+                <div className={cn("col-span-4 space-y-10 p-8 rounded-2xl border-l-2", styles.headerBg, styles.accentBorder)}>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-5", styles.accentBorder)}>Skills</h2>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b pb-1.5 mb-6", styles.accentBorder)}>Core Skills</h2>
                     <div className="space-y-6">
                       {SKILLS.slice(0, 5).map((group, i) => (
                         <div key={i}>
-                          <h3 className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">{group.category}</h3>
-                          <p className="text-[10px] text-slate-700 leading-relaxed font-bold">{group.items.join(', ')}</p>
+                          <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{group.category}</h3>
+                          <p className="text-[11px] text-slate-700 leading-relaxed font-bold">{group.items.join(', ')}</p>
                         </div>
                       ))}
                     </div>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-5", styles.accentBorder)}>Education</h2>
-                    <div className="space-y-5">
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b pb-1.5 mb-6", styles.accentBorder)}>Education</h2>
+                    <div className="space-y-6">
                       {EDUCATION.map((edu, i) => (
                         <div key={i}>
                           <h3 className="font-bold text-[11px] text-slate-900 leading-tight">{edu.degree}</h3>
-                          <p className="text-[10px] text-slate-500 font-bold mb-1">{edu.school}</p>
-                          <p className="text-[9px] text-slate-400 font-bold italic">{edu.period}</p>
+                          <p className="text-[10px] text-slate-500 font-bold mt-1.5">{edu.school}</p>
+                          <p className="text-[9px] text-slate-400 font-bold italic mt-1 uppercase">{edu.period}</p>
                         </div>
                       ))}
                     </div>
@@ -339,43 +344,43 @@ export const ResumeDialog = () => {
             )}
 
             {activeLayout === 'grid' && (
-              <div className="space-y-12">
-                <section className="bg-slate-50 p-6 rounded-2xl">
-                  <p className="text-[11px] leading-[1.8] text-slate-600 font-medium text-center italic">
+              <div className="space-y-14">
+                <section className={cn("p-8 rounded-2xl transition-all", styles.headerBg)}>
+                  <p className="text-[12px] leading-[1.8] text-slate-700 font-medium text-center italic max-w-2xl mx-auto">
                     "{PERSONAL_INFO.subtext}"
                   </p>
                 </section>
-                <div className="grid grid-cols-2 gap-x-12 gap-y-10">
+                <div className="grid grid-cols-2 gap-x-12 gap-y-12">
                   <section className="col-span-2">
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-6", styles.accentBorder)}>Core Experience</h2>
-                    <div className="grid grid-cols-2 gap-8">
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Career Milestones</h2>
+                    <div className="grid grid-cols-2 gap-10">
                       {EXPERIENCE.slice(0, 2).map((exp, i) => (
-                        <div key={i} className="p-4 border rounded-xl border-slate-100">
-                          <h3 className="font-bold text-[13px] text-slate-900">{exp.company}</h3>
-                          <p className={cn("text-[10px] font-bold mb-3", styles.primaryText)}>{exp.role} • {exp.period}</p>
-                          <p className="text-[10px] text-slate-500 leading-relaxed">{exp.highlightProject.responsibilities[0]}</p>
+                        <div key={i} className="p-6 border rounded-2xl border-slate-100 hover:border-slate-200 transition-colors">
+                          <h3 className="font-bold text-[14px] text-slate-900">{exp.company}</h3>
+                          <p className={cn("text-[11px] font-bold mb-4", styles.primaryText)}>{exp.role} • {exp.period}</p>
+                          <p className="text-[11px] text-slate-600 leading-relaxed font-medium">{exp.highlightProject.responsibilities[0]}</p>
                         </div>
                       ))}
                     </div>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-5", styles.accentBorder)}>Expertise</h2>
-                    <div className="grid grid-cols-1 gap-4">
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Strategic Skills</h2>
+                    <div className="space-y-6">
                       {SKILLS.slice(0, 3).map((group, i) => (
                         <div key={i}>
-                          <h3 className="text-[9px] font-bold text-slate-400 mb-1">{group.category}</h3>
-                          <p className="text-[10px] text-slate-700 font-bold">{group.items.join(' • ')}</p>
+                          <h3 className="text-[10px] font-bold text-slate-400 uppercase mb-2">{group.category}</h3>
+                          <p className="text-[11px] text-slate-700 font-bold">{group.items.join(' • ')}</p>
                         </div>
                       ))}
                     </div>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1 mb-5", styles.accentBorder)}>Education</h2>
-                    <div className="space-y-4">
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Education</h2>
+                    <div className="space-y-6">
                       {EDUCATION.map((edu, i) => (
                         <div key={i}>
-                          <h3 className="font-bold text-[11px] text-slate-900">{edu.degree}</h3>
-                          <p className="text-[9px] text-slate-500 font-bold uppercase">{edu.school}</p>
+                          <h3 className="font-bold text-[12px] text-slate-900 leading-snug">{edu.degree}</h3>
+                          <p className="text-[11px] text-slate-500 font-bold uppercase mt-1">{edu.school}</p>
                         </div>
                       ))}
                     </div>
@@ -384,10 +389,10 @@ export const ResumeDialog = () => {
               </div>
             )}
 
-            <footer className="mt-auto pt-16 flex justify-end">
-              <div className="text-right border-t border-slate-100 pt-6 min-w-[200px]">
-                <p className={cn("text-lg font-bold italic mb-0.5", styles.primaryText)}>{PERSONAL_INFO.name}</p>
-                <p className="text-[8px] uppercase tracking-[0.2em] text-slate-400 font-bold">Digital Professional Identity</p>
+            <footer className="mt-auto pt-20 flex justify-end">
+              <div className="text-right border-t-2 border-slate-100 pt-8 min-w-[240px]">
+                <p className={cn("text-xl font-bold italic mb-1", styles.primaryText)}>{PERSONAL_INFO.name}</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-bold">Digital Professional Identity</p>
               </div>
             </footer>
           </div>
