@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -39,9 +38,10 @@ export const Terminal = () => {
             <span className="text-primary">whoami</span><span>Display current user identity</span>
             <span className="text-primary">github</span><span>Check GitHub status</span>
             <span className="text-primary">skills</span><span>List core neural stack</span>
-            <span className="text-primary">clear</span><span>Clear session history</span>
+            <span className="text-primary">pwd</span><span>Print working directory</span>
             <span className="text-primary">ls</span><span>List technical assets</span>
             <span className="text-primary">contact</span><span>Display secure handshake channels</span>
+            <span className="text-primary">clear</span><span>Clear session history</span>
           </div>
         );
         break;
@@ -58,6 +58,9 @@ export const Terminal = () => {
         break;
       case 'skills':
         output = SKILLS.map(s => s.category).join(', ');
+        break;
+      case 'pwd':
+        output = "/home/synaptic/portfolio/core_research";
         break;
       case 'ls':
         output = "projects/ clinical_cv/ ml_ops/ architecture/ social_impact/";
