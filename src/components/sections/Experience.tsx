@@ -1,8 +1,9 @@
+
 "use client"
 
 import React from 'react';
 import { EXPERIENCE } from '@/lib/portfolio-data';
-import { CheckCircle2, Activity, Brain, Layout, Sparkles, ExternalLink } from 'lucide-react';
+import { CheckCircle2, Activity, Brain, Layout, Target, ExternalLink, Cpu } from 'lucide-react';
 
 export const Experience = () => {
   return (
@@ -48,7 +49,7 @@ export const Experience = () => {
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-primary/10 transition-colors" />
                   
                   <div className="flex items-center gap-3 mb-6">
-                    {exp.company === "WIOCARE" ? <Brain className="text-primary h-6 w-6" /> : <Sparkles className="text-primary h-6 w-6" />}
+                    {exp.company === "WIOCARE" ? <Brain className="text-primary h-6 w-6" /> : <Cpu className="text-primary h-6 w-6" />}
                     <h4 className="text-2xl font-headline font-bold">{exp.highlightProject.name}</h4>
                   </div>
                   

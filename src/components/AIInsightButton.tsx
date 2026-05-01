@@ -1,9 +1,10 @@
+
 "use client"
 
 import React, { useState } from 'react';
 import { generateProjectInsight } from '@/ai/flows/project-insight-generator';
 import { Button } from './ui/button';
-import { Sparkles, Loader2, FileText, Brain, Layers, Cpu, Terminal, BarChart3, ArrowRight, Database, ShieldCheck, Microscope, Zap, Activity, Target } from 'lucide-react';
+import { FileText, Loader2, Brain, Layers, Cpu, Terminal, BarChart3, ArrowRight, Database, ShieldCheck, Microscope, Zap, Activity, Target } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -56,7 +57,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
       });
       setInsight(result.insight);
     } catch (error) {
-      errorEmitter.emit('permission-error', error);
+      console.error("Insight generation failed:", error);
     } finally {
       setLoading(false);
     }
@@ -106,7 +107,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
           size="sm" 
           className="gap-2 text-xs font-headline border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all shadow-sm"
         >
-          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          <FileText className="h-3.5 w-3.5 text-primary" />
           Technical Report
         </Button>
       </DialogTrigger>
@@ -145,7 +146,6 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
         <ScrollArea className="flex-1">
           <div className="p-8 space-y-16 pb-20">
             
-            {/* 01. Styled Research Abstract */}
             <section className="relative">
               <div className="flex items-center gap-3 mb-8">
                 <div className="h-8 w-1 bg-primary rounded-full" />
@@ -156,7 +156,6 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
               
               <div className="grid lg:grid-cols-12 gap-10">
                 <div className="lg:col-span-8 space-y-8">
-                  {/* Executive Summary Highlight */}
                   <div className="p-6 rounded-2xl bg-primary/5 border-l-4 border-primary shadow-sm">
                     <p className="text-xs font-headline font-bold uppercase tracking-widest text-primary/70 mb-2 flex items-center gap-2">
                       <Target size={14} /> Executive Summary
@@ -225,7 +224,6 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
               </div>
             </section>
 
-            {/* 02. Neural Pipeline Flowchart */}
             <section className="bg-muted/10 p-10 rounded-[2.5rem] border border-primary/10 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
               <h4 className="text-xs font-headline font-bold uppercase tracking-widest text-primary mb-16 text-center flex items-center justify-center gap-3">
@@ -293,7 +291,6 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
               </div>
             </section>
 
-            {/* 03. Comparative Benchmarks */}
             <section className="grid lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-7">
                 <div className="flex items-center gap-3 mb-10">
@@ -331,7 +328,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
                 <h4 className="text-xs font-headline font-bold uppercase tracking-widest text-primary mb-6">Key Scientific Findings</h4>
                 <div className="space-y-4">
                   {[
-                    { title: "SOTA Performance", desc: "Achieved superior accuracy compared to standard baseline architectures in identical test environments.", icon: Sparkles },
+                    { title: "SOTA Performance", desc: "Achieved superior accuracy compared to standard baseline architectures in identical test environments.", icon: Target },
                     { title: "High Discriminative Power", desc: "Verified through multi-class ROC analysis with strong sensitivity and specificity metrics.", icon: ShieldCheck },
                     { title: "Architecture Optimization", desc: "Optimized parameter footprint allows for seamless integration into real-time healthcare systems.", icon: Terminal }
                   ].map((item, i) => (
@@ -349,7 +346,6 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
               </div>
             </section>
 
-            {/* 04. Deep AI Technical Evaluation */}
             <section className="pt-16 border-t border-primary/10 relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 bg-card border border-primary/10 rounded-full">
                 <Brain size={20} className="text-primary" />
@@ -369,7 +365,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
                   disabled={loading}
                   className="rounded-full px-8 shadow-lg shadow-primary/20 font-headline uppercase tracking-widest text-[10px] h-11"
                 >
-                  {loading ? <Loader2 className="h-4 w-4 animate-spin mr-3" /> : <Sparkles className="h-4 w-4 mr-3" />}
+                  {loading ? <Loader2 className="h-4 w-4 animate-spin mr-3" /> : <Brain className="h-4 w-4 mr-3" />}
                   {insight ? "Re-Synthesize Technical Insights" : "Generate Deep Evaluation"}
                 </Button>
               </div>
@@ -450,11 +446,4 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
       </DialogContent>
     </Dialog>
   );
-};
-
-export const errorEmitter = {
-  emit: (event: string, data: any) => {
-    // Basic implementation to avoid runtime errors if not connected to a global emitter
-    console.warn(`Event ${event} emitted but no global listener attached.`, data);
-  }
 };

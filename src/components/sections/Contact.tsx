@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -5,7 +6,7 @@ import { PERSONAL_INFO } from '@/lib/portfolio-data';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Github, Linkedin, Mail, Phone, Send, Sparkles } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Send, Zap } from 'lucide-react';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -52,7 +53,7 @@ export const Contact = () => {
         <div className="grid md:grid-cols-2 gap-16 items-start">
           <div className="reveal">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-headline font-bold uppercase tracking-[0.3em] mb-8">
-              <Sparkles size={12} /> Get In Touch
+              <Zap size={12} /> Get In Touch
             </div>
             <h2 className="text-4xl lg:text-6xl font-headline font-bold mb-8 leading-tight">
               Let's build something <span className="gradient-text">intelligent.</span>
