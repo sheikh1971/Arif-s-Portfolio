@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -111,8 +112,8 @@ export const Hero = () => {
                 <BrainCircuit className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <span className="text-[10px] font-headline font-bold uppercase tracking-widest block">Core AI</span>
-                <p className="text-[9px] text-muted-foreground leading-tight">Architecting high-precision diagnostic CV pipelines.</p>
+                <span className="text-[10px] font-headline font-bold uppercase tracking-widest block">Medical CV</span>
+                <p className="text-[9px] text-muted-foreground leading-tight">Developing high-precision diagnostic neural pipelines.</p>
               </div>
             </div>
 
@@ -121,8 +122,8 @@ export const Hero = () => {
                 <Zap className="h-4 w-4 text-secondary" />
               </div>
               <div>
-                <span className="text-[10px] font-headline font-bold uppercase tracking-widest block">Systems</span>
-                <p className="text-[9px] text-muted-foreground leading-tight">End-to-end intelligent platforms at WIOCARE.</p>
+                <span className="text-[10px] font-headline font-bold uppercase tracking-widest block">ML Systems</span>
+                <p className="text-[9px] text-muted-foreground leading-tight">Scaling end-to-end healthcare AI platforms at WIOCARE.</p>
               </div>
             </div>
           </div>
