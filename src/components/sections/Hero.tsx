@@ -1,9 +1,11 @@
+
 "use client"
 
 import React from 'react';
 import { PERSONAL_INFO } from '@/lib/portfolio-data';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Download, Mail } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
+import { ResumeDialog } from '../ResumeDialog';
 
 export const Hero = () => {
   return (
@@ -30,9 +32,9 @@ export const Hero = () => {
                 View Projects <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
-            <Button size="lg" variant="outline" className="rounded-full gap-2 px-8">
-              <Download className="h-4 w-4" /> Resume
-            </Button>
+            
+            <ResumeDialog />
+
             <Button size="lg" variant="ghost" className="rounded-full gap-2 px-8" asChild>
               <a href="#contact">
                 <Mail className="h-4 w-4" /> Contact
