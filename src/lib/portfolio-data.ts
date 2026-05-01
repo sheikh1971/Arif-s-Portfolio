@@ -22,7 +22,7 @@ export const EXPERIENCE = [
     company: "WIOCARE",
     companyUrl: "https://www.wiocare.com/",
     role: "Applied AI & Machine Learning Engineer",
-    period: "2024 – Present",
+    period: "2025 – Present",
     focus: "Leading healthcare AI system architecture and system design",
     highlightProject: {
       name: "🏥 WIOCARE — Healthcare AI Platform",
@@ -52,7 +52,7 @@ export const EXPERIENCE = [
   {
     company: "CottonsWorld",
     role: "Computer Vision Engineer (Parallel Role)",
-    period: "2024 – Present",
+    period: "2025",
     focus: "FashionTech & Virtual Try-On Innovations",
     highlightProject: {
       name: "👕 Virtual Try-On System",
@@ -81,7 +81,7 @@ export const EXPERIENCE = [
     company: "Jionex",
     companyUrl: "https://www.jionex.com/",
     role: "AI & ML Engineer",
-    period: "2024",
+    period: "2025",
     focus: "Enterprise AI Solutions & Predictive Modeling",
     highlightProject: {
       name: "🚀 Enterprise Intelligence Suite",

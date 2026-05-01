@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Mail, Zap, BrainCircuit, Activity } from 'lucide-react';
 import { ResumeDialog } from '../ResumeDialog';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 export const Hero = () => {
   return (
@@ -27,7 +28,16 @@ export const Hero = () => {
           </div>
           <h1 className="text-6xl lg:text-8xl font-headline font-bold mb-6 leading-[1] tracking-tight">
             {PERSONAL_INFO.name.split(' ').map((word, i) => (
-              <span key={i} className={i === 2 ? "gradient-text block" : "block"}>{word} </span>
+              <span 
+                key={i} 
+                className={cn(
+                  "block",
+                  i === 1 && "text-3xl lg:text-4xl opacity-50 font-light",
+                  i === 2 && "gradient-text"
+                )}
+              >
+                {word} 
+              </span>
             ))}
           </h1>
           <p className="text-xl md:text-2xl text-foreground/80 font-headline font-light mb-8 max-w-lg leading-relaxed">
