@@ -9,8 +9,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe, Layout, UserMinus, User } from 'lucide-react';
-import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS } from '@/lib/portfolio-data';
+import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe, Layout, UserMinus, User, Heart, Brain } from 'lucide-react';
+import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT, PROJECTS } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { cn } from '@/lib/utils';
@@ -34,9 +34,9 @@ export const ResumeDialog = () => {
   ];
 
   const layouts: { id: ResumeLayout; name: string; icon: any }[] = [
-    { id: 'single', name: 'Standard', icon: Layout },
+    { id: 'single', name: 'Executive', icon: Layout },
     { id: 'double', name: 'Corporate', icon: Layout },
-    { id: 'grid', name: 'Modern', icon: Layout },
+    { id: 'grid', name: 'Strategic', icon: Layout },
   ];
 
   const handleDownload = async () => {
@@ -57,7 +57,7 @@ export const ResumeDialog = () => {
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`Resume_${PERSONAL_INFO.name.replace(/\s+/g, '_')}_${activeTheme}.pdf`);
+      pdf.save(`Resume_${PERSONAL_INFO.name.replace(/\s+/g, '_')}.pdf`);
     } catch (error) {
       console.error("PDF generation failed:", error);
     } finally {
@@ -112,7 +112,7 @@ export const ResumeDialog = () => {
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-6xl max-h-[95vh] overflow-y-auto bg-slate-100 dark:bg-slate-950 p-0 border-none">
-        <DialogHeader className="sticky top-0 z-10 bg-background/95 backdrop-blur-md border-b p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <DialogHeader className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col gap-1 text-left">
             <DialogTitle className="flex items-center gap-2 text-xl font-headline">
               <FileText className="h-5 w-5 text-primary" />
@@ -122,73 +122,32 @@ export const ResumeDialog = () => {
           </div>
           
           <div className="flex flex-wrap items-center gap-6 bg-muted/30 p-4 rounded-2xl border">
-            {/* Image Toggle */}
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Photo Mode</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Photo</span>
               <div className="flex gap-2">
-                <Button
-                  size="sm"
-                  variant={showImage ? "default" : "outline"}
-                  onClick={() => setShowImage(true)}
-                  className="h-8 w-8 p-0 rounded-full"
-                  title="With Photo"
-                >
-                  <User className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant={!showImage ? "default" : "outline"}
-                  onClick={() => setShowImage(false)}
-                  className="h-8 w-8 p-0 rounded-full"
-                  title="No Photo (US/UK Standard)"
-                >
-                  <UserMinus className="h-4 w-4" />
-                </Button>
+                <Button size="sm" variant={showImage ? "default" : "outline"} onClick={() => setShowImage(true)} className="h-8 w-8 p-0 rounded-full"><User className="h-4 w-4" /></Button>
+                <Button size="sm" variant={!showImage ? "default" : "outline"} onClick={() => setShowImage(false)} className="h-8 w-8 p-0 rounded-full"><UserMinus className="h-4 w-4" /></Button>
               </div>
             </div>
-
             <div className="w-px h-10 bg-border hidden md:block" />
-
-            {/* Layout Selector */}
             <div className="flex flex-col gap-2">
               <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Layout</span>
               <div className="flex gap-2">
                 {layouts.map((l) => (
-                  <Button
-                    key={l.id}
-                    size="sm"
-                    variant={activeLayout === l.id ? "default" : "outline"}
-                    onClick={() => setActiveLayout(l.id)}
-                    className="h-8 text-[10px] font-bold uppercase px-3 rounded-full"
-                  >
-                    {l.name}
-                  </Button>
+                  <Button key={l.id} size="sm" variant={activeLayout === l.id ? "default" : "outline"} onClick={() => setActiveLayout(l.id)} className="h-8 text-[10px] font-bold uppercase px-3 rounded-full">{l.name}</Button>
                 ))}
               </div>
             </div>
-
             <div className="w-px h-10 bg-border hidden md:block" />
-
-            {/* Theme Selector */}
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Color</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Theme</span>
               <div className="flex gap-2">
                 {themes.map((t) => (
-                  <button
-                    key={t.id}
-                    onClick={() => setActiveTheme(t.id)}
-                    className={cn(
-                      "w-8 h-8 rounded-full border-2 transition-all flex items-center justify-center",
-                      activeTheme === t.id ? "scale-110 border-foreground ring-2 ring-primary/20" : "border-transparent opacity-50 hover:opacity-100",
-                      t.color
-                    )}
-                  />
+                  <button key={t.id} onClick={() => setActiveTheme(t.id)} className={cn("w-8 h-8 rounded-full border-2 transition-all", activeTheme === t.id ? "scale-110 border-foreground ring-2 ring-primary/20" : "border-transparent opacity-50 hover:opacity-100", t.color)} />
                 ))}
               </div>
             </div>
-
             <div className="w-px h-10 bg-border hidden md:block" />
-
             <Button onClick={handleDownload} disabled={isGenerating} className="gap-2 rounded-full px-6 h-10 shadow-lg shadow-primary/20">
               {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
               Download PDF
@@ -197,25 +156,13 @@ export const ResumeDialog = () => {
         </DialogHeader>
 
         <div className="flex justify-center p-10 bg-slate-100 dark:bg-slate-950">
-          <div 
-            ref={resumeRef}
-            className={cn(
-              "bg-white text-[#111827] p-12 shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col transition-all duration-500",
-              styles.fontFamily
-            )}
-            style={{ color: '#111827' }}
-          >
-            {/* Header */}
-            <header className={cn(
-              "mb-10 p-10 rounded-2xl flex items-center gap-12 transition-all",
-              styles.headerBg, 
-              !showImage ? "justify-center text-center" : "text-left"
-            )}>
+          <div ref={resumeRef} className={cn("bg-white text-[#111827] p-12 shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col transition-all duration-500", styles.fontFamily)}>
+            {/* Professional Header - Right Aligned Image */}
+            <header className={cn("mb-10 p-10 rounded-2xl flex items-center justify-between gap-12 transition-all", styles.headerBg)}>
               <div className="flex-1">
                 <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2 uppercase">{PERSONAL_INFO.name}</h1>
                 <p className={cn("text-xl font-bold mb-6", styles.primaryText)}>{PERSONAL_INFO.title}</p>
-                
-                <div className={cn("flex flex-wrap gap-y-2 gap-x-8 text-[11px] text-slate-500 font-bold uppercase tracking-widest", !showImage && "justify-center")}>
+                <div className="flex flex-wrap gap-y-2 gap-x-6 text-[11px] text-slate-500 font-bold uppercase tracking-widest">
                   <span className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5" /> {PERSONAL_INFO.location}</span>
                   <span className="flex items-center gap-2"><Phone className="h-3.5 w-3.5" /> {PERSONAL_INFO.phone}</span>
                   <span className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> {PERSONAL_INFO.email}</span>
@@ -223,14 +170,8 @@ export const ResumeDialog = () => {
                 </div>
               </div>
               {showImage && (
-                <div className="relative w-44 h-44 rounded-xl overflow-hidden border-2 border-white shadow-md bg-white shrink-0">
-                  <Image 
-                    src={PERSONAL_INFO.images.resume} 
-                    alt={PERSONAL_INFO.name} 
-                    fill 
-                    className="object-contain" 
-                    unoptimized 
-                  />
+                <div className="relative w-40 h-40 rounded-xl overflow-hidden border-2 border-white shadow-lg bg-white shrink-0">
+                  <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
                 </div>
               )}
             </header>
@@ -238,20 +179,20 @@ export const ResumeDialog = () => {
             {activeLayout === 'single' && (
               <div className="space-y-10">
                 <section>
-                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-5", styles.accentBorder)}>Professional Profile</h2>
+                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-5", styles.accentBorder)}>Professional Summary</h2>
                   <p className="text-[11px] leading-[1.8] text-slate-600 font-medium">{PERSONAL_INFO.subtext}</p>
                 </section>
                 <section>
-                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Experience</h2>
-                  <div className="space-y-10">
+                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Professional Path</h2>
+                  <div className="space-y-8">
                     {EXPERIENCE.map((exp, i) => (
                       <div key={i}>
                         <div className="flex justify-between items-baseline mb-1.5">
-                          <h3 className="font-bold text-[14px] text-slate-900">{exp.company}</h3>
+                          <h3 className="font-bold text-[13px] text-slate-900">{exp.company} — <span className={styles.primaryText}>{exp.role}</span></h3>
                           <span className="text-[10px] font-bold text-slate-400 uppercase">{exp.period}</span>
                         </div>
-                        <p className={cn("text-[11px] font-bold italic mb-3", styles.primaryText)}>{exp.role}</p>
-                        <ul className="list-disc list-outside ml-5 space-y-2">
+                        <p className="text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-tight italic">{exp.focus}</p>
+                        <ul className="list-disc list-outside ml-5 space-y-1.5">
                           {exp.highlightProject.responsibilities.map((res, j) => (
                             <li key={j} className="text-[11px] text-slate-600 leading-normal font-medium">{res}</li>
                           ))}
@@ -262,50 +203,62 @@ export const ResumeDialog = () => {
                 </section>
                 <div className="grid grid-cols-2 gap-12 pt-4">
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Education</h2>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Education & Training</h2>
                     <div className="space-y-6">
                       {EDUCATION.map((edu, i) => (
                         <div key={i}>
-                          <h3 className="font-bold text-[12px] text-slate-900 leading-snug">{edu.degree}</h3>
-                          <p className="text-[11px] text-slate-500 font-bold mt-1">{edu.school}</p>
-                          <p className="text-[10px] text-slate-400 font-bold uppercase">{edu.period}</p>
+                          <h3 className="font-bold text-[11px] text-slate-900 leading-snug">{edu.degree}</h3>
+                          <p className="text-[10px] text-slate-500 font-bold mt-1">{edu.school} • {edu.period}</p>
+                          <p className="text-[10px] text-slate-400 font-medium mt-1 italic">{edu.focus}</p>
                         </div>
                       ))}
                     </div>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Technical Expertise</h2>
-                    <div className="space-y-5">
-                      {SKILLS.slice(0, 4).map((group, i) => (
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Impact & Leadership</h2>
+                    <div className="space-y-6">
+                      {IMPACT.map((imp, i) => (
                         <div key={i}>
-                          <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{group.category}</h3>
-                          <p className="text-[11px] text-slate-700 leading-relaxed font-bold">{group.items.join(' • ')}</p>
+                          <h3 className="font-bold text-[11px] text-slate-900 leading-snug">{imp.organization}</h3>
+                          <p className={cn("text-[10px] font-bold uppercase", styles.primaryText)}>{imp.role}</p>
+                          <p className="text-[10px] text-slate-500 font-medium mt-1 leading-relaxed">• {imp.achievements[0]}</p>
                         </div>
                       ))}
                     </div>
                   </section>
                 </div>
+                <section>
+                  <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Technical Arsenal</h2>
+                  <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+                    {SKILLS.slice(0, 4).map((group, i) => (
+                      <div key={i}>
+                        <h3 className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">{group.category}</h3>
+                        <p className="text-[11px] text-slate-700 leading-relaxed font-bold">{group.items.join(' • ')}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
               </div>
             )}
 
             {activeLayout === 'double' && (
               <div className="grid grid-cols-12 gap-12 flex-1">
-                <div className="col-span-8 space-y-12">
+                <div className="col-span-8 space-y-10">
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-5", styles.accentBorder)}>Summary</h2>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-5", styles.accentBorder)}>Profile Narrative</h2>
                     <p className="text-[11px] leading-[1.8] text-slate-600 font-medium">{PERSONAL_INFO.subtext}</p>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Experience</h2>
-                    <div className="space-y-10">
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Career Progression</h2>
+                    <div className="space-y-8">
                       {EXPERIENCE.map((exp, i) => (
                         <div key={i}>
-                          <h3 className="font-bold text-[14px] text-slate-900 mb-1">{exp.company}</h3>
-                          <div className="flex justify-between mb-3">
-                            <p className={cn("text-[11px] font-bold italic", styles.primaryText)}>{exp.role}</p>
+                          <div className="flex justify-between mb-1">
+                            <h3 className="font-bold text-[13px] text-slate-900">{exp.company}</h3>
                             <span className="text-[10px] font-bold text-slate-400 uppercase">{exp.period}</span>
                           </div>
-                          <ul className="list-disc list-outside ml-5 space-y-2">
+                          <p className={cn("text-[11px] font-bold mb-3", styles.primaryText)}>{exp.role}</p>
+                          <ul className="list-disc list-outside ml-5 space-y-1.5">
                             {exp.highlightProject.responsibilities.map((res, j) => (
                               <li key={j} className="text-[11px] text-slate-600 leading-normal font-medium">{res}</li>
                             ))}
@@ -314,10 +267,25 @@ export const ResumeDialog = () => {
                       ))}
                     </div>
                   </section>
+                  <section>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Selected Research & Projects</h2>
+                    <div className="grid grid-cols-2 gap-6">
+                      {PROJECTS.slice(0, 4).map((proj, i) => (
+                        <div key={i} className="p-4 border rounded-xl border-slate-100">
+                          <h3 className="font-bold text-[11px] text-slate-900 mb-1">{proj.title}</h3>
+                          <div className="flex flex-wrap gap-1">
+                            {proj.tags.slice(0, 2).map(t => (
+                              <span key={t} className="text-[8px] font-bold px-1.5 py-0.5 bg-slate-100 rounded text-slate-500">{t}</span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
                 </div>
                 <div className={cn("col-span-4 space-y-10 p-8 rounded-2xl border-l-2", styles.headerBg, styles.accentBorder)}>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b pb-1.5 mb-6", styles.accentBorder)}>Core Skills</h2>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b pb-1.5 mb-6", styles.accentBorder)}>Technical Stack</h2>
                     <div className="space-y-6">
                       {SKILLS.slice(0, 5).map((group, i) => (
                         <div key={i}>
@@ -333,8 +301,19 @@ export const ResumeDialog = () => {
                       {EDUCATION.map((edu, i) => (
                         <div key={i}>
                           <h3 className="font-bold text-[11px] text-slate-900 leading-tight">{edu.degree}</h3>
-                          <p className="text-[10px] text-slate-500 font-bold mt-1.5">{edu.school}</p>
+                          <p className="text-[10px] text-slate-500 font-bold mt-1">{edu.school}</p>
                           <p className="text-[9px] text-slate-400 font-bold italic mt-1 uppercase">{edu.period}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                  <section>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b pb-1.5 mb-6", styles.accentBorder)}>Impact</h2>
+                    <div className="space-y-6">
+                      {IMPACT.map((imp, i) => (
+                        <div key={i}>
+                          <h3 className="font-bold text-[10px] text-slate-900 leading-snug">{imp.organization}</h3>
+                          <p className={cn("text-[9px] font-bold uppercase", styles.primaryText)}>{imp.role}</p>
                         </div>
                       ))}
                     </div>
@@ -343,16 +322,16 @@ export const ResumeDialog = () => {
               </div>
             )}
 
-            {activeLayout === 'grid' && (
+            {activeLayout === 'grid' && (activeLayout === 'grid' && (
               <div className="space-y-14">
                 <section className={cn("p-8 rounded-2xl transition-all", styles.headerBg)}>
-                  <p className="text-[12px] leading-[1.8] text-slate-700 font-medium text-center italic max-w-2xl mx-auto">
+                  <p className="text-[12px] leading-[1.8] text-slate-700 font-medium text-center italic max-w-2xl mx-auto italic">
                     "{PERSONAL_INFO.subtext}"
                   </p>
                 </section>
                 <div className="grid grid-cols-2 gap-x-12 gap-y-12">
                   <section className="col-span-2">
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Career Milestones</h2>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-8", styles.accentBorder)}>Core Professional Experience</h2>
                     <div className="grid grid-cols-2 gap-10">
                       {EXPERIENCE.slice(0, 2).map((exp, i) => (
                         <div key={i} className="p-6 border rounded-2xl border-slate-100 hover:border-slate-200 transition-colors">
@@ -364,7 +343,7 @@ export const ResumeDialog = () => {
                     </div>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Strategic Skills</h2>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Technical Expertise</h2>
                     <div className="space-y-6">
                       {SKILLS.slice(0, 3).map((group, i) => (
                         <div key={i}>
@@ -375,21 +354,21 @@ export const ResumeDialog = () => {
                     </div>
                   </section>
                   <section>
-                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Education</h2>
+                    <h2 className={cn("text-xs font-bold uppercase tracking-[0.25em] border-b-2 pb-1.5 mb-6", styles.accentBorder)}>Leadership & impact</h2>
                     <div className="space-y-6">
-                      {EDUCATION.map((edu, i) => (
+                      {IMPACT.map((imp, i) => (
                         <div key={i}>
-                          <h3 className="font-bold text-[12px] text-slate-900 leading-snug">{edu.degree}</h3>
-                          <p className="text-[11px] text-slate-500 font-bold uppercase mt-1">{edu.school}</p>
+                          <h3 className="font-bold text-[11px] text-slate-900 leading-snug">{imp.organization}</h3>
+                          <p className={cn("text-[10px] font-bold uppercase mt-1", styles.primaryText)}>{imp.role}</p>
                         </div>
                       ))}
                     </div>
                   </section>
                 </div>
               </div>
-            )}
+            ))}
 
-            <footer className="mt-auto pt-20 flex justify-end">
+            <footer className="mt-auto pt-16 flex justify-end">
               <div className="text-right border-t-2 border-slate-100 pt-8 min-w-[240px]">
                 <p className={cn("text-xl font-bold mb-1", styles.primaryText)}>{PERSONAL_INFO.name}</p>
                 <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-bold">Digital Professional Identity</p>
