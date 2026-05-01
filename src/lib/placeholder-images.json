@@ -45,7 +45,7 @@
     {
       "id": "safe-driving-project",
       "description": "Arduino safe driving system",
-      "imageUrl": "https://picsum.photos/seed/electronics/600/400",
+      "imageUrl": "/arduino.jpeg",
       "imageHint": "arduino"
     },
     {

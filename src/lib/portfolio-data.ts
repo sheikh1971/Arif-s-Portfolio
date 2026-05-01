@@ -174,7 +174,7 @@ export const PROJECTS = [
     title: "🚗 Arduino Safe Driving System",
     description: "An embedded safety monitoring system designed to detect driver drowsiness and environmental hazards using ultrasonic sensors and real-time processing.",
     tags: ["Embedded", "IoT", "Arduino"],
-    image: "https://picsum.photos/seed/electronics/600/400"
+    image: "/arduino.jpeg"
   },
   {
     id: "flutter-apps",
