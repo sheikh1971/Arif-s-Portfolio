@@ -51,7 +51,7 @@ export const EXPERIENCE = [
   },
   {
     company: "CottonsWorld",
-    role: "Computer Vision Engineer (Parallel Role)",
+    role: "Applied AI & ML Engineer",
     period: "2025",
     focus: "FashionTech & Virtual Try-On Innovations",
     highlightProject: {
@@ -80,7 +80,7 @@ export const EXPERIENCE = [
   {
     company: "Jionex",
     companyUrl: "https://www.jionex.com/",
-    role: "AI & ML Engineer",
+    role: "Applied AI & ML Engineer",
     period: "2024",
     focus: "Enterprise AI Solutions & Predictive Modeling",
     highlightProject: {
@@ -98,9 +98,9 @@ export const EXPERIENCE = [
         "Model Monitoring Dashboard"
       ],
       impact: [
-        "Improved model accuracy by 15% through feature engineering",
-        "Reduced deployment latency for real-time inference services",
-        "Established standard MLOPs practices within the team"
+        "Improved model accuracy by 15% through optimized preprocessing",
+        "Shortened prototyping cycles for enterprise AI features",
+        "Enhanced data reliability for cross-departmental analytics"
       ]
     },
     secondaryProject: {

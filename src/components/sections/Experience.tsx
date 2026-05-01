@@ -1,4 +1,3 @@
-
 "use client"
 
 import React from 'react';
@@ -77,7 +76,7 @@ export const Experience = () => {
                       </ul>
                       <p className="text-xs font-headline uppercase tracking-widest text-primary mb-3">Outcome</p>
                       <ul className="space-y-2">
-                        {exp.highlightProject.impact.map((im, i) => (
+                        {exp.highlightProject.impact?.map((im, i) => (
                           <li key={i} className="text-sm text-muted-foreground">• {im}</li>
                         ))}
                       </ul>
