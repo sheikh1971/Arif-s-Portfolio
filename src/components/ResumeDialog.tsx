@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useRef, useState } from 'react';
@@ -51,12 +52,26 @@ export const ResumeDialog = () => {
         backgroundColor: '#ffffff'
       });
       
-      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      let position = 0;
+
+      const imgData = canvas.toDataURL('image/png');
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position -= pageHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
       
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       pdf.save(`${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`);
     } catch (error) {
       console.error("PDF generation failed:", error);
@@ -81,9 +96,9 @@ export const ResumeDialog = () => {
     
     return (
       <header className={cn(
-        "mb-8 p-10 rounded-[2.5rem] relative overflow-hidden", 
+        "mb-10 p-10 rounded-[2.5rem] relative overflow-hidden", 
         styles.headerBg,
-        isExecutive && "flex items-center justify-between"
+        (activeLayout !== 'strategic' && showImage) && "flex items-center justify-between"
       )}>
         <div className="relative z-10 flex-1">
           <div className="flex items-center gap-3 mb-4">
@@ -106,7 +121,7 @@ export const ResumeDialog = () => {
             <span className="flex items-center gap-2"><Phone size={12} className={styles.iconColor} /> {PERSONAL_INFO.phone}</span>
           </div>
         </div>
-        {(isExecutive && showImage) && (
+        {(activeLayout !== 'strategic' && showImage) && (
           <div className="relative w-40 aspect-square rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-white ml-8">
             <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
           </div>
@@ -209,11 +224,11 @@ export const ResumeDialog = () => {
           <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-5 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
             <Layers size={14} /> Applied Research
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-6">
             {PROJECTS.slice(0, 3).map((proj, i) => (
               <div key={i} className="p-5 rounded-3xl bg-slate-50 border border-slate-100">
                 <h3 className="font-bold text-[11px] text-slate-900 mb-1">{proj.title}</h3>
-                <p className="text-[9.5px] text-slate-600 leading-relaxed line-clamp-2">{proj.description}</p>
+                <p className="text-[9.5px] text-slate-600 leading-relaxed line-clamp-3 italic">"{proj.description.split('.')[0]}."</p>
               </div>
             ))}
           </div>
@@ -228,8 +243,8 @@ export const ResumeDialog = () => {
         <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-4 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
           <Target size={14} /> Professional Summary
         </h2>
-        <p className="text-[11.5px] leading-relaxed text-slate-700 font-medium">
-          {PERSONAL_INFO.subtext}
+        <p className="text-[11.5px] leading-relaxed text-slate-700 font-medium italic">
+          "{PERSONAL_INFO.subtext}"
         </p>
       </section>
 
@@ -279,7 +294,7 @@ export const ResumeDialog = () => {
             {EDUCATION.map((edu, i) => (
               <div key={i}>
                 <h3 className="font-bold text-[10px] text-slate-900 leading-tight mb-1">{edu.degree}</h3>
-                <p className="text-[9px] text-slate-500 font-bold uppercase">{edu.school} • {edu.period}</p>
+                <p className="text-[9px] text-slate-500 font-bold">{edu.school} • {edu.period}</p>
               </div>
             ))}
           </div>
@@ -303,7 +318,7 @@ export const ResumeDialog = () => {
                     <span className={cn("h-1.5 w-1.5 rounded-full", styles.accentBg)} />
                     {proj.title}
                   </h3>
-                  <p className="text-[10.5px] text-slate-600 leading-relaxed italic line-clamp-3">"{proj.description}"</p>
+                  <p className="text-[10.5px] text-slate-600 leading-relaxed italic line-clamp-3">"{proj.description.split('.')[0]}."</p>
                 </div>
               ))}
             </div>
@@ -337,7 +352,7 @@ export const ResumeDialog = () => {
         </div>
 
         <div className="col-span-4 space-y-10">
-          {showImage && (
+          {(showImage) && (
             <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden border-2 border-slate-100 shadow-lg bg-slate-50">
                <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
             </div>
