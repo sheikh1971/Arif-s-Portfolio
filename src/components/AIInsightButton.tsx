@@ -25,6 +25,7 @@ interface ProjectReportData {
   dataset: string;
   accuracy: string;
   accuracyLabel: string;
+  summary?: string;
   pipeline: {
     ingestion: string;
     preprocessing: string;
@@ -55,7 +56,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
       });
       setInsight(result.insight);
     } catch (error) {
-      console.error("AI Insight generation failed:", error);
+      errorEmitter.emit('permission-error', error);
     } finally {
       setLoading(false);
     }
@@ -67,6 +68,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
     dataset: "Proprietary Dataset",
     accuracy: "Verified",
     accuracyLabel: "Status",
+    summary: "Leveraging custom neural architectures to push the boundaries of intelligent system design and automated analysis.",
     pipeline: {
       ingestion: "Data Sourcing",
       preprocessing: "Normalization",
@@ -160,7 +162,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
                       <Target size={14} /> Executive Summary
                     </p>
                     <p className="text-base font-medium leading-relaxed italic text-foreground/90">
-                      "Leveraging custom neural architectures to push the boundaries of medical diagnosis through automated data analysis and spatial hierarchies."
+                      "{currentReport.summary || projectDescription.split('.')[0] + '.'}"
                     </p>
                   </div>
 
@@ -448,4 +450,11 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags, 
       </DialogContent>
     </Dialog>
   );
+};
+
+export const errorEmitter = {
+  emit: (event: string, data: any) => {
+    // Basic implementation to avoid runtime errors if not connected to a global emitter
+    console.warn(`Event ${event} emitted but no global listener attached.`, data);
+  }
 };

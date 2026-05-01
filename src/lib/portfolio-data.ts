@@ -1,4 +1,3 @@
-
 export const PERSONAL_INFO = {
   name: "Mohammad (Md.) Ariful Islam",
   title: "Applied AI & Machine Learning Engineer",
@@ -121,6 +120,7 @@ export const PROJECTS = [
       dataset: "68,568 Clinical Images",
       accuracy: "88.55%",
       accuracyLabel: "Peak Performance",
+      summary: "Leveraging custom SE-enhanced CNN architectures to automate multi-class skin disease classification for underserved and rural regions.",
       pipeline: {
         ingestion: "Kaggle Repo",
         preprocessing: "Resizing & Norm",
@@ -147,6 +147,7 @@ export const PROJECTS = [
       dataset: "191,428 fMRI Images",
       accuracy: "100%",
       accuracyLabel: "Validation Accuracy",
+      summary: "Utilizing 3D Convolutional Neural Networks on volumetric fMRI data to achieve high-precision diagnosis of neurodegenerative disorders.",
       pipeline: {
         ingestion: "ADNI Database",
         preprocessing: "3D Voxel Norm",
@@ -180,6 +181,7 @@ export const PROJECTS = [
       dataset: "Real-time Ultrasonic Data",
       accuracy: "98.5%",
       accuracyLabel: "Sensor Reliability",
+      summary: "Integrating Arduino-based embedded hardware with mobile synchronization for real-time driver safety monitoring and hazard detection.",
       pipeline: {
         ingestion: "Ultrasonic / IR Sensors",
         preprocessing: "Signal Filtering",
