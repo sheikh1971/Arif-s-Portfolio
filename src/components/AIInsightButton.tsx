@@ -46,8 +46,6 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags }
     }
   };
 
-  const isSkinDisease = projectName.toLowerCase().includes('skin disease');
-
   const chartData = [
     { model: "SE-CNN", accuracy: 88.55, fill: "hsl(var(--primary))" },
     { model: "MobileNetV2", accuracy: 51.56, fill: "hsl(var(--muted-foreground)/0.3)" },
@@ -100,7 +98,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags }
 
         <ScrollArea className="flex-1 p-6 pt-4">
           <div className="space-y-12 pb-8">
-            {/* Executive Summary Grid */}
+            {/* System Core Specifications */}
             <section>
               <h4 className="text-xs font-headline font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
                 <ShieldCheck size={14} /> System Core Specifications
@@ -234,18 +232,18 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags }
               </div>
             </section>
 
-            {/* Detailed Technical Description */}
+            {/* Full Research Abstract Section */}
             <section className="border-t border-primary/10 pt-12">
               <h4 className="text-xs font-headline font-bold uppercase tracking-widest text-primary mb-6">Full Research Abstract</h4>
-              <div className="p-8 rounded-2xl bg-muted/20 border leading-relaxed font-body text-sm text-foreground/90 whitespace-pre-wrap">
+              <div className="p-8 rounded-2xl bg-muted/20 border border-primary/5 leading-relaxed font-body text-sm text-foreground/90 whitespace-pre-wrap shadow-inner">
                 {projectDescription}
               </div>
             </section>
 
-            {/* AI Generator Section */}
+            {/* AI Dynamic Analysis */}
             <section className="pt-8 border-t border-primary/10">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-xs font-headline font-bold uppercase tracking-widest text-primary">AI Dynamic Analysis</h4>
+                <h4 className="text-xs font-headline font-bold uppercase tracking-widest text-primary">Deep AI Technical Analysis</h4>
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -254,20 +252,24 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags }
                   className="text-[10px] font-headline hover:text-primary"
                 >
                   {loading ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : <Sparkles className="h-3 w-3 mr-2" />}
-                  {insight ? "Refresh Analysis" : "Generate Deep Analysis"}
+                  {insight ? "Re-analyze System" : "Generate Deep Analysis"}
                 </Button>
               </div>
               
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-12 gap-4 text-muted-foreground">
                   <Loader2 className="h-10 w-10 animate-spin text-primary opacity-50" />
-                  <p className="text-xs font-headline animate-pulse tracking-widest uppercase">Processing Neural Weights...</p>
+                  <p className="text-xs font-headline animate-pulse tracking-widest uppercase">Processing Neural Weights for Deep Insight...</p>
                 </div>
               ) : insight ? (
-                <div className="p-5 rounded-2xl bg-primary/5 border border-primary/10 leading-relaxed font-body text-sm text-foreground/90 italic">
-                  "{insight}"
+                <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 leading-relaxed font-body text-sm text-foreground/90 whitespace-pre-wrap italic">
+                  {insight}
                 </div>
-              ) : null}
+              ) : (
+                <div className="py-8 text-center text-xs text-muted-foreground border border-dashed rounded-2xl">
+                  Click the "Generate Deep Analysis" button above to run a comprehensive technical evaluation using the core ML engine.
+                </div>
+              )}
             </section>
           </div>
         </ScrollArea>
