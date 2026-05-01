@@ -10,14 +10,14 @@ export const About = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative animate-reveal">
-            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border">
+            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border bg-card">
               <Image 
                 src={PERSONAL_INFO.images.about} 
-                alt="Md. Ariful Islam Professional"
+                alt="Md. Ariful Islam Full Portrait"
                 fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="object-cover transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
             </div>
             <div className="absolute -bottom-6 -right-6 glass p-6 rounded-2xl hidden lg:block">
               <p className="text-primary font-headline font-bold text-2xl">8+ Years</p>

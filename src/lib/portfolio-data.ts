@@ -11,7 +11,7 @@ export const PERSONAL_INFO = {
   location: "Chittagong, Bangladesh",
   images: {
     hero: "/halfgif.gif",
-    about: "/semifullgif.gif",
+    about: "/myfullpic.png",
     resume: "/myhalfpic.png"
   }
 };
