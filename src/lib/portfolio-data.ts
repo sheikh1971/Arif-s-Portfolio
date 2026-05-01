@@ -112,8 +112,8 @@ export const PROJECTS = [
   {
     id: "skin-disease",
     title: "🔬 Skin Disease Detection",
-    description: "Deep learning based dermatological classification system for identifying various skin conditions with high accuracy and clinical relevance.",
-    tags: ["AI", "ML", "Computer Vision"],
+    description: "Overview: This project presents a custom deep learning solution for automated multi-class skin disease classification, addressing the global shortage of dermatological expertise—particularly in underserved and rural regions. Built from scratch using TensorFlow/Keras, the architecture centers on a novel SE-CNN with Squeeze-and-Excitation blocks. Benchmarked against MobileNetV2, DenseNet121, ResNet50, and EfficientNetB0.\n\nKey Results: Achieved 88.55% test accuracy. Ablation study demonstrated an ~9% accuracy improvement attributable solely to SE blocks. AUC > 0.90 for major classes.\n\nTechnical Stack: Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn · Matplotlib · Pandas\n\nKey Contributions: Designed novel SE-enhanced CNN architecture, conducted comprehensive benchmarking, and proposed future directions for edge-device optimization.",
+    tags: ["AI", "ML", "Computer Vision", "HealthTech"],
     image: "/ML.jpeg"
   },
   {
