@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useRef, useState } from 'react';
@@ -46,30 +45,41 @@ export const ResumeDialog = () => {
 
     try {
       const canvas = await html2canvas(resumeRef.current, {
-        scale: 2, 
+        scale: 3, 
         useCORS: true,
         logging: false,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        windowWidth: resumeRef.current.scrollWidth,
+        windowHeight: resumeRef.current.scrollHeight
       });
       
-      const imgWidth = 210; // A4 width in mm
-      const pageHeight = 297; // A4 height in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-
+      const imgData = canvas.toDataURL('image/png', 1.0);
       const pdf = new jsPDF('p', 'mm', 'a4');
-      let position = 0;
+      
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 10; // 10mm margin
+      const contentWidth = pageWidth - (margin * 2);
+      const contentHeight = pageHeight - (margin * 2);
+      
+      const imgWidth = contentWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      let heightLeft = imgHeight;
+      let position = margin;
+      let page = 1;
 
-      const imgData = canvas.toDataURL('image/png');
+      // Add first page
+      pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight, undefined, 'FAST');
+      heightLeft -= contentHeight;
 
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
+      // Add subsequent pages if needed
       while (heightLeft > 0) {
-        position -= pageHeight;
+        position = margin - (page * contentHeight);
         pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+        pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight, undefined, 'FAST');
+        heightLeft -= contentHeight;
+        page++;
       }
       
       pdf.save(`${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`);
@@ -132,7 +142,6 @@ export const ResumeDialog = () => {
 
   const renderStrategic = () => (
     <div className="flex-1 grid grid-cols-12 gap-10">
-      {/* Sidebar - Left */}
       <div className="col-span-4 space-y-10">
         {showImage && (
           <div className="relative w-full aspect-square rounded-3xl overflow-hidden border-8 border-slate-50 shadow-xl bg-slate-50">
@@ -185,7 +194,6 @@ export const ResumeDialog = () => {
         </section>
       </div>
 
-      {/* Main Content - Right */}
       <div className="col-span-8 space-y-10">
         <section>
           <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-4 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
@@ -228,7 +236,7 @@ export const ResumeDialog = () => {
             {PROJECTS.slice(0, 3).map((proj, i) => (
               <div key={i} className="p-5 rounded-3xl bg-slate-50 border border-slate-100">
                 <h3 className="font-bold text-[11px] text-slate-900 mb-1">{proj.title}</h3>
-                <p className="text-[9.5px] text-slate-600 leading-relaxed line-clamp-3 italic">"{proj.description.split('.')[0]}."</p>
+                <p className="text-[9.5px] text-slate-600 leading-relaxed italic line-clamp-3">"{proj.description.split('.')[0]}."</p>
               </div>
             ))}
           </div>
@@ -443,7 +451,7 @@ export const ResumeDialog = () => {
 
         <div className="flex-1 overflow-auto bg-muted/20 p-4 md:p-12 flex justify-center scrollbar-hide">
           <div className="scale-[0.4] sm:scale-75 md:scale-90 lg:scale-100 origin-top transition-transform duration-500">
-            <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-12 md:p-16 shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col font-sans transition-all")}>
+            <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col font-sans transition-all")}>
               {renderHeader()}
               
               {activeLayout === 'strategic' && renderStrategic()}
