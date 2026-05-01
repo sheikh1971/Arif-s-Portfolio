@@ -49,8 +49,7 @@ export const ResumeDialog = () => {
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
-        windowWidth: resumeRef.current.scrollWidth,
-        windowHeight: resumeRef.current.scrollHeight
+        windowWidth: 794, // Standard A4 width at 96 DPI
       });
       
       const imgData = canvas.toDataURL('image/png', 1.0);
@@ -65,10 +64,11 @@ export const ResumeDialog = () => {
       let heightLeft = imgHeight;
       let position = 0;
 
-      // Add pages sequentially
+      // Add first page
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
       heightLeft -= pageHeight;
 
+      // Add additional pages if content spans beyond one A4 page
       while (heightLeft > 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
