@@ -51,8 +51,18 @@ export const Hero = () => {
 
         {/* Right Visualization - Neural Network Vibe */}
         <div className="relative flex items-center justify-center animate-reveal [animation-delay:0.4s]">
+          {/* ML Illustration Background */}
+          <div className="absolute inset-0 opacity-10 blur-xl pointer-events-none">
+            <Image 
+              src={PERSONAL_INFO.images.ml_illustration} 
+              alt="ML Pattern"
+              fill
+              className="object-cover"
+            />
+          </div>
+
           {/* Neural Connections SVG Background */}
-          <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 400 400">
+          <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" viewBox="0 0 400 400">
             <defs>
               <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="hsl(var(--primary))" />

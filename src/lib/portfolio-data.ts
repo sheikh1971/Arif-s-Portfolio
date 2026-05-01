@@ -12,7 +12,8 @@ export const PERSONAL_INFO = {
   images: {
     hero: "/halfgif.gif",
     about: "/myfullpic.png",
-    resume: "/myhalfpic.png"
+    resume: "/myhalfpic.png",
+    ml_illustration: "/ML.jpeg"
   }
 };
 
@@ -113,7 +114,7 @@ export const PROJECTS = [
     title: "🧠 Brain Tumor Detection",
     description: "ML-based MRI classification system involving complex image preprocessing, feature engineering, and rigorous model evaluation & optimization.",
     tags: ["AI", "ML", "Computer Vision"],
-    image: "https://picsum.photos/seed/brain/600/400"
+    image: "/ML.jpeg"
   },
   {
     id: "4d-mri",
