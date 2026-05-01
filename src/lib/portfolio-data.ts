@@ -8,8 +8,7 @@ export const PERSONAL_INFO = {
   phone: "+880 1835674339",
   github: "https://github.com/sheikh1971",
   linkedin: "https://linkedin.com/in/marifulislam",
-  location: "Chittagong, Bangladesh",
-  profileImage: "https://picsum.photos/seed/ariful/800/1200"
+  location: "Chittagong, Bangladesh"
 };
 
 export const EXPERIENCE = [
