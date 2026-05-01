@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useRef, useState } from 'react';
@@ -10,10 +9,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Download, Loader2, FileText, User } from 'lucide-react';
+import { Download, Loader2, FileText } from 'lucide-react';
 import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import Image from 'next/image';
 
 export const ResumeDialog = () => {
   const resumeRef = useRef<HTMLDivElement>(null);
@@ -71,18 +71,27 @@ export const ResumeDialog = () => {
         <div className="bg-muted p-4 md:p-8 rounded-lg overflow-x-auto">
           <div 
             ref={resumeRef}
-            className="bg-white text-black p-10 shadow-2xl mx-auto w-[210mm] min-h-[297mm] font-sans selection:bg-blue-100"
+            className="bg-white text-black p-10 shadow-2xl mx-auto w-[210mm] min-h-[297mm] font-sans selection:bg-blue-100 flex flex-col"
             style={{ color: '#1a1a1a' }}
           >
             {/* Header */}
-            <header className="border-b-2 border-primary pb-6 mb-8">
-              <h1 className="text-4xl font-bold uppercase tracking-tight text-primary mb-2">{PERSONAL_INFO.name}</h1>
-              <p className="text-xl font-medium text-gray-600 mb-4">{PERSONAL_INFO.title}</p>
-              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
-                <span>📍 {PERSONAL_INFO.location}</span>
-                <span>📞 {PERSONAL_INFO.phone}</span>
-                <span>📧 {PERSONAL_INFO.email}</span>
-                <span>🔗 linkedin.com/in/marifulislam</span>
+            <header className="border-b-2 border-primary pb-6 mb-8 flex justify-between items-start">
+              <div className="flex-1">
+                <h1 className="text-4xl font-bold uppercase tracking-tight text-primary mb-2">{PERSONAL_INFO.name}</h1>
+                <p className="text-xl font-medium text-gray-600 mb-4">{PERSONAL_INFO.title}</p>
+                <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
+                  <span>📍 {PERSONAL_INFO.location}</span>
+                  <span>📞 {PERSONAL_INFO.phone}</span>
+                  <span>📧 {PERSONAL_INFO.email}</span>
+                </div>
+              </div>
+              <div className="relative w-28 h-28 rounded-xl overflow-hidden border-2 border-primary/20 shrink-0 ml-6">
+                <Image 
+                  src={PERSONAL_INFO.profileImage} 
+                  alt={PERSONAL_INFO.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
             </header>
 

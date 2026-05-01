@@ -1,4 +1,3 @@
-
 "use client"
 
 import React from 'react';
@@ -6,6 +5,7 @@ import { PERSONAL_INFO } from '@/lib/portfolio-data';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Mail } from 'lucide-react';
 import { ResumeDialog } from '../ResumeDialog';
+import Image from 'next/image';
 
 export const Hero = () => {
   return (
@@ -43,42 +43,26 @@ export const Hero = () => {
           </div>
         </div>
 
-        {/* Right Visualization */}
+        {/* Right Visualization - Profile Image */}
         <div className="relative hidden md:flex items-center justify-center animate-reveal [animation-delay:0.4s]">
-          <div className="relative w-full aspect-square max-w-lg">
-            {/* Abstract AI Neural Web Animation (SVG) */}
-            <svg viewBox="0 0 200 200" className="w-full h-full text-primary/20 animate-float">
-              <defs>
-                <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                  <stop offset="0%" style={{ stopColor: '#A778F7', stopOpacity: 0.3 }} />
-                  <stop offset="100%" style={{ stopColor: '#48B1F4', stopOpacity: 0 }} />
-                </radialGradient>
-              </defs>
-              <circle cx="100" cy="100" r="80" fill="url(#grad1)" />
-              <path d="M40,100 Q100,20 160,100 T40,100" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="5,5" />
-              <path d="M100,40 Q180,100 100,160 T100,40" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="5,5" />
-              {[...Array(8)].map((_, i) => (
-                <circle 
-                  key={i} 
-                  cx={100 + 60 * Math.cos(i * Math.PI / 4)} 
-                  cy={100 + 60 * Math.sin(i * Math.PI / 4)} 
-                  r="2" 
-                  fill="currentColor" 
-                  className="animate-pulse" 
-                  style={{ animationDelay: `${i * 0.2}s` }}
-                />
-              ))}
-              <circle cx="100" cy="100" r="10" className="text-primary" fill="currentColor" />
-            </svg>
+          <div className="relative w-full aspect-[3/4] max-w-sm rounded-[2rem] overflow-hidden shadow-2xl border-4 border-primary/20 bg-muted/20">
+            <Image 
+              src={PERSONAL_INFO.profileImage} 
+              alt={PERSONAL_INFO.name}
+              fill
+              className="object-cover transition-transform duration-700 hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
             
-            {/* Tech Floating Elements */}
-            <div className="absolute top-1/4 -left-4 glass p-4 rounded-xl text-xs font-headline flex items-center gap-2 animate-float [animation-delay:1s]">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              PyTorch v2.0 Ready
+            {/* Tech Floating Elements overlaid on image or around it */}
+            <div className="absolute top-1/4 -left-6 glass p-4 rounded-xl text-[10px] font-headline flex items-center gap-2 animate-float [animation-delay:1s] z-10">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              Vision Systems
             </div>
-            <div className="absolute bottom-1/4 -right-4 glass p-4 rounded-xl text-xs font-headline flex items-center gap-2 animate-float [animation-delay:2s]">
-              <div className="w-2 h-2 rounded-full bg-blue-400" />
-              Vision Architect
+            <div className="absolute bottom-1/4 -right-6 glass p-4 rounded-xl text-[10px] font-headline flex items-center gap-2 animate-float [animation-delay:2s] z-10">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+              AI Architect
             </div>
           </div>
         </div>
