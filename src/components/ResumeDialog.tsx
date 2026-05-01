@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useRef, useState } from 'react';
@@ -109,6 +108,14 @@ export const ResumeDialog = () => {
 
   const styles = getThemeStyles();
 
+  const renderName = (name: string) => {
+    return name.split(' ').map((word, i) => (
+      <span key={i} className={cn(word === "(Md.)" && "text-[0.7em] opacity-60 font-normal")}>
+        {word}{' '}
+      </span>
+    ));
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -163,15 +170,17 @@ export const ResumeDialog = () => {
         <div className="flex justify-center p-12 bg-slate-200 dark:bg-slate-900/50">
           <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-16 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] mx-auto w-[210mm] min-h-[297mm] flex flex-col transition-all duration-700", styles.fontFamily)}>
             
-            {/* High-End Architectural Header */}
-            <header className={cn("mb-12 p-12 rounded-[2.5rem] flex items-center justify-between gap-12 transition-all relative overflow-hidden", styles.headerBg)}>
+            {/* High-End Architectural Header - Stable Grid Layout */}
+            <header className={cn("mb-12 p-10 rounded-[2rem] grid grid-cols-12 gap-10 transition-all relative overflow-hidden", styles.headerBg)}>
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-              <div className="flex-1 relative z-10">
+              <div className={cn("relative z-10", showImage ? "col-span-8" : "col-span-12")}>
                 <div className="flex items-center gap-3 mb-4">
                   <div className={cn("h-1 w-12 rounded-full", styles.accentBg)} />
                   <span className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Professional Profile // {PERSONAL_INFO.title}</span>
                 </div>
-                <h1 className="text-5xl font-bold tracking-tighter text-slate-900 mb-2 uppercase leading-none">{PERSONAL_INFO.name}</h1>
+                <h1 className="text-4xl font-bold tracking-tighter text-slate-900 mb-2 uppercase leading-none">
+                  {renderName(PERSONAL_INFO.name)}
+                </h1>
                 <p className={cn("text-xl font-medium mb-8 flex items-center gap-3", styles.primaryText)}>
                    <Zap size={18} /> {PERSONAL_INFO.title}
                 </p>
@@ -183,8 +192,10 @@ export const ResumeDialog = () => {
                 </div>
               </div>
               {showImage && (
-                <div className="relative w-44 h-44 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white shrink-0 z-10 transition-transform hover:scale-105 duration-500">
-                  <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
+                <div className="col-span-4 flex justify-end items-start relative z-10">
+                  <div className="relative w-44 h-44 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white shrink-0 z-10 transition-transform hover:scale-105 duration-500">
+                    <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-cover" unoptimized />
+                  </div>
                 </div>
               )}
             </header>
