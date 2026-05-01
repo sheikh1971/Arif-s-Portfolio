@@ -9,10 +9,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Download, Loader2, FileText } from 'lucide-react';
+import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe } from 'lucide-react';
 import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import Image from 'next/image';
 
 export const ResumeDialog = () => {
@@ -25,7 +25,7 @@ export const ResumeDialog = () => {
 
     try {
       const canvas = await html2canvas(resumeRef.current, {
-        scale: 2,
+        scale: 3, 
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff'
@@ -52,133 +52,119 @@ export const ResumeDialog = () => {
           <Download className="h-4 w-4" /> Resume
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+      <DialogContent className="max-w-5xl max-h-[95vh] overflow-y-auto bg-slate-50 dark:bg-slate-900">
+        <DialogHeader className="flex flex-row items-center justify-between border-b pb-4 mb-6">
+          <DialogTitle className="flex items-center gap-2 text-xl font-headline">
             <FileText className="h-5 w-5 text-primary" />
-            Resume Preview
+            Standard Professional Resume
           </DialogTitle>
-        </DialogHeader>
-
-        <div className="flex justify-end mb-4">
-          <Button onClick={handleDownload} disabled={isGenerating} className="gap-2">
+          <Button onClick={handleDownload} disabled={isGenerating} className="gap-2 rounded-full px-6">
             {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
             Download PDF
           </Button>
-        </div>
+        </DialogHeader>
 
-        {/* Resume Template for PDF Capture */}
-        <div className="bg-muted p-4 md:p-8 rounded-lg overflow-x-auto">
+        <div className="flex justify-center pb-10">
           <div 
             ref={resumeRef}
-            className="bg-white text-black p-10 shadow-2xl mx-auto w-[210mm] min-h-[297mm] font-sans selection:bg-blue-100 flex flex-col"
-            style={{ color: '#1a1a1a' }}
+            className="bg-white text-[#111827] p-12 shadow-sm mx-auto w-[210mm] min-h-[297mm] font-sans flex flex-col"
+            style={{ color: '#111827' }}
           >
-            {/* Header */}
-            <header className="border-b-2 border-primary pb-6 mb-8 flex justify-between items-start">
-              <div className="max-w-[70%]">
-                <h1 className="text-4xl font-bold uppercase tracking-tight text-primary mb-2">{PERSONAL_INFO.name}</h1>
-                <p className="text-xl font-medium text-gray-600 mb-4">{PERSONAL_INFO.title}</p>
-                <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
-                  <span>📍 {PERSONAL_INFO.location}</span>
-                  <span>📞 {PERSONAL_INFO.phone}</span>
-                  <span>📧 {PERSONAL_INFO.email}</span>
-                </div>
-              </div>
-              <div className="w-24 h-32 relative rounded-lg overflow-hidden border-2 border-primary/20 bg-gray-50">
-                <Image 
-                  src={PERSONAL_INFO.images.resume} 
-                  alt={PERSONAL_INFO.name}
-                  fill
-                  className="object-contain"
-                />
+            <header className="mb-10 text-center">
+              <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2">{PERSONAL_INFO.name.toUpperCase()}</h1>
+              <p className="text-lg font-medium text-primary mb-6">{PERSONAL_INFO.title}</p>
+              
+              <div className="flex flex-wrap justify-center gap-y-2 gap-x-6 text-[11px] text-slate-500 font-medium uppercase tracking-wider">
+                <span className="flex items-center gap-1.5"><MapPin className="h-3 w-3" /> {PERSONAL_INFO.location}</span>
+                <span className="flex items-center gap-1.5"><Phone className="h-3 w-3" /> {PERSONAL_INFO.phone}</span>
+                <span className="flex items-center gap-1.5"><Mail className="h-3 w-3" /> {PERSONAL_INFO.email}</span>
+                <span className="flex items-center gap-1.5"><Globe className="h-3 w-3" /> LINKEDIN.COM/IN/MARIFULISLAM</span>
               </div>
             </header>
 
-            {/* Profile */}
-            <section className="mb-8">
-              <h2 className="text-lg font-bold text-primary uppercase tracking-widest border-l-4 border-primary pl-3 mb-4">Professional Profile</h2>
-              <p className="text-sm leading-relaxed text-gray-700">{PERSONAL_INFO.subtext}</p>
-            </section>
+            <div className="grid grid-cols-1 gap-10">
+              <section>
+                <h2 className="text-sm font-bold text-slate-900 uppercase tracking-[0.2em] border-b-2 border-slate-900 pb-1 mb-4">Professional Profile</h2>
+                <p className="text-xs leading-[1.6] text-slate-600 font-normal">
+                  {PERSONAL_INFO.subtext}
+                </p>
+              </section>
 
-            {/* Experience */}
-            <section className="mb-8">
-              <h2 className="text-lg font-bold text-primary uppercase tracking-widest border-l-4 border-primary pl-3 mb-4">Experience</h2>
-              <div className="space-y-6">
-                {EXPERIENCE.map((exp, i) => (
-                  <div key={i} className="relative">
-                    <div className="flex justify-between items-baseline mb-1">
-                      <h3 className="font-bold text-base">{exp.company} — {exp.role}</h3>
-                      <span className="text-xs font-medium text-gray-500">{exp.period}</span>
+              <section>
+                <h2 className="text-sm font-bold text-slate-900 uppercase tracking-[0.2em] border-b-2 border-slate-900 pb-1 mb-6">Professional Experience</h2>
+                <div className="space-y-8">
+                  {EXPERIENCE.map((exp, i) => (
+                    <div key={i}>
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h3 className="font-bold text-[13px] text-slate-900">{exp.company}</h3>
+                          <p className="text-[11px] font-bold text-primary italic">{exp.role}</p>
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase">{exp.period}</span>
+                      </div>
+                      <p className="text-[10px] font-medium text-slate-500 mb-3">{exp.focus}</p>
+                      <ul className="list-disc list-outside ml-4 space-y-1.5">
+                        {exp.highlightProject.responsibilities.map((res, j) => (
+                          <li key={j} className="text-[11px] text-slate-600 leading-normal">{res}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="text-xs font-bold text-primary italic mb-2">{exp.focus}</p>
-                    <ul className="list-disc list-outside ml-4 space-y-1">
-                      {exp.highlightProject.responsibilities.map((res, j) => (
-                        <li key={j} className="text-xs text-gray-700">{res}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Education */}
-            <section className="mb-8">
-              <h2 className="text-lg font-bold text-primary uppercase tracking-widest border-l-4 border-primary pl-3 mb-4">Education</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {EDUCATION.map((edu, i) => (
-                  <div key={i} className="border-l border-gray-200 pl-4">
-                    <h3 className="font-bold text-sm">{edu.degree}</h3>
-                    <p className="text-xs text-primary font-medium">{edu.school}</p>
-                    <p className="text-[10px] text-gray-500 mb-1">{edu.period}</p>
-                    <p className="text-[10px] text-gray-600 leading-tight">{edu.focus}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Skills */}
-            <section className="mb-8">
-              <h2 className="text-lg font-bold text-primary uppercase tracking-widest border-l-4 border-primary pl-3 mb-4">Technical Arsenal</h2>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-                {SKILLS.slice(0, 4).map((group, i) => (
-                  <div key={i}>
-                    <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-tighter mb-1">{group.category}</h3>
-                    <p className="text-xs text-gray-700">{group.items.join(', ')}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Impact */}
-            <section className="mb-12">
-              <h2 className="text-lg font-bold text-primary uppercase tracking-widest border-l-4 border-primary pl-3 mb-4">Social Impact & Leadership</h2>
-              <div className="space-y-4">
-                {IMPACT.map((imp, i) => (
-                  <div key={i}>
-                    <h3 className="font-bold text-sm">{imp.role} — <span className="text-gray-600">{imp.organization}</span></h3>
-                    <ul className="list-disc list-outside ml-4 mt-1">
-                      {imp.achievements.slice(0, 2).map((ach, j) => (
-                        <li key={j} className="text-[11px] text-gray-700">{ach}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Footer / Signature */}
-            <footer className="mt-auto pt-10 border-t border-gray-100 flex justify-between items-end">
-              <div className="text-[10px] text-gray-400">
-                <p>Generated via SynapticFolio AI</p>
-                <p>Verified Portfolio of {PERSONAL_INFO.name}</p>
-              </div>
-              <div className="text-center">
-                <div className="font-headline italic text-2xl text-primary mb-1" style={{ fontFamily: 'cursive' }}>
-                  {PERSONAL_INFO.name}
+                  ))}
                 </div>
-                <div className="w-40 h-[1px] bg-gray-300 mx-auto" />
-                <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2">Digital Signature</p>
+              </section>
+
+              <div className="grid grid-cols-2 gap-10">
+                <section>
+                  <h2 className="text-sm font-bold text-slate-900 uppercase tracking-[0.2em] border-b-2 border-slate-900 pb-1 mb-5">Education</h2>
+                  <div className="space-y-5">
+                    {EDUCATION.map((edu, i) => (
+                      <div key={i}>
+                        <h3 className="font-bold text-[11px] text-slate-900 leading-tight">{edu.degree}</h3>
+                        <p className="text-[10px] text-primary font-bold">{edu.school}</p>
+                        <p className="text-[9px] text-slate-400 font-bold mb-1">{edu.period}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                <section>
+                  <h2 className="text-sm font-bold text-slate-900 uppercase tracking-[0.2em] border-b-2 border-slate-900 pb-1 mb-5">Technical Expertise</h2>
+                  <div className="grid grid-cols-1 gap-y-4">
+                    {SKILLS.slice(0, 4).map((group, i) => (
+                      <div key={i}>
+                        <h3 className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">{group.category}</h3>
+                        <p className="text-[10px] text-slate-700 leading-relaxed font-medium">{group.items.join(' • ')}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+
+              <section>
+                <h2 className="text-sm font-bold text-slate-900 uppercase tracking-[0.2em] border-b-2 border-slate-900 pb-1 mb-5">Leadership & Impact</h2>
+                <div className="grid grid-cols-2 gap-8">
+                  {IMPACT.map((imp, i) => (
+                    <div key={i}>
+                      <h3 className="font-bold text-[11px] text-slate-900 mb-1">{imp.role}</h3>
+                      <p className="text-[10px] font-bold text-primary mb-2">{imp.organization}</p>
+                      <ul className="list-disc list-outside ml-4 space-y-1">
+                        {imp.achievements.slice(0, 1).map((ach, j) => (
+                          <li key={j} className="text-[10px] text-slate-600">{ach}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
+
+            <footer className="mt-auto pt-12 flex justify-end">
+              <div className="text-right">
+                <p className="text-[14px] font-headline italic text-primary mb-1">
+                  {PERSONAL_INFO.name}
+                </p>
+                <div className="w-32 h-[1px] bg-slate-200 ml-auto" />
+                <p className="text-[8px] uppercase tracking-widest text-slate-400 mt-2 font-bold">Authorized Digital Signature</p>
               </div>
             </footer>
           </div>
