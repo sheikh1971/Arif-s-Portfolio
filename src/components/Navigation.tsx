@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '@/lib/portfolio-data';
-import { Moon, Sun, Menu, X, Github, Linkedin, Brain } from 'lucide-react';
+import { Moon, Sun, Menu, X, Github, Linkedin } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 
@@ -58,15 +58,8 @@ export const Navigation = () => {
           "max-w-7xl mx-auto flex items-center justify-between p-2 rounded-full transition-all duration-500",
           isScrolled ? "glass shadow-xl px-4" : "bg-transparent"
         )}>
-          {/* Logo/Brand */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-              <Brain size={18} />
-            </div>
-            <span className="hidden sm:block font-headline font-bold text-sm tracking-widest uppercase">
-              SynapticFolio
-            </span>
-          </a>
+          {/* Logo/Brand removed as requested */}
+          <div className="flex-1" />
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-2">
