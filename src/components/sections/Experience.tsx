@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { EXPERIENCE } from '@/lib/portfolio-data';
-import { CheckCircle2, Activity, Brain, Layout, Sparkles } from 'lucide-react';
+import { CheckCircle2, Activity, Brain, Layout, Sparkles, ExternalLink } from 'lucide-react';
 
 export const Experience = () => {
   return (
@@ -21,7 +21,19 @@ export const Experience = () => {
                   <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold shrink-0">
                     <Activity size={16} />
                   </div>
-                  <h3 className="text-xl font-headline font-bold">{exp.company}</h3>
+                  {(exp as any).companyUrl ? (
+                    <a 
+                      href={(exp as any).companyUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="group/link flex items-center gap-2"
+                    >
+                      <h3 className="text-xl font-headline font-bold group-hover/link:text-primary transition-colors">{exp.company}</h3>
+                      <ExternalLink size={14} className="text-muted-foreground group-hover/link:text-primary transition-colors" />
+                    </a>
+                  ) : (
+                    <h3 className="text-xl font-headline font-bold">{exp.company}</h3>
+                  )}
                 </div>
                 <p className="text-primary font-medium mb-1">{exp.role}</p>
                 <p className="text-sm text-muted-foreground">{exp.period}</p>

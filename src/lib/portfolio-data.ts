@@ -20,6 +20,7 @@ export const PERSONAL_INFO = {
 export const EXPERIENCE = [
   {
     company: "WIOCARE",
+    companyUrl: "https://www.wiocare.com/",
     role: "Applied AI & Machine Learning Engineer",
     period: "2024 – Present",
     focus: "Leading healthcare AI system architecture and system design",
