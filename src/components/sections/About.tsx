@@ -31,21 +31,27 @@ export const About = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-20 items-center">
           <div className="relative reveal">
-            <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-2 border-primary/20 bg-card/40 backdrop-blur-sm flex items-center justify-center group">
-              <Image 
-                src={PERSONAL_INFO.images.about} 
-                alt="Md. Ariful Islam Full Portrait"
-                fill
-                className="object-contain transition-all duration-1000 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
+            <div className="relative w-full aspect-square group">
+              {/* Organic Neural Container */}
+              <div className="relative w-full h-full rounded-[60%_40%_30%_70%_/_60%_30%_70%_40%] overflow-hidden shadow-2xl border-2 border-primary/20 bg-card/40 backdrop-blur-sm flex items-center justify-center animate-float">
+                <Image 
+                  src={PERSONAL_INFO.images.about} 
+                  alt="Md. Ariful Islam Full Portrait"
+                  fill
+                  className="object-contain transition-all duration-1000 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
+              </div>
+              
+              {/* Perimeter Synaptic Nodes */}
+              <div className="absolute top-1/4 -left-4 w-4 h-4 rounded-full bg-primary animate-node-blink shadow-[0_0_15px_hsl(var(--primary))]" />
+              <div className="absolute bottom-1/4 -right-4 w-4 h-4 rounded-full bg-secondary animate-node-blink [animation-delay:1.5s] shadow-[0_0_15px_hsl(var(--secondary))]" />
             </div>
-            <div className="absolute -bottom-10 -right-6 glass p-8 rounded-[2rem] border-primary/30 animate-float shadow-2xl">
+
+            <div className="absolute -bottom-10 -right-6 glass p-8 rounded-[2rem] border-primary/30 animate-float shadow-2xl z-30">
               <p className="text-primary font-headline font-bold text-3xl">10+ Years</p>
               <p className="text-[10px] text-muted-foreground uppercase tracking-[0.3em] font-bold mt-1">Social Leadership</p>
             </div>
-            {/* Blinking Node Connector */}
-            <div className="absolute top-10 -left-4 w-4 h-4 rounded-full bg-primary animate-node-blink shadow-[0_0_15px_hsl(var(--primary))]" />
           </div>
 
           <div className="reveal [transition-delay:0.2s]">

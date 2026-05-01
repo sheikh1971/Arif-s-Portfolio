@@ -81,22 +81,27 @@ export const Hero = () => {
             <circle cx="100" cy="100" r="4" fill="hsl(var(--primary))" className="animate-node-blink" filter="url(#nodeGlow)" />
             <circle cx="300" cy="300" r="4" fill="hsl(var(--secondary))" className="animate-node-blink" style={{ animationDelay: '1s' }} filter="url(#nodeGlow)" />
             <circle cx="200" cy="200" r="6" fill="hsl(var(--primary))" className="animate-node-blink" style={{ animationDelay: '2.5s' }} filter="url(#nodeGlow)" />
-            <circle cx="150" cy="100" r="3" fill="hsl(var(--secondary))" className="animate-node-blink" style={{ animationDelay: '1.8s' }} />
-            <circle cx="250" cy="250" r="3" fill="hsl(var(--primary))" className="animate-node-blink" style={{ animationDelay: '0.5s' }} />
-            <circle cx="350" cy="200" r="3" fill="hsl(var(--secondary))" className="animate-node-blink" style={{ animationDelay: '3.2s' }} />
           </svg>
 
-          <div className="relative w-full max-w-lg aspect-square flex items-center justify-center animate-float">
-            {/* Main Portrait Container */}
-            <div className="relative w-80 h-80 rounded-[3rem] overflow-hidden border-2 border-primary/30 shadow-[0_0_80px_-20px_rgba(167,120,247,0.4)] z-20 bg-card/20 backdrop-blur-xl">
-              <Image 
-                src={PERSONAL_INFO.images.hero} 
-                alt={PERSONAL_INFO.name}
-                fill
-                className="object-contain p-4"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent pointer-events-none" />
+          <div className="relative w-full max-w-lg aspect-square flex items-center justify-center">
+            {/* Main Portrait Container - Organic Neural Shape */}
+            <div className="relative w-80 h-80 z-20 group">
+              <div className="absolute inset-0 rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] border-2 border-primary/40 animate-pulse-soft" />
+              <div className="relative w-full h-full rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] overflow-hidden border-2 border-primary/30 shadow-[0_0_80px_-20px_rgba(167,120,247,0.4)] bg-card/20 backdrop-blur-xl animate-float">
+                <Image 
+                  src={PERSONAL_INFO.images.hero} 
+                  alt={PERSONAL_INFO.name}
+                  fill
+                  className="object-contain p-4 group-hover:scale-110 transition-transform duration-1000"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent pointer-events-none" />
+              </div>
+              
+              {/* Perimeter Synaptic Nodes */}
+              <div className="absolute -top-2 left-1/4 w-3 h-3 rounded-full bg-primary animate-node-blink" />
+              <div className="absolute top-1/2 -right-3 w-4 h-4 rounded-full bg-secondary animate-node-blink [animation-delay:1s]" />
+              <div className="absolute -bottom-2 right-1/4 w-3 h-3 rounded-full bg-primary animate-node-blink [animation-delay:2s]" />
             </div>
             
             {/* Background Glows */}
@@ -122,13 +127,6 @@ export const Hero = () => {
                 <span className="text-[11px] font-headline font-bold uppercase tracking-[0.2em] block text-secondary">ML Systems</span>
                 <p className="text-[10px] text-muted-foreground leading-tight mt-1">Scaling healthcare AI platforms</p>
               </div>
-            </div>
-            
-            <div className="absolute -bottom-8 right-12 glass p-4 rounded-3xl animate-float [animation-delay:1.5s] z-30 flex items-center gap-3 border-white/5">
-              <div className="p-2 rounded-xl bg-white/5">
-                <Activity className="h-4 w-4 text-white/40" />
-              </div>
-              <span className="text-[10px] font-mono tracking-widest text-white/30 uppercase">SynapticFolio v2.0</span>
             </div>
           </div>
         </div>
