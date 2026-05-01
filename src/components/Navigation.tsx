@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '@/lib/portfolio-data';
-import { Moon, Sun, Menu, X, Github, Linkedin, BrainCircuit } from 'lucide-react';
+import { Moon, Sun, Menu, X, Github, Linkedin } from 'lucide-react';
 import { Button } from './ui/button';
 
 export const Navigation = () => {
@@ -52,14 +52,8 @@ export const Navigation = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-4 shadow-2xl' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="p-2 rounded-xl bg-primary/10 border border-primary/20 group-hover:scale-110 transition-transform duration-500">
-            <BrainCircuit className="h-6 w-6 text-primary" />
-          </div>
-          <span className="font-headline font-bold text-2xl tracking-tighter gradient-text">
-            SynapticFolio
-          </span>
-        </a>
+        {/* Spacer to keep balance if logo is removed, or just allow justify-between to work */}
+        <div className="flex-1 md:flex-none" />
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-10">
