@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useRef, useState } from 'react';
@@ -9,8 +10,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Download, Loader2, Mail, Phone, MapPin, Globe, Layout, UserMinus, User, Heart, Brain, Zap, Target } from 'lucide-react';
-import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT } from '@/lib/portfolio-data';
+import { Download, Loader2, Mail, Phone, MapPin, Globe, Layout, UserMinus, User, Heart, Brain, Zap, Target, Github, Layers } from 'lucide-react';
+import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT, PROJECTS } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { cn } from '@/lib/utils';
@@ -35,8 +36,8 @@ export const ResumeDialog = () => {
 
   const layouts: { id: ResumeLayout; name: string; icon: any }[] = [
     { id: 'executive', name: 'Executive', icon: Layout },
-    { id: 'strategic', name: 'Strategic', icon: Layout },
-    { id: 'architect', name: 'Architect', icon: Layout },
+    { id: 'strategic', name: 'Strategic', icon: Target },
+    { id: 'architect', name: 'Architect', icon: Brain },
   ];
 
   const handleDownload = async () => {
@@ -74,6 +75,9 @@ export const ResumeDialog = () => {
     }
   })();
 
+  const githubHandle = PERSONAL_INFO.github.split('/').pop()?.toUpperCase();
+  const linkedinHandle = PERSONAL_INFO.linkedin.split('/').pop()?.toUpperCase();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -86,9 +90,9 @@ export const ResumeDialog = () => {
           <div className="flex flex-col gap-1">
             <DialogTitle className="flex items-center gap-2 text-xl font-headline font-bold">
               <Brain className="h-5 w-5 text-primary" />
-              Identity Designer
+              Professional Identity Designer
             </DialogTitle>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">Synthesis of Technical Assets</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">Optimized for US, UK & EU Markets</p>
           </div>
           
           <div className="flex flex-wrap items-center gap-4 bg-muted/30 p-3 rounded-2xl border w-full md:w-auto">
@@ -119,28 +123,29 @@ export const ResumeDialog = () => {
           <div className="scale-[0.5] sm:scale-100 origin-top">
             <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-12 md:p-16 shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col font-sans")}>
               {/* Profile Header */}
-              <header className={cn("mb-12 p-8 md:p-10 rounded-[2rem] grid grid-cols-12 gap-8 relative overflow-hidden", styles.headerBg)}>
+              <header className={cn("mb-10 p-10 rounded-[2.5rem] grid grid-cols-12 gap-8 relative overflow-hidden", styles.headerBg)}>
                 <div className={cn("relative z-10", showImage ? "col-span-8" : "col-span-12")}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={cn("h-1 w-10 rounded-full", styles.accentBg)} />
-                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Identity // {PERSONAL_INFO.title}</span>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className={cn("h-1.5 w-12 rounded-full", styles.accentBg)} />
+                    <span className="text-[11px] font-bold uppercase tracking-[0.4em] opacity-60">Applied AI & ML Systems Engineer</span>
                   </div>
-                  <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 mb-2 uppercase leading-none">
+                  <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 mb-3 uppercase leading-none">
                     {PERSONAL_INFO.name}
                   </h1>
-                  <p className={cn("text-lg font-medium mb-6 flex items-center gap-2", styles.primaryText)}>
-                     <Zap size={16} /> {PERSONAL_INFO.title}
+                  <p className={cn("text-xl font-medium mb-8 flex items-center gap-2", styles.primaryText)}>
+                     <Zap size={20} /> {PERSONAL_INFO.title}
                   </p>
-                  <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-[9px] text-slate-500 font-bold uppercase tracking-[0.1em]">
-                    <span className="flex items-center gap-2"><MapPin size={12} className={styles.iconColor} /> {PERSONAL_INFO.location}</span>
-                    <span className="flex items-center gap-2"><Globe size={12} className={styles.iconColor} /> LINKEDIN.COM/IN/MARIFULISLAM</span>
-                    <span className="flex items-center gap-2"><Mail size={12} className={styles.iconColor} /> {PERSONAL_INFO.email}</span>
-                    <span className="flex items-center gap-2"><Phone size={12} className={styles.iconColor} /> {PERSONAL_INFO.phone}</span>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-6 text-[10px] text-slate-500 font-bold uppercase tracking-[0.1em]">
+                    <span className="flex items-center gap-2"><MapPin size={14} className={styles.iconColor} /> {PERSONAL_INFO.location}</span>
+                    <span className="flex items-center gap-2"><Globe size={14} className={styles.iconColor} /> IN/{linkedinHandle}</span>
+                    <span className="flex items-center gap-2"><Github size={14} className={styles.iconColor} /> GH/{githubHandle}</span>
+                    <span className="flex items-center gap-2"><Mail size={14} className={styles.iconColor} /> {PERSONAL_INFO.email}</span>
+                    <span className="flex items-center gap-2"><Phone size={14} className={styles.iconColor} /> {PERSONAL_INFO.phone}</span>
                   </div>
                 </div>
                 {showImage && (
                   <div className="col-span-4 flex justify-end relative z-10">
-                    <div className="relative w-36 h-36 rounded-2xl overflow-hidden border-4 border-white shadow-xl bg-white">
+                    <div className="relative w-44 h-44 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white">
                       <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-cover" unoptimized />
                     </div>
                   </div>
@@ -148,69 +153,110 @@ export const ResumeDialog = () => {
               </header>
 
               {/* Main Content Area */}
-              <div className="flex-1 space-y-10">
+              <div className="flex-1 space-y-12">
                 <section>
-                  <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-4 flex items-center gap-2 border-b pb-1", styles.accentBorder, styles.primaryText)}>
-                    <Target size={12} /> Strategic Narrative
+                  <h2 className={cn("text-[11px] font-bold uppercase tracking-[0.3em] mb-5 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                    <Target size={14} /> Executive Summary
                   </h2>
-                  <p className="text-[11px] leading-relaxed text-slate-600 italic">"{PERSONAL_INFO.subtext}"</p>
+                  <p className="text-[12px] leading-relaxed text-slate-600 font-medium">"{PERSONAL_INFO.subtext}"</p>
                 </section>
 
-                <section>
-                  <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-6 flex items-center gap-2 border-b pb-1", styles.accentBorder, styles.primaryText)}>
-                    <Brain size={12} /> Professional Path
-                  </h2>
-                  <div className="space-y-8">
-                    {EXPERIENCE.map((exp, i) => (
-                      <div key={i}>
-                        <div className="flex justify-between items-baseline mb-1">
-                          <h3 className="font-bold text-[12px] text-slate-900 uppercase">{exp.company} — <span className={styles.primaryText}>{exp.role}</span></h3>
-                          <span className="text-[9px] font-bold text-slate-400 uppercase">{exp.period}</span>
-                        </div>
-                        <p className="text-[9px] font-bold text-slate-500 mb-2 italic opacity-70">{exp.focus}</p>
-                        <ul className="space-y-1.5">
-                          {exp.highlightProject.responsibilities.map((res, j) => (
-                            <li key={j} className="text-[10px] text-slate-600 leading-snug flex gap-2">
-                              <span className={cn("mt-1.5 h-1 w-1 rounded-full shrink-0", styles.accentBg)} />
-                              {res}
-                            </li>
-                          ))}
-                        </ul>
+                <div className={cn("grid gap-12", activeLayout === 'strategic' ? 'grid-cols-12' : 'grid-cols-1')}>
+                  <div className={cn(activeLayout === 'strategic' ? 'col-span-8' : 'w-full')}>
+                    <section>
+                      <h2 className={cn("text-[11px] font-bold uppercase tracking-[0.3em] mb-8 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                        <Brain size={14} /> Professional Experience
+                      </h2>
+                      <div className="space-y-10">
+                        {EXPERIENCE.map((exp, i) => (
+                          <div key={i} className="relative pl-6 border-l-2 border-slate-100">
+                            <div className={cn("absolute -left-[5px] top-0 w-2 h-2 rounded-full", styles.accentBg)} />
+                            <div className="flex justify-between items-baseline mb-2">
+                              <h3 className="font-bold text-[14px] text-slate-900 uppercase">{exp.company} — <span className={styles.primaryText}>{exp.role}</span></h3>
+                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{exp.period}</span>
+                            </div>
+                            <p className="text-[10px] font-bold text-slate-500 mb-4 italic opacity-80">{exp.focus}</p>
+                            <ul className="space-y-2.5">
+                              {exp.highlightProject.responsibilities.map((res, j) => (
+                                <li key={j} className="text-[11px] text-slate-600 leading-snug flex gap-3">
+                                  <span className={cn("mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 opacity-40", styles.accentBg)} />
+                                  {res}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </section>
                   </div>
-                </section>
 
-                <div className="grid grid-cols-2 gap-10">
-                  <section>
-                    <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-4 flex items-center gap-2 border-b pb-1", styles.accentBorder, styles.primaryText)}>
-                      <Target size={12} /> Academic
-                    </h2>
-                    {EDUCATION.map((edu, i) => (
-                      <div key={i} className="mb-4">
-                        <h3 className="font-bold text-[10px] text-slate-900 leading-tight">{edu.degree}</h3>
-                        <p className="text-[9px] text-slate-500 font-bold mt-0.5">{edu.school} • {edu.period}</p>
+                  <div className={cn(activeLayout === 'strategic' ? 'col-span-4 space-y-12' : 'grid grid-cols-2 gap-12')}>
+                    <section>
+                      <h2 className={cn("text-[11px] font-bold uppercase tracking-[0.3em] mb-6 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                        <Layers size={14} /> Key Tech Assets
+                      </h2>
+                      <div className="flex flex-wrap gap-2">
+                        {SKILLS.slice(0, 3).map((group, i) => (
+                          <div key={i} className="w-full mb-2">
+                            <p className="text-[9px] font-bold text-slate-400 uppercase mb-2">{group.category}</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {group.items.map((skill, j) => (
+                                <span key={j} className="text-[9px] px-2 py-1 rounded-md bg-slate-50 border border-slate-100 font-bold text-slate-600">{skill}</span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </section>
-                  <section>
-                    <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-4 flex items-center gap-2 border-b pb-1", styles.accentBorder, styles.primaryText)}>
-                      <Heart size={12} /> Impact
-                    </h2>
-                    {IMPACT.map((imp, i) => (
-                      <div key={i} className="mb-4">
-                        <h3 className="font-bold text-[10px] text-slate-900 leading-tight">{imp.organization}</h3>
-                        <p className={cn("text-[9px] font-bold mt-0.5", styles.primaryText)}>{imp.role}</p>
-                      </div>
-                    ))}
-                  </section>
+                    </section>
+
+                    <div className="space-y-12">
+                      <section>
+                        <h2 className={cn("text-[11px] font-bold uppercase tracking-[0.3em] mb-6 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                          <Target size={14} /> Academic
+                        </h2>
+                        {EDUCATION.map((edu, i) => (
+                          <div key={i} className="mb-5">
+                            <h3 className="font-bold text-[11px] text-slate-900 leading-tight mb-1">{edu.degree}</h3>
+                            <p className="text-[10px] text-slate-500 font-bold">{edu.school} • {edu.period}</p>
+                          </div>
+                        ))}
+                      </section>
+                      <section>
+                        <h2 className={cn("text-[11px] font-bold uppercase tracking-[0.3em] mb-6 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                          <Heart size={14} /> Social Impact
+                        </h2>
+                        {IMPACT.map((imp, i) => (
+                          <div key={i} className="mb-5">
+                            <h3 className="font-bold text-[11px] text-slate-900 leading-tight mb-1">{imp.organization}</h3>
+                            <p className={cn("text-[10px] font-bold", styles.primaryText)}>{imp.role}</p>
+                          </div>
+                        ))}
+                      </section>
+                    </div>
+                  </div>
                 </div>
+
+                {activeLayout === 'architect' && (
+                  <section>
+                    <h2 className={cn("text-[11px] font-bold uppercase tracking-[0.3em] mb-6 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                      <Layers size={14} /> Featured Research Projects
+                    </h2>
+                    <div className="grid grid-cols-2 gap-8">
+                      {PROJECTS.slice(0, 2).map((proj, i) => (
+                        <div key={i} className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                          <h3 className="font-bold text-[12px] text-slate-900 mb-2">{proj.title}</h3>
+                          <p className="text-[10px] text-slate-600 leading-relaxed line-clamp-3">{proj.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
               </div>
 
-              <footer className="mt-auto pt-10 flex justify-end">
-                <div className="text-right border-t border-slate-100 pt-6">
-                  <p className={cn("text-xl font-bold mb-0.5 tracking-tighter", styles.primaryText)}>{PERSONAL_INFO.name}</p>
-                  <p className="text-[8px] uppercase tracking-[0.4em] text-slate-400 font-bold">Applied AI & ML Systems Engineer</p>
+              <footer className="mt-auto pt-12 flex justify-end">
+                <div className="text-right border-t-2 border-slate-50 pt-8">
+                  <p className={cn("text-2xl font-bold mb-1 tracking-tighter", styles.primaryText)}>{PERSONAL_INFO.name}</p>
+                  <p className="text-[9px] uppercase tracking-[0.5em] text-slate-400 font-bold">Applied AI & Machine Learning Systems Identity</p>
                 </div>
               </footer>
             </div>
