@@ -15,7 +15,7 @@ export const EXPERIENCE = [
   {
     company: "WIOCARE",
     role: "Applied AI & Machine Learning Engineer",
-    period: "Present",
+    period: "2024 – Present",
     focus: "Leading healthcare AI system architecture and system design",
     highlightProject: {
       name: "🏥 WIOCARE — Healthcare AI Platform",
@@ -38,14 +38,14 @@ export const EXPERIENCE = [
       ]
     },
     secondaryProject: {
-      name: "Jionex IT",
-      details: "Collaborated on AI system design, prototyping, and production integration for various enterprise clients before focusing on WIOCARE's healthcare ecosystem."
+      name: "Medical Image Core",
+      details: "Developing proprietary segmentation algorithms for high-precision diagnostic tools."
     }
   },
   {
-    company: "CottonsWorld (Parallel Role)",
-    role: "Computer Vision Engineer",
-    period: "Present",
+    company: "CottonsWorld",
+    role: "Computer Vision Engineer (Parallel Role)",
+    period: "2024 – Present",
     focus: "FashionTech & Virtual Try-On Innovations",
     highlightProject: {
       name: "👕 Virtual Try-On System",
@@ -68,6 +68,36 @@ export const EXPERIENCE = [
     secondaryProject: {
       name: "D'sense Architect",
       details: "Intern-Designer (2020–2021). Focused on 2D design with CAD and interior design planning, blending technical precision with aesthetic vision."
+    }
+  },
+  {
+    company: "Jionex",
+    role: "AI & ML Engineer",
+    period: "2023 – 2024",
+    focus: "Enterprise AI Solutions & Predictive Modeling",
+    highlightProject: {
+      name: "🚀 Enterprise Intelligence Suite",
+      role: "AI/ML Engineer",
+      responsibilities: [
+        "Developed predictive models for business intelligence",
+        "Optimized data preprocessing pipelines for diverse datasets",
+        "Collaborated on prototyping AI features for enterprise SaaS",
+        "Implemented automated evaluation frameworks for ML models"
+      ],
+      components: [
+        "Predictive Analytics Engine",
+        "Data Orchestration Pipeline",
+        "Model Monitoring Dashboard"
+      ],
+      impact: [
+        "Improved model accuracy by 15% through feature engineering",
+        "Reduced deployment latency for real-time inference services",
+        "Established standard MLOPs practices within the team"
+      ]
+    },
+    secondaryProject: {
+      name: "BITM Web Training",
+      details: "Completed advanced web design certification (2023) focusing on modern UI/UX standards to complement AI integration."
     }
   }
 ];
