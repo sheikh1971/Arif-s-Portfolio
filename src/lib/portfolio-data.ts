@@ -168,7 +168,7 @@ export const PROJECTS = [
     title: "🧬 4D MRI Segmentation",
     description: "My B.Sc. Thesis project. Deep learning for medical image segmentation using temporal and spatial data modeling techniques. This research focuses on high-precision segmentation of 4D MRI sequences, utilizing advanced spatial-temporal architectures to analyze structural changes in biological tissues over time.",
     tags: ["AI", "Deep Learning", "Thesis"],
-    image: "https://picsum.photos/seed/medical-mri/600/400"
+    image: "/4D.jpeg"
   },
   {
     id: "safe-driving",

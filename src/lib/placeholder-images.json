@@ -39,7 +39,7 @@
     {
       "id": "4d-mri-project",
       "description": "4D MRI segmentation scan",
-      "imageUrl": "https://picsum.photos/seed/medical-mri/600/400",
+      "imageUrl": "/4D.jpeg",
       "imageHint": "medical imaging"
     },
     {
