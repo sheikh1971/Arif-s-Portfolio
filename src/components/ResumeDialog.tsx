@@ -9,11 +9,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe, Layout, Palette } from 'lucide-react';
+import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe, Layout, Image as ImageIcon, UserMinus } from 'lucide-react';
 import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 type ResumeTheme = 'standard' | 'modern' | 'classic' | 'neural';
 type ResumeLayout = 'single' | 'double' | 'grid';
@@ -23,6 +24,7 @@ export const ResumeDialog = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeTheme, setActiveTheme] = useState<ResumeTheme>('standard');
   const [activeLayout, setActiveLayout] = useState<ResumeLayout>('single');
+  const [showImage, setShowImage] = useState(false);
 
   const themes: { id: ResumeTheme; name: string; color: string }[] = [
     { id: 'standard', name: 'Professional Blue', color: 'bg-slate-900' },
@@ -109,8 +111,8 @@ export const ResumeDialog = () => {
           <Download className="h-4 w-4" /> Resume
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-6xl max-h-[95vh] overflow-y-auto bg-slate-100 dark:bg-slate-950">
-        <DialogHeader className="flex flex-col md:flex-row items-center justify-between border-b pb-6 mb-6 gap-6">
+      <DialogContent className="max-w-6xl max-h-[95vh] overflow-y-auto bg-slate-100 dark:bg-slate-950 p-0 border-none">
+        <DialogHeader className="sticky top-0 z-10 bg-background/95 backdrop-blur-md border-b p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col gap-1">
             <DialogTitle className="flex items-center gap-2 text-xl font-headline">
               <FileText className="h-5 w-5 text-primary" />
@@ -119,10 +121,37 @@ export const ResumeDialog = () => {
             <p className="text-xs text-muted-foreground">Select layout and theme for your professional profile</p>
           </div>
           
-          <div className="flex flex-wrap items-center gap-6 bg-background/50 p-4 rounded-2xl border">
+          <div className="flex flex-wrap items-center gap-6 bg-muted/30 p-4 rounded-2xl border">
+            {/* Image Toggle */}
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Photo Mode</span>
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant={showImage ? "default" : "outline"}
+                  onClick={() => setShowImage(true)}
+                  className="h-8 w-8 p-0 rounded-full"
+                  title="With Photo"
+                >
+                  <ImageIcon className="h-4 w-4" />
+                </Button>
+                <Button
+                  size="sm"
+                  variant={!showImage ? "default" : "outline"}
+                  onClick={() => setShowImage(false)}
+                  className="h-8 w-8 p-0 rounded-full"
+                  title="No Photo (US/UK Standard)"
+                >
+                  <UserMinus className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
+            <div className="w-px h-10 bg-border hidden md:block" />
+
             {/* Layout Selector */}
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Layout Design</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Structure</span>
               <div className="flex gap-2">
                 {layouts.map((l) => (
                   <Button
@@ -132,7 +161,7 @@ export const ResumeDialog = () => {
                     onClick={() => setActiveLayout(l.id)}
                     className="h-8 text-[10px] font-bold uppercase px-3 rounded-full"
                   >
-                    {l.id === 'single' ? 'Standard' : l.id === 'double' ? 'Corporate' : 'Grid'}
+                    {l.id === 'single' ? 'Standard' : l.id === 'double' ? 'Sidebar' : 'Grid'}
                   </Button>
                 ))}
               </div>
@@ -142,35 +171,32 @@ export const ResumeDialog = () => {
 
             {/* Theme Selector */}
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Color Palette</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Theme</span>
               <div className="flex gap-2">
                 {themes.map((t) => (
                   <button
                     key={t.id}
                     onClick={() => setActiveTheme(t.id)}
-                    title={t.name}
                     className={cn(
                       "w-8 h-8 rounded-full border-2 transition-all flex items-center justify-center",
                       activeTheme === t.id ? "scale-110 border-foreground ring-2 ring-primary/20" : "border-transparent opacity-50 hover:opacity-100",
                       t.color
                     )}
-                  >
-                    {activeTheme === t.id && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
-                  </button>
+                  />
                 ))}
               </div>
             </div>
 
             <div className="w-px h-10 bg-border hidden md:block" />
 
-            <Button onClick={handleDownload} disabled={isGenerating} className="gap-2 rounded-full px-6 h-10">
+            <Button onClick={handleDownload} disabled={isGenerating} className="gap-2 rounded-full px-6 h-10 shadow-lg shadow-primary/20">
               {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
               Download PDF
             </Button>
           </div>
         </DialogHeader>
 
-        <div className="flex justify-center pb-10">
+        <div className="flex justify-center p-10 bg-slate-100 dark:bg-slate-950">
           <div 
             ref={resumeRef}
             className={cn(
@@ -181,6 +207,19 @@ export const ResumeDialog = () => {
           >
             {/* Header */}
             <header className={cn("mb-10 p-8 rounded-2xl text-center", styles.headerBg)}>
+              {showImage && (
+                <div className="flex justify-center mb-6">
+                  <div className="relative w-28 h-28 rounded-2xl overflow-hidden border-4 border-white shadow-xl rotate-3 hover:rotate-0 transition-transform duration-500">
+                    <Image 
+                      src={PERSONAL_INFO.images.resume} 
+                      alt={PERSONAL_INFO.name} 
+                      fill 
+                      className="object-cover" 
+                      unoptimized 
+                    />
+                  </div>
+                </div>
+              )}
               <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2 uppercase">{PERSONAL_INFO.name}</h1>
               <p className={cn("text-lg font-bold mb-6", styles.primaryText)}>{PERSONAL_INFO.title}</p>
               
