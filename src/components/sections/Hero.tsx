@@ -80,8 +80,8 @@ export const Hero = () => {
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary/40 blur-sm" />
             </div>
 
-            {/* Main Portrait with Glassmorphism Effect */}
-            <div className="relative w-72 h-72 rounded-full overflow-hidden border-2 border-primary/40 shadow-[0_0_50px_-12px_rgba(167,120,247,0.5)] z-20">
+            {/* Main Portrait with Glassmorphism Effect - Square with rounded corners */}
+            <div className="relative w-72 h-72 rounded-3xl overflow-hidden border-2 border-primary/40 shadow-[0_0_50px_-12px_rgba(167,120,247,0.5)] z-20">
               <Image 
                 src={PERSONAL_INFO.images.hero} 
                 alt={PERSONAL_INFO.name}

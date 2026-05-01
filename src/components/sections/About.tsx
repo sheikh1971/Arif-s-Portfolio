@@ -10,7 +10,7 @@ export const About = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative animate-reveal">
-            <div className="relative aspect-square rounded-full overflow-hidden shadow-2xl border bg-card">
+            <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border bg-card">
               <Image 
                 src={PERSONAL_INFO.images.about} 
                 alt="Md. Ariful Islam Full Portrait"
