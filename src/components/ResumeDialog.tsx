@@ -206,28 +206,28 @@ export const ResumeDialog = () => {
             style={{ color: '#111827' }}
           >
             {/* Header */}
-            <header className={cn("mb-10 p-8 rounded-2xl text-center", styles.headerBg)}>
+            <header className={cn("mb-10 p-8 rounded-2xl flex items-center gap-10", styles.headerBg, !showImage && "justify-center text-center")}>
               {showImage && (
-                <div className="flex justify-center mb-6">
-                  <div className="relative w-28 h-28 rounded-2xl overflow-hidden border-4 border-white shadow-xl rotate-3 hover:rotate-0 transition-transform duration-500">
-                    <Image 
-                      src={PERSONAL_INFO.images.resume} 
-                      alt={PERSONAL_INFO.name} 
-                      fill 
-                      className="object-cover" 
-                      unoptimized 
-                    />
-                  </div>
+                <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-slate-200 shadow-sm shrink-0">
+                  <Image 
+                    src={PERSONAL_INFO.images.resume} 
+                    alt={PERSONAL_INFO.name} 
+                    fill 
+                    className="object-cover" 
+                    unoptimized 
+                  />
                 </div>
               )}
-              <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2 uppercase">{PERSONAL_INFO.name}</h1>
-              <p className={cn("text-lg font-bold mb-6", styles.primaryText)}>{PERSONAL_INFO.title}</p>
-              
-              <div className="flex flex-wrap justify-center gap-y-2 gap-x-6 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                <span className="flex items-center gap-1.5"><MapPin className="h-3 w-3" /> {PERSONAL_INFO.location}</span>
-                <span className="flex items-center gap-1.5"><Phone className="h-3 w-3" /> {PERSONAL_INFO.phone}</span>
-                <span className="flex items-center gap-1.5"><Mail className="h-3 w-3" /> {PERSONAL_INFO.email}</span>
-                <span className="flex items-center gap-1.5"><Globe className="h-3 w-3" /> LINKEDIN.COM/IN/MARIFULISLAM</span>
+              <div className="flex-1">
+                <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2 uppercase">{PERSONAL_INFO.name}</h1>
+                <p className={cn("text-lg font-bold mb-6", styles.primaryText)}>{PERSONAL_INFO.title}</p>
+                
+                <div className={cn("flex flex-wrap gap-y-2 gap-x-6 text-[10px] text-slate-500 font-bold uppercase tracking-widest", !showImage && "justify-center")}>
+                  <span className="flex items-center gap-1.5"><MapPin className="h-3 w-3" /> {PERSONAL_INFO.location}</span>
+                  <span className="flex items-center gap-1.5"><Phone className="h-3 w-3" /> {PERSONAL_INFO.phone}</span>
+                  <span className="flex items-center gap-1.5"><Mail className="h-3 w-3" /> {PERSONAL_INFO.email}</span>
+                  <span className="flex items-center gap-1.5"><Globe className="h-3 w-3" /> LINKEDIN.COM/IN/MARIFULISLAM</span>
+                </div>
               </div>
             </header>
 
