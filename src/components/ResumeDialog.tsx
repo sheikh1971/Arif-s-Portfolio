@@ -85,12 +85,12 @@ export const ResumeDialog = () => {
                   <span>📧 {PERSONAL_INFO.email}</span>
                 </div>
               </div>
-              <div className="w-24 h-32 relative rounded-lg overflow-hidden border-2 border-primary/20">
+              <div className="w-24 h-32 relative rounded-lg overflow-hidden border-2 border-primary/20 bg-gray-50">
                 <Image 
                   src={PERSONAL_INFO.images.resume} 
                   alt={PERSONAL_INFO.name}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </header>

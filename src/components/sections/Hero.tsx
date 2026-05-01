@@ -80,16 +80,16 @@ export const Hero = () => {
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-secondary/40 blur-sm" />
             </div>
 
-            {/* Main Portrait with Glassmorphism Effect - Square with rounded corners */}
-            <div className="relative w-72 h-72 rounded-3xl overflow-hidden border-2 border-primary/40 shadow-[0_0_50px_-12px_rgba(167,120,247,0.5)] z-20">
+            {/* Main Portrait Container - Square with rounded corners */}
+            <div className="relative w-72 h-72 rounded-3xl overflow-hidden border-2 border-primary/40 shadow-[0_0_50px_-12px_rgba(167,120,247,0.5)] z-20 bg-card/40">
               <Image 
                 src={PERSONAL_INFO.images.hero} 
                 alt={PERSONAL_INFO.name}
                 fill
-                className="object-cover"
+                className="object-contain"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent pointer-events-none" />
             </div>
             
             {/* Background Glow */}
