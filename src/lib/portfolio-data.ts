@@ -2,42 +2,72 @@ export const PERSONAL_INFO = {
   name: "Mohammad (Md.) Ariful Islam",
   title: "Applied AI & Machine Learning Engineer",
   tagline: "Architecting intelligent healthcare and vision-based systems with real-world impact.",
-  subtext: "Applied AI & ML Engineer at Jionex IT, specializing in AI system design, healthcare AI platforms, conversational AI, and computer vision applications. Strong focus on turning research-grade AI into production-ready systems.",
-  email: "sm.islam.ariful@gmail.com",
+  subtext: "Engineer, Interior Designer, and Social Activist. Currently leading AI/ML initiatives at WIOCARE and CottonsWorld, specializing in healthcare AI platforms and computer vision systems. Dedicated to bridging the gap between research-grade AI and production-ready systems.",
+  email: "sheikharif5264@gmail.com",
   secondaryEmail: "Islam@wiocare.com",
   phone: "+880 1835674339",
   github: "https://github.com/sheikh1971",
-  linkedin: "https://linkedin.com/in/marifulislam", // Placeholder but requested
+  linkedin: "https://linkedin.com/in/marifulislam",
+  location: "Chittagong, Bangladesh"
 };
 
 export const EXPERIENCE = [
   {
-    company: "Jionex IT",
+    company: "WIOCARE",
     role: "Applied AI & Machine Learning Engineer",
     period: "Present",
-    focus: "AI system design, prototyping, and production integration",
+    focus: "Leading healthcare AI system architecture and system design",
     highlightProject: {
       name: "🏥 WIOCARE — Healthcare AI Platform",
       role: "AI/ML Architect & System Designer",
       responsibilities: [
-        "Designed complete AI/ML system architecture",
-        "Built prototype AI pipelines",
-        "Integrated AI into production-level application flow",
-        "Designed data → model → output pipeline"
+        "Architected end-to-end AI/ML pipelines for healthcare data",
+        "Designed and implemented diagnostic AI prototypes",
+        "Integrated large-scale medical data into production-ready models",
+        "Developed Conversational AI systems for patient interaction"
       ],
       components: [
-        "Health Data Analyzer (structured medical data interpretation)",
-        "Conversational AI / Healthcare Chatbot system"
+        "Medical Data Analyzer (Predictive Diagnostics)",
+        "Conversational Health Assistant",
+        "Data → Model → Output Integration Pipeline"
       ],
       impact: [
-        "Delivered production-ready healthcare AI features",
-        "Translated AI models into usable product features",
-        "Enabled real-world healthcare AI deployment"
+        "Enabled real-world healthcare AI deployment for clinics",
+        "Translated research-grade models into user-facing healthcare products",
+        "Streamlined patient data interpretation workflows"
       ]
     },
     secondaryProject: {
-      name: "👕 Cotton’s World — Virtual Try-On System",
-      details: "Computer vision-based virtual try-on feature including image alignment & transformation logic with UX-focused AI interaction design."
+      name: "Jionex IT",
+      details: "Collaborated on AI system design, prototyping, and production integration for various enterprise clients before focusing on WIOCARE's healthcare ecosystem."
+    }
+  },
+  {
+    company: "CottonsWorld (Parallel Role)",
+    role: "Computer Vision Engineer",
+    period: "Present",
+    focus: "FashionTech & Virtual Try-On Innovations",
+    highlightProject: {
+      name: "👕 Virtual Try-On System",
+      role: "Lead CV Engineer",
+      responsibilities: [
+        "Developed image alignment and transformation logic",
+        "Designed UX-focused AI interaction for garment overlay",
+        "Optimized real-time vision processing for mobile web"
+      ],
+      components: [
+        "Pose Estimation Engine",
+        "Garment Warping Module",
+        "Virtual Fitting Room UX"
+      ],
+      impact: [
+        "Enhanced e-commerce conversion through interactive AI",
+        "Reduced garment returns by improving visual sizing accuracy"
+      ]
+    },
+    secondaryProject: {
+      name: "D'sense Architect",
+      details: "Intern-Designer (2020–2021). Focused on 2D design with CAD and interior design planning, blending technical precision with aesthetic vision."
     }
   }
 ];
@@ -53,7 +83,7 @@ export const PROJECTS = [
   {
     id: "4d-mri",
     title: "🧬 4D MRI Segmentation",
-    description: "My Thesis project. Deep learning for medical image segmentation using temporal and spatial data modeling techniques.",
+    description: "My B.Sc. Thesis project. Deep learning for medical image segmentation using temporal and spatial data modeling techniques.",
     tags: ["AI", "Deep Learning", "Thesis"],
     image: "https://picsum.photos/seed/mri/600/400"
   },
@@ -73,7 +103,7 @@ export const PROJECTS = [
   },
   {
     id: "flutter-apps",
-    title: "📱 Flutter Apps Portfolio",
+    title: "📱 Flutter E-commerce Apps",
     description: "A collection of full-stack mobile applications with seamless backend integration and responsive UI/UX.",
     tags: ["Mobile", "Flutter", "Firebase"],
     image: "https://picsum.photos/seed/flutter/600/400"
@@ -82,49 +112,69 @@ export const PROJECTS = [
 
 export const SKILLS = [
   {
-    category: "AI / ML",
-    items: ["Machine Learning", "Deep Learning", "Computer Vision", "Model Training", "Data Preprocessing"]
+    category: "AI / ML Core",
+    items: ["Computer Vision", "Machine Learning", "Deep Learning", "Model Training", "Data Preprocessing"]
   },
   {
-    category: "AI Systems",
-    items: ["AI Architecture", "Pipeline Design", "Chatbots", "Analyzer Systems"]
+    category: "Applied AI Systems",
+    items: ["AI Architecture", "Healthcare AI", "Conversational AI", "Virtual Try-On System Design"]
   },
   {
-    category: "Programming",
-    items: ["Python", "JavaScript", "C", "Java", "PHP"]
+    category: "Languages & Tools",
+    items: ["Python", "JavaScript", "C", "Java", "HTML/CSS", "CAD"]
   },
   {
     category: "Frameworks",
-    items: ["TensorFlow", "PyTorch", "OpenCV", "Scikit-learn"]
+    items: ["TensorFlow", "PyTorch", "OpenCV", "Scikit-learn", "Flutter"]
   },
   {
-    category: "Development",
-    items: ["Flutter", "Firebase", "MySQL", "Web (HTML/CSS/Bootstrap)"]
+    category: "Languages",
+    items: ["Bengali (Mother tongue)", "English (Fluent)", "Urdu-Hindi (Conversational)"]
   },
   {
-    category: "Embedded & Design",
-    items: ["Arduino", "Circuit Design", "AutoCAD", "SketchUp", "Photoshop", "Illustration"]
+    category: "Design & Social",
+    items: ["Interior Design", "AutoCAD", "SketchUp", "Leadership", "Public Speaking", "Grant Writing"]
   }
 ];
 
 export const EDUCATION = [
   {
-    degree: "BSc in Computer Science & Engineering",
+    degree: "B.Sc. in Computer Science & Engineering",
     school: "East Delta University",
     period: "2020–2024",
-    focus: "Artificial Intelligence, Machine Learning, Computer Vision"
+    focus: "AI, ML, & Computer Vision. Academic Performance: ~82%"
+  },
+  {
+    degree: "Diploma in Interior Design & Technology",
+    school: "Design Academy Bangladesh",
+    period: "2017–2018",
+    focus: "2D/3D Design Planning. CGPA: 3.38/4.00"
+  },
+  {
+    degree: "Web Design Training",
+    school: "BITM",
+    period: "2023",
+    focus: "Modern Web Standards & UI/UX"
   }
 ];
 
 export const IMPACT = [
   {
     role: "Founder & President",
-    organization: "Human Welfare Organization",
+    organization: "Human Welfare Organisation",
     achievements: [
-      "Led community health initiatives",
-      "Managed food distribution programs",
-      "Organized youth development projects",
-      "Secured funding for social impact work"
+      "Leading resource distribution and social change since 2015",
+      "Featured in media outlets including Dainik Azadi and Dainik Suprobhat",
+      "Successfully secured funding and grants for non-profit initiatives"
+    ]
+  },
+  {
+    role: "President / Member of Youth Parliament",
+    organization: "Dhrubotara / Youth Parliament",
+    achievements: [
+      "Led divisional conferences for youth development (2018–2021)",
+      "Served as Power and Energy Minister (ctg 07) in Youth Parliament",
+      "Organized the Chittagong Divisional Youth Conference (2020)"
     ]
   }
 ];
