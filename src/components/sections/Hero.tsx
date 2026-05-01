@@ -5,13 +5,14 @@ import { PERSONAL_INFO } from '@/lib/portfolio-data';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Mail } from 'lucide-react';
 import { ResumeDialog } from '../ResumeDialog';
+import Image from 'next/image';
 
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center">
         {/* Left Content */}
-        <div className="animate-reveal [animation-delay:0.2s]">
+        <div className="animate-reveal [animation-delay:0.2s] z-10">
           <h2 className="text-primary font-headline font-semibold tracking-wider text-sm uppercase mb-4">
             Applied AI & ML Engineer
           </h2>
@@ -42,36 +43,45 @@ export const Hero = () => {
           </div>
         </div>
 
-        {/* Right Visualization - Abstract Neural/AI Theme */}
+        {/* Right Visualization - User Photo/GIF */}
         <div className="relative hidden md:flex items-center justify-center animate-reveal [animation-delay:0.4s]">
-          <div className="relative w-full max-w-lg aspect-square">
+          <div className="relative w-full max-w-md aspect-square">
             {/* Animated Circles/Nodes */}
             <div className="absolute inset-0 border-2 border-primary/20 rounded-full animate-[spin_20s_linear_infinite]" />
             <div className="absolute inset-8 border border-primary/10 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
             
-            {/* Glass Cards representing core focus */}
-            <div className="absolute top-1/4 -left-12 glass p-6 rounded-2xl animate-float [animation-delay:1s] z-10 max-w-[200px]">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-xs font-headline font-bold uppercase tracking-widest">Vision Systems</span>
-              </div>
-              <p className="text-[10px] text-muted-foreground">Architecting high-precision diagnostic and retail CV pipelines.</p>
-            </div>
-
-            <div className="absolute bottom-1/4 -right-12 glass p-6 rounded-2xl animate-float [animation-delay:2s] z-10 max-w-[200px]">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-2 h-2 rounded-full bg-blue-400" />
-                <span className="text-xs font-headline font-bold uppercase tracking-widest">AI Architect</span>
-              </div>
-              <p className="text-[10px] text-muted-foreground">Designing end-to-end intelligent platforms at WIOCARE.</p>
-            </div>
-
-            {/* Central "Neural" Core */}
+            {/* Main Portrait with Glassmorphism Effect */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-              <div className="relative w-48 h-48 rounded-full border border-primary/30 flex items-center justify-center bg-background/40 backdrop-blur-sm">
-                <div className="text-4xl">🧠</div>
+              <div className="relative w-72 h-72 rounded-3xl overflow-hidden border border-primary/30 shadow-2xl z-20">
+                <Image 
+                  src={PERSONAL_INFO.images.hero} 
+                  alt={PERSONAL_INFO.name}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
               </div>
+              
+              {/* Background Glow */}
+              <div className="absolute w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+            </div>
+
+            {/* Glass Cards representing core focus */}
+            <div className="absolute top-1/4 -left-8 glass p-4 rounded-xl animate-float [animation-delay:1s] z-30 max-w-[150px]">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-[10px] font-headline font-bold uppercase tracking-widest">Vision</span>
+              </div>
+              <p className="text-[9px] text-muted-foreground">Architecting high-precision diagnostic CV pipelines.</p>
+            </div>
+
+            <div className="absolute bottom-1/4 -right-8 glass p-4 rounded-xl animate-float [animation-delay:2s] z-30 max-w-[150px]">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-blue-400" />
+                <span className="text-[10px] font-headline font-bold uppercase tracking-widest">Architect</span>
+              </div>
+              <p className="text-[9px] text-muted-foreground">Designing end-to-end intelligent platforms at WIOCARE.</p>
             </div>
           </div>
         </div>

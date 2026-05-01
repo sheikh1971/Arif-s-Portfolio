@@ -13,6 +13,7 @@ import { Download, Loader2, FileText } from 'lucide-react';
 import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import Image from 'next/image';
 
 export const ResumeDialog = () => {
   const resumeRef = useRef<HTMLDivElement>(null);
@@ -74,13 +75,23 @@ export const ResumeDialog = () => {
             style={{ color: '#1a1a1a' }}
           >
             {/* Header */}
-            <header className="border-b-2 border-primary pb-6 mb-8">
-              <h1 className="text-4xl font-bold uppercase tracking-tight text-primary mb-2">{PERSONAL_INFO.name}</h1>
-              <p className="text-xl font-medium text-gray-600 mb-4">{PERSONAL_INFO.title}</p>
-              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
-                <span>📍 {PERSONAL_INFO.location}</span>
-                <span>📞 {PERSONAL_INFO.phone}</span>
-                <span>📧 {PERSONAL_INFO.email}</span>
+            <header className="border-b-2 border-primary pb-6 mb-8 flex justify-between items-start">
+              <div className="max-w-[70%]">
+                <h1 className="text-4xl font-bold uppercase tracking-tight text-primary mb-2">{PERSONAL_INFO.name}</h1>
+                <p className="text-xl font-medium text-gray-600 mb-4">{PERSONAL_INFO.title}</p>
+                <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
+                  <span>📍 {PERSONAL_INFO.location}</span>
+                  <span>📞 {PERSONAL_INFO.phone}</span>
+                  <span>📧 {PERSONAL_INFO.email}</span>
+                </div>
+              </div>
+              <div className="w-24 h-32 relative rounded-lg overflow-hidden border-2 border-primary/20">
+                <Image 
+                  src={PERSONAL_INFO.images.resume} 
+                  alt={PERSONAL_INFO.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
             </header>
 
