@@ -49,10 +49,6 @@ export const ResumeDialog = () => {
       backgroundColor: '#ffffff',
       width: resumeRef.current.offsetWidth,
       height: resumeRef.current.offsetHeight,
-      onclone: (clonedDoc) => {
-        const el = clonedDoc.getElementById('resume-container');
-        if (el) el.style.boxShadow = 'none';
-      }
     });
   };
 
@@ -128,15 +124,11 @@ export const ResumeDialog = () => {
     }
   })();
 
-  const githubHandle = PERSONAL_INFO.github.split('/').pop()?.toUpperCase();
+  const githubHandle = PERSONAL_INFO.github.split('/').pop()?.toUpperCase() || 'SHEIKH1971';
 
   const renderHeader = () => (
-    <header className={cn(
-      "mb-8 p-8 rounded-[2rem] relative overflow-hidden break-inside-avoid", 
-      styles.headerBg,
-      activeLayout !== 'strategic' && "flex items-center justify-between"
-    )}>
-      <div className="relative z-10 flex-1">
+    <header className={cn("mb-8 p-8 rounded-[2rem] relative overflow-hidden break-inside-avoid", styles.headerBg)}>
+      <div className="relative z-10">
         <div className="flex items-center gap-3 mb-4">
           <div className={cn("h-1 w-10 rounded-full", styles.accentBg)} />
           <span className="text-[9px] font-bold uppercase tracking-[0.3em] opacity-50">Applied AI Profile Protocol</span>
@@ -155,11 +147,6 @@ export const ResumeDialog = () => {
           <span className="flex items-center gap-1.5"><Phone size={11} className={styles.iconColor} /> {PERSONAL_INFO.phone}</span>
         </div>
       </div>
-      {(activeLayout !== 'strategic' && showImage) && (
-        <div className="relative w-32 h-32 rounded-3xl overflow-hidden border-4 border-white shadow-lg bg-white ml-8 shrink-0">
-          <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-cover" unoptimized />
-        </div>
-      )}
     </header>
   );
 
@@ -185,20 +172,6 @@ export const ResumeDialog = () => {
                     <span key={j} className="text-[8px] px-1.5 py-0.5 rounded-md bg-slate-50 border border-slate-100 font-bold text-slate-600">{skill}</span>
                   ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="break-inside-avoid">
-          <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
-            <Target size={13} /> Academic
-          </h2>
-          <div className="space-y-4">
-            {EDUCATION.map((edu, i) => (
-              <div key={i} className="break-inside-avoid">
-                <h3 className="font-bold text-[9px] text-slate-900 leading-tight mb-1">{edu.degree}</h3>
-                <p className="text-[8px] text-slate-500 font-bold uppercase">{edu.school} • {edu.period}</p>
               </div>
             ))}
           </div>
@@ -248,36 +221,26 @@ export const ResumeDialog = () => {
         <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
           <Target size={13} /> Professional Summary
         </h2>
-        <p className="text-[11px] leading-relaxed text-slate-700 font-medium italic">
-          "{PERSONAL_INFO.subtext}"
-        </p>
+        <p className="text-[11px] leading-relaxed text-slate-700 font-medium italic">"{PERSONAL_INFO.subtext}"</p>
       </section>
 
-      <section>
-        <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
-          <Briefcase size={13} /> Career Record
-        </h2>
-        <div className="space-y-8">
-          {EXPERIENCE.map((exp, i) => (
-            <div key={i} className="break-inside-avoid">
-              <div className="flex justify-between items-baseline mb-2">
-                <h3 className="font-bold text-[12px] text-slate-900 uppercase">
-                  {exp.company} <span className="mx-2 text-slate-200">|</span> <span className={styles.primaryText}>{exp.role}</span>
-                </h3>
-                <span className="text-[9.5px] font-bold text-slate-400 uppercase tracking-widest">{exp.period}</span>
-              </div>
-              <p className="text-[9.5px] font-bold text-slate-500 mb-3 uppercase tracking-wider">{exp.focus}</p>
-              <ul className="grid grid-cols-1 gap-2.5">
-                {exp.highlightProject.responsibilities.map((res, j) => (
-                  <li key={j} className="text-[10.5px] text-slate-600 leading-relaxed flex gap-2.5">
-                    <span className={cn("mt-1.5 h-1.5 w-1.5 rounded-full shrink-0", styles.accentBg, "opacity-30")} />
-                    {res}
-                  </li>
-                ))}
-              </ul>
+      <section className="space-y-8">
+        {EXPERIENCE.map((exp, i) => (
+          <div key={i} className="break-inside-avoid">
+            <div className="flex justify-between items-baseline mb-2">
+              <h3 className="font-bold text-[12px] text-slate-900 uppercase">{exp.company} | <span className={styles.primaryText}>{exp.role}</span></h3>
+              <span className="text-[9.5px] font-bold text-slate-400 uppercase tracking-widest">{exp.period}</span>
             </div>
-          ))}
-        </div>
+            <ul className="space-y-2">
+              {exp.highlightProject.responsibilities.map((res, j) => (
+                <li key={j} className="text-[10.5px] text-slate-600 leading-relaxed flex gap-2.5">
+                  <span className={cn("mt-1.5 h-1.5 w-1.5 rounded-full shrink-0", styles.accentBg, "opacity-30")} />
+                  {res}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </section>
     </div>
   );
@@ -303,40 +266,27 @@ export const ResumeDialog = () => {
             </div>
           </section>
 
-          <section>
-            <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
-              <Briefcase size={13} /> Architecture Experience
-            </h2>
-            <div className="space-y-8">
-              {EXPERIENCE.map((exp, i) => (
-                <div key={i} className="break-inside-avoid">
-                  <div className="flex justify-between items-baseline mb-2">
-                    <h3 className="font-bold text-[12px] text-slate-900 uppercase">
-                      {exp.company} <span className={styles.primaryText}>— {exp.role}</span>
-                    </h3>
-                    <span className="text-[9px] font-bold text-slate-400 uppercase">{exp.period}</span>
-                  </div>
-                  <ul className="space-y-2">
-                    {exp.highlightProject.responsibilities.slice(0, 3).map((res, j) => (
-                      <li key={j} className="text-[10px] text-slate-600 leading-snug flex gap-2.5">
-                        <span className={cn("mt-1.5 h-1 w-1 rounded-full shrink-0", styles.accentBg, "opacity-30")} />
-                        {res}
-                      </li>
-                    ))}
-                  </ul>
+          <section className="space-y-8">
+            {EXPERIENCE.map((exp, i) => (
+              <div key={i} className="break-inside-avoid">
+                <div className="flex justify-between items-baseline mb-2">
+                  <h3 className="font-bold text-[12px] text-slate-900 uppercase">{exp.company} — <span className={styles.primaryText}>{exp.role}</span></h3>
+                  <span className="text-[9px] font-bold text-slate-400 uppercase">{exp.period}</span>
                 </div>
-              ))}
-            </div>
+                <ul className="space-y-2">
+                  {exp.highlightProject.responsibilities.slice(0, 3).map((res, j) => (
+                    <li key={j} className="text-[10px] text-slate-600 leading-snug flex gap-2.5">
+                      <span className={cn("mt-1.5 h-1 w-1 rounded-full shrink-0", styles.accentBg, "opacity-30")} />
+                      {res}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         </div>
 
         <div className="col-span-4 space-y-8">
-          {(showImage) && (
-            <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden border-2 border-slate-100 shadow-md bg-slate-50 break-inside-avoid">
-               <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-cover" unoptimized />
-            </div>
-          )}
-
           <section className="break-inside-avoid">
             <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
               <Layers size={13} /> System Stack
@@ -373,18 +323,17 @@ export const ResumeDialog = () => {
               <Brain className="h-5 w-5 text-primary" />
               Applied AI Profile Designer
             </DialogTitle>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">International Architecture Protocol v6.0</p>
           </div>
           
-          <div className="flex flex-wrap items-center gap-4 bg-muted/30 p-2 md:p-3 rounded-2xl border w-full md:w-auto overflow-x-auto">
-             <div className="flex flex-col gap-1.5 shrink-0">
+          <div className="flex flex-wrap items-center gap-4 bg-muted/30 p-2 md:p-3 rounded-2xl border w-full md:w-auto">
+             <div className="flex flex-col gap-1.5">
               <span className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Photo</span>
               <div className="flex gap-1 bg-background/50 p-1 rounded-full border">
-                <Button size="icon" variant={showImage ? "default" : "ghost"} onClick={() => setShowImage(true)} className="h-7 w-7 rounded-full transition-all"><User size={12} /></Button>
-                <Button size="icon" variant={!showImage ? "default" : "ghost"} onClick={() => setShowImage(false)} className="h-7 w-7 rounded-full transition-all"><UserMinus size={12} /></Button>
+                <Button size="icon" variant={showImage ? "default" : "ghost"} onClick={() => setShowImage(true)} className="h-7 w-7 rounded-full"><User size={12} /></Button>
+                <Button size="icon" variant={!showImage ? "default" : "ghost"} onClick={() => setShowImage(false)} className="h-7 w-7 rounded-full"><UserMinus size={12} /></Button>
               </div>
             </div>
-            <div className="flex flex-col gap-1.5 shrink-0">
+            <div className="flex flex-col gap-1.5">
               <span className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Layout</span>
               <div className="flex gap-1">
                 {layouts.map(l => (
@@ -392,7 +341,7 @@ export const ResumeDialog = () => {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col gap-1.5 shrink-0">
+            <div className="flex flex-col gap-1.5">
               <span className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Theme</span>
               <div className="flex gap-1">
                 {themes.map(t => (
@@ -400,17 +349,16 @@ export const ResumeDialog = () => {
                 ))}
               </div>
             </div>
-            <div className="w-px h-8 bg-border hidden md:block" />
-            <div className="flex items-center gap-2">
-              <Button onClick={handleDownloadPDF} disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 shadow-lg shadow-primary/20 font-headline font-bold uppercase text-[9px] tracking-widest">
+            <div className="flex items-center gap-2 ml-4">
+              <Button onClick={handleDownloadPDF} disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 font-bold uppercase text-[9px]">
                 {isGenerating === 'pdf' ? <Loader2 className="h-3 w-3 animate-spin" /> : <Download size={14} />}
                 PDF
               </Button>
-              <Button onClick={handleDownloadJPG} variant="outline" disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 border-primary/20 hover:bg-primary/5 font-headline font-bold uppercase text-[9px] tracking-widest">
+              <Button onClick={handleDownloadJPG} variant="outline" disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 font-bold uppercase text-[9px]">
                 {isGenerating === 'jpg' ? <Loader2 className="h-3 w-3 animate-spin" /> : <ImageIcon size={14} />}
                 JPG
               </Button>
-              <Button onClick={handleDownloadDOC} variant="outline" disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 border-primary/20 hover:bg-primary/5 font-headline font-bold uppercase text-[9px] tracking-widest">
+              <Button onClick={handleDownloadDOC} variant="outline" disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 font-bold uppercase text-[9px]">
                 {isGenerating === 'doc' ? <Loader2 className="h-3 w-3 animate-spin" /> : <FileType size={14} />}
                 DOC
               </Button>
@@ -419,21 +367,13 @@ export const ResumeDialog = () => {
         </DialogHeader>
 
         <div className="flex-1 overflow-auto bg-muted/20 p-4 md:p-12 flex justify-center scrollbar-hide">
-          <div className="scale-[0.4] sm:scale-75 md:scale-90 lg:scale-100 origin-top transition-transform duration-500">
-            <div id="resume-container" ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] flex flex-col font-sans transition-all pb-[25mm] min-h-fit")}>
-              {renderHeader()}
-              
-              <div className="flex-1">
-                {activeLayout === 'strategic' && renderStrategic()}
-                {activeLayout === 'executive' && renderExecutive()}
-                {activeLayout === 'architect' && renderArchitect()}
-              </div>
-
-              <footer className="mt-8 pt-8 flex justify-end break-inside-avoid">
-                <div className="text-right border-t border-slate-50 pt-4 opacity-20 w-full">
-                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Systems Profile Protocol v6.0 • Continuous Architecture</p>
-                </div>
-              </footer>
+          <div id="resume-container" ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] flex flex-col font-sans transition-all pb-[25mm] min-h-fit")}>
+            {renderHeader()}
+            
+            <div className="flex-1">
+              {activeLayout === 'strategic' && renderStrategic()}
+              {activeLayout === 'executive' && renderExecutive()}
+              {activeLayout === 'architect' && renderArchitect()}
             </div>
           </div>
         </div>
@@ -441,4 +381,3 @@ export const ResumeDialog = () => {
     </Dialog>
   );
 };
-
