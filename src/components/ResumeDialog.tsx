@@ -17,27 +17,27 @@ import jsPDF from 'jspdf';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
-type ResumeTheme = 'neural' | 'midnight' | 'minimal' | 'executive';
-type ResumeLayout = 'standard' | 'strategic' | 'architect';
+type ResumeTheme = 'applied-ai' | 'deep-tech' | 'clinical' | 'modern-emerald';
+type ResumeLayout = 'strategic' | 'executive' | 'architect';
 
 export const ResumeDialog = () => {
   const resumeRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [activeTheme, setActiveTheme] = useState<ResumeTheme>('neural');
+  const [activeTheme, setActiveTheme] = useState<ResumeTheme>('applied-ai');
   const [activeLayout, setActiveLayout] = useState<ResumeLayout>('strategic');
   const [showImage, setShowImage] = useState(true);
 
   const themes: { id: ResumeTheme; name: string; color: string }[] = [
-    { id: 'neural', name: 'Applied AI', color: 'bg-primary' },
-    { id: 'midnight', name: 'Deep Tech', color: 'bg-slate-900' },
-    { id: 'minimal', name: 'Clinical', color: 'bg-slate-200' },
-    { id: 'executive', name: 'Executive', color: 'bg-blue-900' },
+    { id: 'applied-ai', name: 'Synaptic Violet', color: 'bg-primary' },
+    { id: 'deep-tech', name: 'Deep Tech', color: 'bg-slate-900' },
+    { id: 'clinical', name: 'Clinical Clear', color: 'bg-slate-200' },
+    { id: 'modern-emerald', name: 'Modern Emerald', color: 'bg-emerald-600' },
   ];
 
   const layouts: { id: ResumeLayout; name: string; icon: any }[] = [
-    { id: 'standard', name: 'Classic', icon: Layout },
-    { id: 'strategic', name: 'Strategic', icon: Target },
-    { id: 'architect', name: 'Architect', icon: Brain },
+    { id: 'strategic', name: 'Strategic Sidebar', icon: Target },
+    { id: 'executive', name: 'Executive Narrative', icon: Layout },
+    { id: 'architect', name: 'System Architect', icon: Brain },
   ];
 
   const handleDownload = async () => {
@@ -58,7 +58,7 @@ export const ResumeDialog = () => {
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`MD_ARIFUL_ISLAM_RESUME.pdf`);
+      pdf.save(`${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`);
     } catch (error) {
       console.error("PDF generation failed:", error);
     } finally {
@@ -68,9 +68,9 @@ export const ResumeDialog = () => {
 
   const styles = (() => {
     switch (activeTheme) {
-      case 'midnight': return { primaryText: 'text-slate-900', accentBorder: 'border-slate-900', accentBg: 'bg-slate-900', headerBg: 'bg-slate-50', iconColor: 'text-slate-700' };
-      case 'minimal': return { primaryText: 'text-slate-800', accentBorder: 'border-slate-300', accentBg: 'bg-slate-800', headerBg: 'bg-white', iconColor: 'text-slate-400' };
-      case 'executive': return { primaryText: 'text-blue-900', accentBorder: 'border-blue-900', accentBg: 'bg-blue-900', headerBg: 'bg-blue-50/50', iconColor: 'text-blue-900' };
+      case 'deep-tech': return { primaryText: 'text-slate-900', accentBorder: 'border-slate-900', accentBg: 'bg-slate-900', headerBg: 'bg-slate-50', iconColor: 'text-slate-700' };
+      case 'clinical': return { primaryText: 'text-slate-800', accentBorder: 'border-slate-300', accentBg: 'bg-slate-800', headerBg: 'bg-white', iconColor: 'text-slate-400' };
+      case 'modern-emerald': return { primaryText: 'text-emerald-700', accentBorder: 'border-emerald-600', accentBg: 'bg-emerald-600', headerBg: 'bg-emerald-50/50', iconColor: 'text-emerald-700' };
       default: return { primaryText: 'text-primary', accentBorder: 'border-primary/30', accentBg: 'bg-primary', headerBg: 'bg-primary/5', iconColor: 'text-primary' };
     }
   })();
@@ -84,14 +84,14 @@ export const ResumeDialog = () => {
           <Download className="h-4 w-4" /> Download Profile
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[100vw] sm:max-w-6xl h-full md:h-[94vh] p-0 border-none shadow-2xl flex flex-col overflow-hidden bg-background md:rounded-[2.5rem]">
+      <DialogContent className="max-w-[100vw] sm:max-w-7xl h-full md:h-[96vh] p-0 border-none shadow-2xl flex flex-col overflow-hidden bg-background md:rounded-[2.5rem]">
         <DialogHeader className="p-6 md:p-8 bg-background/95 backdrop-blur-md border-b flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shrink-0 z-20">
           <div className="flex flex-col gap-1">
             <DialogTitle className="flex items-center gap-2 text-xl font-headline font-bold">
               <Brain className="h-5 w-5 text-primary" />
               Professional Resume Designer
             </DialogTitle>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">US, UK & Europe Job Hunt Optimized</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">Architectural Layouts — US, UK & Europe Job Hunt Optimized</p>
           </div>
           
           <div className="flex flex-wrap items-center gap-4 bg-muted/30 p-2 md:p-3 rounded-2xl border w-full md:w-auto overflow-x-auto">
@@ -119,11 +119,12 @@ export const ResumeDialog = () => {
         </DialogHeader>
 
         <div className="flex-1 overflow-auto bg-muted/20 p-4 md:p-12 flex justify-center scrollbar-hide">
-          <div className="scale-[0.45] sm:scale-75 md:scale-90 lg:scale-100 origin-top transition-transform duration-500">
+          <div className="scale-[0.4] sm:scale-75 md:scale-90 lg:scale-100 origin-top transition-transform duration-500">
             <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-12 md:p-16 shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col font-sans transition-all")}>
-              {/* Profile Header - Integrated Right Image */}
-              <header className={cn("mb-12 p-10 rounded-[2.5rem] grid grid-cols-12 gap-8 relative overflow-hidden", styles.headerBg)}>
-                <div className={cn("relative z-10", showImage ? "col-span-8" : "col-span-12")}>
+              
+              {/* Profile Header - Clean Top Section */}
+              <header className={cn("mb-10 p-10 rounded-[2.5rem] relative overflow-hidden", styles.headerBg)}>
+                <div className="relative z-10">
                   <div className="flex items-center gap-3 mb-6">
                     <div className={cn("h-1.5 w-12 rounded-full", styles.accentBg)} />
                     <span className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">Applied AI & ML Systems Engineer</span>
@@ -134,7 +135,7 @@ export const ResumeDialog = () => {
                   <p className={cn("text-lg font-medium mb-8 flex items-center gap-2", styles.primaryText)}>
                      <Zap size={18} /> {PERSONAL_INFO.title}
                   </p>
-                  <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-[9px] text-slate-500 font-bold uppercase tracking-[0.1em]">
+                  <div className="flex flex-wrap gap-y-3 gap-x-8 text-[9px] text-slate-500 font-bold uppercase tracking-[0.15em]">
                     <span className="flex items-center gap-2"><MapPin size={13} className={styles.iconColor} /> {PERSONAL_INFO.location}</span>
                     <span className="flex items-center gap-2"><Globe size={13} className={styles.iconColor} /> LI/MARIFULISLAM</span>
                     <span className="flex items-center gap-2"><Github size={13} className={styles.iconColor} /> GH/{githubHandle}</span>
@@ -142,125 +143,124 @@ export const ResumeDialog = () => {
                     <span className="flex items-center gap-2"><Phone size={13} className={styles.iconColor} /> {PERSONAL_INFO.phone}</span>
                   </div>
                 </div>
-                {showImage && (
-                  <div className="col-span-4 flex justify-end items-center relative z-10">
-                    <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-3xl overflow-hidden border-8 border-white shadow-2xl bg-white transition-all">
+              </header>
+
+              {/* Sidebar Layout Content */}
+              <div className="flex-1 grid grid-cols-12 gap-12">
+                
+                {/* Left Sidebar - Identity & Foundations */}
+                <div className="col-span-4 space-y-12">
+                  {showImage && (
+                    <div className="relative w-full aspect-square rounded-3xl overflow-hidden border-8 border-slate-50 shadow-xl bg-slate-50">
                       <Image 
                         src={PERSONAL_INFO.images.resume} 
                         alt={PERSONAL_INFO.name} 
                         fill 
-                        className="object-cover" 
+                        className="object-contain" 
                         unoptimized 
                       />
                     </div>
-                  </div>
-                )}
-              </header>
+                  )}
 
-              {/* Main Content Area */}
-              <div className="flex-1 space-y-12">
-                <section>
-                  <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-4 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
-                    <Target size={14} /> Executive Summary
-                  </h2>
-                  <p className="text-[11.5px] leading-relaxed text-slate-600 font-medium">"{PERSONAL_INFO.subtext}"</p>
-                </section>
-
-                <div className={cn("grid gap-12", activeLayout !== 'standard' ? 'grid-cols-12' : 'grid-cols-1')}>
-                  <div className={cn(activeLayout !== 'standard' ? 'col-span-8' : 'w-full')}>
-                    <section>
-                      <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-8 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
-                        <Briefcase size={14} /> Professional Path
-                      </h2>
-                      <div className="space-y-10">
-                        {EXPERIENCE.map((exp, i) => (
-                          <div key={i} className="relative pl-6 border-l-2 border-slate-100">
-                            <div className={cn("absolute -left-[5px] top-0 w-2 h-2 rounded-full", styles.accentBg)} />
-                            <div className="flex justify-between items-baseline mb-2">
-                              <h3 className="font-bold text-[13px] text-slate-900 uppercase">{exp.company} — <span className={styles.primaryText}>{exp.role}</span></h3>
-                              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">{exp.period}</span>
-                            </div>
-                            <p className="text-[9.5px] font-bold text-slate-500 mb-4 italic opacity-80">{exp.focus}</p>
-                            <ul className="space-y-2.5">
-                              {exp.highlightProject.responsibilities.map((res, j) => (
-                                <li key={j} className="text-[10.5px] text-slate-600 leading-snug flex gap-3">
-                                  <span className={cn("mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 opacity-40", styles.accentBg)} />
-                                  {res}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-                  </div>
-
-                  <div className={cn(activeLayout !== 'standard' ? 'col-span-4 space-y-12' : 'grid grid-cols-2 gap-12 pt-8')}>
-                    <section>
-                      <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-6 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
-                        <Layers size={14} /> Tech Assets
-                      </h2>
-                      <div className="space-y-4">
-                        {SKILLS.slice(0, 4).map((group, i) => (
-                          <div key={i}>
-                            <p className="text-[8px] font-bold text-slate-400 uppercase mb-2">{group.category}</p>
-                            <div className="flex flex-wrap gap-1.5">
-                              {group.items.map((skill, j) => (
-                                <span key={j} className="text-[8.5px] px-2 py-0.5 rounded-md bg-slate-50 border border-slate-100 font-bold text-slate-600">{skill}</span>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-
-                    <div className="space-y-10">
-                      <section>
-                        <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-5 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
-                          <Target size={14} /> Academic
-                        </h2>
-                        {EDUCATION.map((edu, i) => (
-                          <div key={i} className="mb-4">
-                            <h3 className="font-bold text-[10.5px] text-slate-900 leading-tight mb-1">{edu.degree}</h3>
-                            <p className="text-[9px] text-slate-500 font-bold">{edu.school} • {edu.period}</p>
-                          </div>
-                        ))}
-                      </section>
-                      <section>
-                        <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-5 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
-                          <Heart size={14} /> Social Impact
-                        </h2>
-                        {IMPACT.map((imp, i) => (
-                          <div key={i} className="mb-4">
-                            <h3 className="font-bold text-[10.5px] text-slate-900 leading-tight mb-1">{imp.organization}</h3>
-                            <p className={cn("text-[9px] font-bold", styles.primaryText)}>{imp.role}</p>
-                          </div>
-                        ))}
-                      </section>
-                    </div>
-                  </div>
-                </div>
-
-                {activeLayout === 'architect' && (
-                  <section className="pt-8">
+                  <section>
                     <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-6 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
-                      <Layers size={14} /> Selected Applied Research
+                      <Layers size={14} /> Tech Assets
                     </h2>
-                    <div className="grid grid-cols-2 gap-8">
-                      {PROJECTS.slice(0, 2).map((proj, i) => (
-                        <div key={i} className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100">
-                          <h3 className="font-bold text-[12px] text-slate-900 mb-2">{proj.title}</h3>
-                          <p className="text-[10px] text-slate-600 leading-relaxed line-clamp-4">{proj.description}</p>
+                    <div className="space-y-4">
+                      {SKILLS.slice(0, 5).map((group, i) => (
+                        <div key={i}>
+                          <p className="text-[8px] font-bold text-slate-400 uppercase mb-2">{group.category}</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {group.items.map((skill, j) => (
+                              <span key={j} className="text-[8.5px] px-2 py-0.5 rounded-md bg-slate-50 border border-slate-100 font-bold text-slate-600">{skill}</span>
+                            ))}
+                          </div>
                         </div>
                       ))}
                     </div>
                   </section>
-                )}
+
+                  <section>
+                    <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-5 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                      <Target size={14} /> Academic
+                    </h2>
+                    <div className="space-y-4">
+                      {EDUCATION.map((edu, i) => (
+                        <div key={i}>
+                          <h3 className="font-bold text-[10px] text-slate-900 leading-tight mb-1">{edu.degree}</h3>
+                          <p className="text-[8.5px] text-slate-500 font-bold uppercase tracking-wider">{edu.school} • {edu.period}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section>
+                    <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-5 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                      <Heart size={14} /> Social Impact
+                    </h2>
+                    {IMPACT.map((imp, i) => (
+                      <div key={i} className="mb-4">
+                        <h3 className="font-bold text-[10px] text-slate-900 leading-tight mb-1">{imp.organization}</h3>
+                        <p className={cn("text-[8.5px] font-bold uppercase tracking-wider", styles.primaryText)}>{imp.role}</p>
+                      </div>
+                    ))}
+                  </section>
+                </div>
+
+                {/* Right Main Column - Strategy & Experience */}
+                <div className="col-span-8 space-y-12">
+                  <section>
+                    <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-4 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                      <Target size={14} /> Executive Summary
+                    </h2>
+                    <p className="text-[11.5px] leading-relaxed text-slate-600 font-medium italic">"{PERSONAL_INFO.subtext}"</p>
+                  </section>
+
+                  <section>
+                    <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-8 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                      <Briefcase size={14} /> Professional Path
+                    </h2>
+                    <div className="space-y-10">
+                      {EXPERIENCE.map((exp, i) => (
+                        <div key={i} className="relative pl-6 border-l-2 border-slate-50">
+                          <div className={cn("absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full", styles.accentBg)} />
+                          <div className="flex justify-between items-baseline mb-2">
+                            <h3 className="font-bold text-[13px] text-slate-900 uppercase">{exp.company} — <span className={styles.primaryText}>{exp.role}</span></h3>
+                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{exp.period}</span>
+                          </div>
+                          <p className="text-[9.5px] font-bold text-slate-500 mb-4 italic opacity-80">{exp.focus}</p>
+                          <ul className="space-y-2.5">
+                            {exp.highlightProject.responsibilities.map((res, j) => (
+                              <li key={j} className="text-[10.5px] text-slate-600 leading-snug flex gap-3">
+                                <span className={cn("mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 opacity-40", styles.accentBg)} />
+                                {res}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section>
+                    <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-6 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
+                      <Layers size={14} /> Selected Applied Research
+                    </h2>
+                    <div className="grid grid-cols-1 gap-6">
+                      {PROJECTS.slice(0, 2).map((proj, i) => (
+                        <div key={i} className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100">
+                          <h3 className="font-bold text-[12px] text-slate-900 mb-2">{proj.title}</h3>
+                          <p className="text-[10px] text-slate-600 leading-relaxed line-clamp-3">{proj.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                </div>
               </div>
 
               <footer className="mt-auto pt-12 flex justify-end">
-                <div className="text-right border-t-2 border-slate-50 pt-8 opacity-40">
-                  <p className="text-[8px] uppercase tracking-[0.5em] text-slate-400 font-bold">Generated via Neural Systems Architecture v2.0</p>
+                <div className="text-right border-t border-slate-50 pt-8 opacity-40 w-full">
+                  <p className="text-[8px] uppercase tracking-[0.6em] text-slate-400 font-bold">Neural Systems Architecture v2.0 • 2025</p>
                 </div>
               </footer>
             </div>

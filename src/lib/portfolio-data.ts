@@ -82,7 +82,7 @@ export const EXPERIENCE = [
     company: "Jionex",
     companyUrl: "https://www.jionex.com/",
     role: "Applied AI & ML Engineer",
-    period: "2025",
+    period: "2024",
     focus: "Enterprise AI Solutions & Predictive Modeling",
     highlightProject: {
       name: "🚀 Enterprise Intelligence Suite",
