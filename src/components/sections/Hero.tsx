@@ -3,7 +3,7 @@
 import React from 'react';
 import { PERSONAL_INFO } from '@/lib/portfolio-data';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Mail, Zap, BrainCircuit } from 'lucide-react';
+import { ArrowRight, Mail, Zap, BrainCircuit, Activity } from 'lucide-react';
 import { ResumeDialog } from '../ResumeDialog';
 import Image from 'next/image';
 
@@ -15,33 +15,38 @@ export const Hero = () => {
       
       <div className="max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
-        <div className="animate-reveal [animation-delay:0.2s]">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-headline font-bold uppercase tracking-widest flex items-center gap-2">
-              <Zap className="h-3 w-3 animate-pulse" />
+        <div className="reveal active">
+          <div className="flex items-center gap-2 mb-6">
+            <div className="px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-headline font-bold uppercase tracking-[0.3em] flex items-center gap-2 shadow-[0_0_20px_rgba(167,120,247,0.15)]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
               Applied AI & ML Engineer
             </div>
           </div>
-          <h1 className="text-5xl lg:text-7xl font-headline font-bold mb-6 leading-[1.1]">
-            {PERSONAL_INFO.name}
+          <h1 className="text-6xl lg:text-8xl font-headline font-bold mb-6 leading-[1] tracking-tight">
+            {PERSONAL_INFO.name.split(' ').map((word, i) => (
+              <span key={i} className={i === 2 ? "gradient-text block" : "block"}>{word} </span>
+            ))}
           </h1>
-          <p className="text-xl md:text-2xl text-foreground/80 font-headline font-light mb-8 max-w-lg">
+          <p className="text-xl md:text-2xl text-foreground/80 font-headline font-light mb-8 max-w-lg leading-relaxed">
             {PERSONAL_INFO.tagline}
           </p>
-          <p className="text-muted-foreground mb-10 max-w-xl leading-relaxed">
+          <p className="text-muted-foreground mb-12 max-w-xl leading-relaxed text-lg font-light">
             {PERSONAL_INFO.subtext}
           </p>
           
-          <div className="flex flex-wrap gap-4">
-            <Button size="lg" className="rounded-full gap-2 px-8 group" asChild>
+          <div className="flex flex-wrap gap-5">
+            <Button size="lg" className="rounded-full gap-3 px-10 group h-14 text-base font-headline font-bold shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-500" asChild>
               <a href="#projects">
-                Explore Neural Assets <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                Neural Assets <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform duration-500" />
               </a>
             </Button>
             
             <ResumeDialog />
 
-            <Button size="lg" variant="ghost" className="rounded-full gap-2 px-8" asChild>
+            <Button size="lg" variant="ghost" className="rounded-full gap-3 px-8 h-14 font-headline border border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all" asChild>
               <a href="#contact">
                 <Mail className="h-4 w-4" /> Contact
               </a>
@@ -50,16 +55,16 @@ export const Hero = () => {
         </div>
 
         {/* Right Visualization - Advanced Neural Network Mesh */}
-        <div className="relative flex items-center justify-center animate-reveal [animation-delay:0.4s]">
-          {/* Neural Connections SVG - The "Wire" Design */}
-          <svg className="absolute inset-0 w-[150%] h-[150%] -translate-x-[15%] -translate-y-[15%] opacity-40 pointer-events-none" viewBox="0 0 400 400">
+        <div className="relative flex items-center justify-center">
+          {/* Neural Connections SVG */}
+          <svg className="absolute inset-0 w-[180%] h-[180%] -translate-x-[20%] -translate-y-[20%] opacity-30 pointer-events-none" viewBox="0 0 400 400">
             <defs>
               <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="hsl(var(--primary))" />
                 <stop offset="100%" stopColor="hsl(var(--secondary))" />
               </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+              <filter id="nodeGlow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                 <feMerge>
                   <feMergeNode in="coloredBlur"/>
                   <feMergeNode in="SourceGraphic"/>
@@ -67,57 +72,63 @@ export const Hero = () => {
               </filter>
             </defs>
             
-            {/* Primary Neural Path 1 */}
-            <path d="M50,150 Q150,100 250,250 T350,200" fill="none" stroke="url(#lineGrad)" strokeWidth="0.5" className="synaptic-line" filter="url(#glow)" />
-            {/* Primary Neural Path 2 */}
-            <path d="M100,50 Q200,200 100,350" fill="none" stroke="url(#lineGrad)" strokeWidth="0.5" className="synaptic-line" style={{ animationDelay: '-3s' }} filter="url(#glow)" />
-            {/* Secondary Connections */}
-            <line x1="100" y1="100" x2="300" y2="300" stroke="url(#lineGrad)" strokeWidth="0.2" strokeDasharray="4,4" className="animate-pulse-soft" />
-            <line x1="300" y1="100" x2="100" y2="300" stroke="url(#lineGrad)" strokeWidth="0.2" strokeDasharray="4,4" className="animate-pulse-soft" style={{ animationDelay: '1s' }} />
+            {/* Primary Neural Paths */}
+            <path d="M50,150 Q150,100 250,250 T350,200" fill="none" stroke="url(#lineGrad)" strokeWidth="0.8" className="synaptic-line" />
+            <path d="M100,50 Q200,200 100,350" fill="none" stroke="url(#lineGrad)" strokeWidth="0.8" className="synaptic-line" style={{ animationDelay: '-3s' }} />
+            <path d="M300,50 Q150,200 350,350" fill="none" stroke="url(#lineGrad)" strokeWidth="0.8" className="synaptic-line" style={{ animationDelay: '-5.5s' }} />
             
-            {/* Neural Nodes */}
-            <circle cx="100" cy="100" r="1.5" fill="hsl(var(--primary))" className="animate-pulse" />
-            <circle cx="300" cy="300" r="1.5" fill="hsl(var(--secondary))" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
-            <circle cx="200" cy="200" r="2.5" fill="hsl(var(--primary))" className="animate-pulse" style={{ animationDelay: '1.2s' }} />
-            <circle cx="150" cy="100" r="1" fill="hsl(var(--secondary))" />
-            <circle cx="250" cy="250" r="1" fill="hsl(var(--primary))" />
+            {/* Soft Blinking Nodes */}
+            <circle cx="100" cy="100" r="4" fill="hsl(var(--primary))" className="animate-node-blink" filter="url(#nodeGlow)" />
+            <circle cx="300" cy="300" r="4" fill="hsl(var(--secondary))" className="animate-node-blink" style={{ animationDelay: '1s' }} filter="url(#nodeGlow)" />
+            <circle cx="200" cy="200" r="6" fill="hsl(var(--primary))" className="animate-node-blink" style={{ animationDelay: '2.5s' }} filter="url(#nodeGlow)" />
+            <circle cx="150" cy="100" r="3" fill="hsl(var(--secondary))" className="animate-node-blink" style={{ animationDelay: '1.8s' }} />
+            <circle cx="250" cy="250" r="3" fill="hsl(var(--primary))" className="animate-node-blink" style={{ animationDelay: '0.5s' }} />
+            <circle cx="350" cy="200" r="3" fill="hsl(var(--secondary))" className="animate-node-blink" style={{ animationDelay: '3.2s' }} />
           </svg>
 
-          <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
+          <div className="relative w-full max-w-lg aspect-square flex items-center justify-center animate-float">
             {/* Main Portrait Container */}
-            <div className="relative w-72 h-72 rounded-3xl overflow-hidden border-2 border-primary/40 shadow-[0_0_50px_-12px_rgba(167,120,247,0.5)] z-20 bg-card/40 backdrop-blur-sm">
+            <div className="relative w-80 h-80 rounded-[3rem] overflow-hidden border-2 border-primary/30 shadow-[0_0_80px_-20px_rgba(167,120,247,0.4)] z-20 bg-card/20 backdrop-blur-xl">
               <Image 
                 src={PERSONAL_INFO.images.hero} 
                 alt={PERSONAL_INFO.name}
                 fill
-                className="object-contain"
+                className="object-contain p-4"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent pointer-events-none" />
             </div>
             
-            {/* Background Glow */}
-            <div className="absolute w-80 h-80 bg-primary/10 rounded-full blur-[80px] animate-pulse-soft" />
+            {/* Background Glows */}
+            <div className="absolute w-96 h-96 bg-primary/10 rounded-full blur-[100px] animate-pulse-soft" />
+            <div className="absolute w-[30rem] h-[30rem] bg-secondary/5 rounded-full blur-[120px] animate-pulse-soft" style={{ animationDelay: '2s' }} />
 
             {/* AI Insights Floating Labels */}
-            <div className="absolute top-0 -right-4 glass p-4 rounded-2xl animate-float [animation-delay:0.5s] z-30 flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-primary/20">
-                <BrainCircuit className="h-4 w-4 text-primary" />
+            <div className="absolute top-4 -right-8 glass p-5 rounded-3xl animate-float [animation-delay:0.5s] z-30 flex items-center gap-4 border-primary/20">
+              <div className="p-3 rounded-2xl bg-primary/20 text-primary">
+                <BrainCircuit className="h-5 w-5" />
               </div>
               <div>
-                <span className="text-[10px] font-headline font-bold uppercase tracking-widest block">Medical CV</span>
-                <p className="text-[9px] text-muted-foreground leading-tight">Developing high-precision diagnostic neural pipelines.</p>
+                <span className="text-[11px] font-headline font-bold uppercase tracking-[0.2em] block text-primary">Medical CV</span>
+                <p className="text-[10px] text-muted-foreground leading-tight mt-1">High-precision diagnostic pipelines</p>
               </div>
             </div>
 
-            <div className="absolute bottom-10 -left-12 glass p-4 rounded-2xl animate-float [animation-delay:1.5s] z-30 flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-secondary/20">
-                <Zap className="h-4 w-4 text-secondary" />
+            <div className="absolute bottom-12 -left-16 glass p-5 rounded-3xl animate-float [animation-delay:2.5s] z-30 flex items-center gap-4 border-secondary/20">
+              <div className="p-3 rounded-2xl bg-secondary/20 text-secondary">
+                <Zap className="h-5 w-5" />
               </div>
               <div>
-                <span className="text-[10px] font-headline font-bold uppercase tracking-widest block">ML Systems</span>
-                <p className="text-[9px] text-muted-foreground leading-tight">Scaling end-to-end healthcare AI platforms at WIOCARE.</p>
+                <span className="text-[11px] font-headline font-bold uppercase tracking-[0.2em] block text-secondary">ML Systems</span>
+                <p className="text-[10px] text-muted-foreground leading-tight mt-1">Scaling healthcare AI platforms</p>
               </div>
+            </div>
+            
+            <div className="absolute -bottom-8 right-12 glass p-4 rounded-3xl animate-float [animation-delay:1.5s] z-30 flex items-center gap-3 border-white/5">
+              <div className="p-2 rounded-xl bg-white/5">
+                <Activity className="h-4 w-4 text-white/40" />
+              </div>
+              <span className="text-[10px] font-mono tracking-widest text-white/30 uppercase">SynapticFolio v2.0</span>
             </div>
           </div>
         </div>
