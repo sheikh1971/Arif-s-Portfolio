@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useRef, useState } from 'react';
@@ -49,7 +50,7 @@ export const ResumeDialog = () => {
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
-        width: 794, // Standard A4 width at 96 DPI (210mm)
+        width: 794, // 210mm at 96 DPI
       });
       
       const imgData = canvas.toDataURL('image/png', 1.0);
@@ -72,7 +73,8 @@ export const ResumeDialog = () => {
       while (heightLeft > 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
-        // Add a slight top margin for multi-page flow
+        // The slice approach might still cut lines if we're not careful, 
+        // but with break-inside-avoid and standard container sizes, it looks much cleaner.
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
         heightLeft -= pageHeight;
       }
@@ -98,14 +100,14 @@ export const ResumeDialog = () => {
 
   const renderHeader = () => (
     <header className={cn(
-      "mb-8 p-8 rounded-[2rem] relative overflow-hidden", 
+      "mb-8 p-8 rounded-[2rem] relative overflow-hidden break-inside-avoid", 
       styles.headerBg,
       activeLayout !== 'strategic' && "flex items-center justify-between"
     )}>
       <div className="relative z-10 flex-1">
         <div className="flex items-center gap-3 mb-4">
           <div className={cn("h-1 w-10 rounded-full", styles.accentBg)} />
-          <span className="text-[9px] font-bold uppercase tracking-[0.3em] opacity-50">Applied AI Profile</span>
+          <span className="text-[9px] font-bold uppercase tracking-[0.3em] opacity-50">Applied AI Profile Protocol</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-2 uppercase">
           {PERSONAL_INFO.name.split(' ').map((word, i) => (
@@ -135,7 +137,7 @@ export const ResumeDialog = () => {
     <div className="flex-1 grid grid-cols-12 gap-8">
       <div className="col-span-4 space-y-8">
         {showImage && (
-          <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden border-[6px] border-slate-50 shadow-md bg-slate-50">
+          <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden border-[6px] border-slate-50 shadow-md bg-slate-50 break-inside-avoid">
             <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
           </div>
         )}
@@ -146,7 +148,7 @@ export const ResumeDialog = () => {
           </h2>
           <div className="space-y-4">
             {SKILLS.slice(0, 5).map((group, i) => (
-              <div key={i}>
+              <div key={i} className="break-inside-avoid">
                 <p className="text-[7.5px] font-bold text-slate-400 uppercase mb-1.5">{group.category}</p>
                 <div className="flex flex-wrap gap-1">
                   {group.items.map((skill, j) => (
@@ -164,7 +166,7 @@ export const ResumeDialog = () => {
           </h2>
           <div className="space-y-4">
             {EDUCATION.map((edu, i) => (
-              <div key={i}>
+              <div key={i} className="break-inside-avoid">
                 <h3 className="font-bold text-[9px] text-slate-900 leading-tight mb-1">{edu.degree}</h3>
                 <p className="text-[8px] text-slate-500 font-bold uppercase">{edu.school} • {edu.period}</p>
               </div>
@@ -279,7 +281,7 @@ export const ResumeDialog = () => {
           </h2>
           <div className="space-y-3">
             {EDUCATION.map((edu, i) => (
-              <div key={i}>
+              <div key={i} className="break-inside-avoid">
                 <h3 className="font-bold text-[9px] text-slate-900 leading-tight mb-0.5">{edu.degree}</h3>
                 <p className="text-[8.5px] text-slate-500 font-bold">{edu.school} • {edu.period}</p>
               </div>
@@ -351,7 +353,7 @@ export const ResumeDialog = () => {
             </h2>
             <div className="space-y-5">
               {SKILLS.slice(0, 4).map((group, i) => (
-                <div key={i}>
+                <div key={i} className="break-inside-avoid">
                   <p className="text-[8px] font-bold text-primary uppercase mb-1.5 opacity-60">{group.category}</p>
                   <div className="flex flex-wrap gap-1">
                     {group.items.map((skill, j) => (
@@ -368,7 +370,7 @@ export const ResumeDialog = () => {
               <Target size={13} /> Credentials
             </h2>
             {EDUCATION.map((edu, i) => (
-              <div key={i} className="mb-3">
+              <div key={i} className="mb-3 break-inside-avoid">
                 <h3 className="font-bold text-[9px] text-slate-900 leading-tight mb-0.5">{edu.degree}</h3>
                 <p className="text-[8px] text-slate-500 font-bold">{edu.school}</p>
               </div>
@@ -393,7 +395,7 @@ export const ResumeDialog = () => {
               <Brain className="h-5 w-5 text-primary" />
               Applied AI Profile Designer
             </DialogTitle>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">Optimized for US, UK & EU International Standards</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">International A4 Standard Protocol v5.0</p>
           </div>
           
           <div className="flex flex-wrap items-center gap-4 bg-muted/30 p-2 md:p-3 rounded-2xl border w-full md:w-auto overflow-x-auto">
@@ -430,7 +432,7 @@ export const ResumeDialog = () => {
 
         <div className="flex-1 overflow-auto bg-muted/20 p-4 md:p-12 flex justify-center scrollbar-hide">
           <div className="scale-[0.4] sm:scale-75 md:scale-90 lg:scale-100 origin-top transition-transform duration-500">
-            <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col font-sans transition-all")}>
+            <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col font-sans transition-all pb-[25mm]")}>
               {renderHeader()}
               
               <div className="flex-1">
@@ -441,7 +443,7 @@ export const ResumeDialog = () => {
 
               <footer className="mt-8 pt-8 flex justify-end break-inside-avoid">
                 <div className="text-right border-t border-slate-50 pt-4 opacity-20 w-full">
-                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Systems Profile Protocol v4.0 • A4 Standard</p>
+                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Systems Profile Protocol v5.0 • A4 International Standard</p>
                 </div>
               </footer>
             </div>
