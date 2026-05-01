@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '@/lib/portfolio-data';
-import { Moon, Sun, Menu, X, Github, Linkedin } from 'lucide-react';
+import { Moon, Sun, Menu, X, Github, Linkedin, Brain } from 'lucide-react';
 import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,11 +13,10 @@ export const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     
-    // Set initial theme
     const theme = localStorage.getItem('theme') || 'dark';
     setIsDarkMode(theme === 'dark');
     if (theme === 'dark') {
@@ -42,81 +42,113 @@ export const Navigation = () => {
 
   const navItems = [
     { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Experience', href: '#experience' },
     { name: 'Skills', href: '#skills' },
-    { name: 'Impact', href: '#impact' },
     { name: 'Contact', href: '#contact' },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-4 shadow-2xl' : 'bg-transparent py-8'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Spacer to keep balance if logo is removed, or just allow justify-between to work */}
-        <div className="flex-1 md:flex-none" />
+    <>
+      <nav className={cn(
+        "fixed top-0 left-0 right-0 z-[60] transition-all duration-500 px-4 md:px-8",
+        isScrolled ? "py-3" : "py-6"
+      )}>
+        <div className={cn(
+          "max-w-7xl mx-auto flex items-center justify-between p-2 rounded-full transition-all duration-500",
+          isScrolled ? "glass shadow-xl px-4" : "bg-transparent"
+        )}>
+          {/* Logo/Brand */}
+          <a href="#" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+              <Brain size={18} />
+            </div>
+            <span className="hidden sm:block font-headline font-bold text-sm tracking-widest uppercase">
+              SynapticFolio
+            </span>
+          </a>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-10">
-          <div className="flex items-center gap-8 px-6 py-2 rounded-full border border-white/5 bg-white/5 backdrop-blur-md">
-            {navItems.map((item) => (
-              <a 
-                key={item.name} 
-                href={item.href} 
-                className="text-xs font-headline font-bold uppercase tracking-[0.2em] hover:text-primary transition-all duration-300 relative group"
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-2">
+            <div className="flex items-center gap-1 bg-muted/40 p-1 rounded-full border border-border/40">
+              {navItems.map((item) => (
+                <a 
+                  key={item.name} 
+                  href={item.href} 
+                  className="px-4 py-2 text-[10px] font-headline font-bold uppercase tracking-widest hover:text-primary transition-all rounded-full hover:bg-background/50"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+            
+            <div className="flex items-center gap-1 ml-2">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={toggleTheme}
+                className="rounded-full hover:bg-primary/10 text-primary w-10 h-10"
               >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-500 group-hover:w-full" />
+                {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="p-2 hover:text-primary transition-all hover:scale-110">
+                <Github className="h-5 w-5" />
               </a>
-            ))}
+            </div>
           </div>
-          
-          <div className="flex items-center gap-4 pl-6 border-l border-white/10">
+
+          {/* Mobile Toggle */}
+          <div className="md:hidden flex items-center gap-2">
             <Button 
               variant="ghost" 
               size="icon" 
-              onClick={toggleTheme}
-              className="rounded-full hover:bg-primary/10 text-primary transition-all w-10 h-10"
+              onClick={toggleTheme} 
+              className="w-10 h-10 rounded-full text-primary bg-muted/20"
             >
               {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
-            <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all duration-300 hover:scale-110">
-              <Github className="h-5 w-5" />
-            </a>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)} 
+              className="w-10 h-10 rounded-full bg-primary text-primary-foreground"
+            >
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
           </div>
         </div>
+      </nav>
 
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={toggleTheme} className="text-primary">
-            {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </Button>
-          <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)} className="h-10 w-10">
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
+      {/* Mobile Menu Overlay */}
+      <div className={cn(
+        "fixed inset-0 z-50 md:hidden bg-background/95 backdrop-blur-3xl transition-all duration-500",
+        isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      )}>
+        <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
+          {navItems.map((item, i) => (
+            <a 
+              key={item.name} 
+              href={item.href} 
+              className={cn(
+                "text-3xl font-headline font-bold uppercase tracking-[0.2em] transition-all",
+                isMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              )}
+              style={{ transitionDelay: `${i * 100}ms` }}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item.name}
+            </a>
+          ))}
+          <div className="w-24 h-px bg-primary/20 mt-4" />
+          <div className="flex gap-10 mt-4">
+             <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="text-primary hover:scale-125 transition-transform"><Github size={32} /></a>
+             <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary hover:scale-125 transition-transform"><Linkedin size={32} /></a>
+          </div>
+          <p className="text-[10px] font-mono uppercase tracking-[0.5em] text-muted-foreground mt-12 opacity-50">
+            SynapticFolio v2.0
+          </p>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden glass border-t border-white/10 mt-4 py-10 animate-in slide-in-from-top duration-500">
-          <div className="flex flex-col items-center gap-8">
-            {navItems.map((item) => (
-              <a 
-                key={item.name} 
-                href={item.href} 
-                className="text-xl font-headline font-bold uppercase tracking-[0.3em]"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.name}
-              </a>
-            ))}
-            <div className="flex gap-8 pt-6 border-t border-white/10 w-full justify-center">
-               <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="text-primary"><Github /></a>
-               <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary"><Linkedin /></a>
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
+    </>
   );
 };

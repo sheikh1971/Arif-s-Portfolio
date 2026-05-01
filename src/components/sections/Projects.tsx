@@ -6,8 +6,9 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AIInsightButton } from '@/components/AIInsightButton';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
-const FILTER_TAGS = ["All", "AI", "CV", "ML", "Embedded", "Mobile", "HealthTech"];
+const FILTER_TAGS = ["All", "AI", "CV", "ML", "Embedded", "HealthTech"];
 
 export const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -33,30 +34,31 @@ export const Projects = () => {
     : PROJECTS.filter(p => p.tags.includes(activeFilter) || (activeFilter === "AI" && p.tags.some(t => ["AI", "ML", "Deep Learning"].includes(t))));
 
   return (
-    <section id="projects" className="py-32 bg-muted/5" ref={sectionRef}>
+    <section id="projects" className="py-24 bg-muted/5 overflow-hidden" ref={sectionRef}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-10 reveal">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
+        <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
+          <div className="text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
               <div className="h-1 w-12 bg-primary rounded-full" />
               <span className="text-[10px] font-headline font-bold uppercase tracking-[0.4em] text-primary">Neural Assets Catalog</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tight mb-6">Selected Research & Systems</h2>
-            <p className="text-muted-foreground max-w-2xl text-lg font-light leading-relaxed">
-              A curated collection of applied ML projects, specializing in clinical vision systems and intelligent architectural implementations.
+            <h2 className="text-3xl md:text-5xl font-headline font-bold tracking-tight mb-4">Research & Systems</h2>
+            <p className="text-muted-foreground max-w-2xl text-base md:text-lg font-light leading-relaxed mx-auto md:mx-0">
+              A curated collection of applied ML projects and clinical vision systems.
             </p>
           </div>
           
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap justify-center md:justify-start gap-2">
             {FILTER_TAGS.map(tag => (
               <button
                 key={tag}
                 onClick={() => setActiveFilter(tag)}
-                className={`px-6 py-2.5 rounded-full text-xs font-headline font-bold transition-all duration-500 border-2 ${
+                className={cn(
+                  "px-4 py-2 rounded-full text-[10px] font-headline font-bold transition-all border",
                   activeFilter === tag 
-                    ? 'bg-primary border-primary text-primary-foreground shadow-[0_0_20px_rgba(167,120,247,0.3)]' 
-                    : 'bg-background hover:bg-muted border-border hover:border-primary/30'
-                }`}
+                    ? 'bg-primary border-primary text-primary-foreground shadow-lg shadow-primary/20' 
+                    : 'bg-background hover:bg-muted border-border'
+                )}
               >
                 {tag}
               </button>
@@ -64,45 +66,41 @@ export const Projects = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {filteredProjects.map((project, idx) => (
-            <Card key={project.id} className="group overflow-hidden border-2 border-border/50 bg-card/20 backdrop-blur-sm hover:bg-card/40 hover:border-primary/30 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] transition-all duration-700 reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
+            <Card key={project.id} className="group overflow-hidden border-border/40 bg-card/40 backdrop-blur-sm hover:bg-card/60 transition-all duration-500 reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image 
                   src={project.image} 
                   alt={project.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.2] group-hover:grayscale-0"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60" />
                 
-                {/* Synaptic blinking dot on image */}
-                <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-primary animate-node-blink" style={{ animationDelay: `${idx * 0.5}s` }} />
-                
-                <div className="absolute bottom-6 left-6 flex flex-wrap gap-2">
+                <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
                   {project.tags.slice(0, 2).map(tag => (
-                    <Badge key={tag} variant="secondary" className="text-[9px] bg-background/60 backdrop-blur-md border-white/10 uppercase tracking-[0.1em] font-bold px-3 py-1">
+                    <Badge key={tag} variant="secondary" className="text-[8px] bg-background/80 backdrop-blur-md border-white/5 uppercase font-bold px-3 py-1">
                       {tag}
                     </Badge>
                   ))}
                 </div>
               </div>
-              <CardHeader className="p-8 pb-4">
-                <CardTitle className="text-2xl font-headline tracking-tight group-hover:text-primary transition-colors duration-500">
+              <CardHeader className="p-6 pb-2">
+                <CardTitle className="text-xl font-headline tracking-tight group-hover:text-primary transition-colors">
                   {project.title}
                 </CardTitle>
-                <CardDescription className="line-clamp-3 min-h-[4.5rem] mt-4 text-base font-light leading-relaxed">
+                <CardDescription className="line-clamp-2 mt-2 text-sm font-light leading-relaxed">
                   {project.description}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="p-8 pt-4 flex items-center gap-4">
+              <CardContent className="p-6 pt-4">
                 <AIInsightButton 
                   projectName={project.title} 
                   projectDescription={project.description} 
                   projectTags={project.tags}
                   reportData={(project as any).reportData}
                 />
-                <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
               </CardContent>
             </Card>
           ))}
