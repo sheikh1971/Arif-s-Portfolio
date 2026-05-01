@@ -110,9 +110,9 @@ export const EXPERIENCE = [
 
 export const PROJECTS = [
   {
-    id: "brain-tumor",
-    title: "🧠 Brain Tumor Detection",
-    description: "ML-based MRI classification system involving complex image preprocessing, feature engineering, and rigorous model evaluation & optimization.",
+    id: "skin-disease",
+    title: "🔬 Skin Disease Detection",
+    description: "Deep learning based dermatological classification system for identifying various skin conditions with high accuracy and clinical relevance.",
     tags: ["AI", "ML", "Computer Vision"],
     image: "/ML.jpeg"
   },
