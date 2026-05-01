@@ -9,10 +9,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe, Layout, Image as ImageIcon, UserMinus, User } from 'lucide-react';
+import { Download, Loader2, FileText, Mail, Phone, MapPin, Globe, Layout, UserMinus, User } from 'lucide-react';
 import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -27,9 +27,9 @@ export const ResumeDialog = () => {
   const [showImage, setShowImage] = useState(false);
 
   const themes: { id: ResumeTheme; name: string; color: string }[] = [
-    { id: 'standard', name: 'Professional Blue', color: 'bg-slate-900' },
-    { id: 'modern', name: 'Emerald Modern', color: 'bg-emerald-600' },
-    { id: 'classic', name: 'Black Tie', color: 'bg-black' },
+    { id: 'standard', name: 'Corporate Blue', color: 'bg-blue-900' },
+    { id: 'modern', name: 'Executive Emerald', color: 'bg-emerald-700' },
+    { id: 'classic', name: 'Formal Black', color: 'bg-black' },
     { id: 'neural', name: 'Synaptic Violet', color: 'bg-primary' },
   ];
 
@@ -113,7 +113,7 @@ export const ResumeDialog = () => {
       </DialogTrigger>
       <DialogContent className="max-w-6xl max-h-[95vh] overflow-y-auto bg-slate-100 dark:bg-slate-950 p-0 border-none">
         <DialogHeader className="sticky top-0 z-10 bg-background/95 backdrop-blur-md border-b p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 text-left">
             <DialogTitle className="flex items-center gap-2 text-xl font-headline">
               <FileText className="h-5 w-5 text-primary" />
               Professional Resume Designer
@@ -211,17 +211,6 @@ export const ResumeDialog = () => {
               styles.headerBg, 
               !showImage ? "justify-center text-center" : "text-left"
             )}>
-              {showImage && (
-                <div className="relative w-40 h-40 rounded-xl overflow-hidden border-2 border-white shadow-md bg-white shrink-0">
-                  <Image 
-                    src={PERSONAL_INFO.images.resume} 
-                    alt={PERSONAL_INFO.name} 
-                    fill 
-                    className="object-contain" 
-                    unoptimized 
-                  />
-                </div>
-              )}
               <div className="flex-1">
                 <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2 uppercase">{PERSONAL_INFO.name}</h1>
                 <p className={cn("text-xl font-bold mb-6", styles.primaryText)}>{PERSONAL_INFO.title}</p>
@@ -233,6 +222,17 @@ export const ResumeDialog = () => {
                   <span className="flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> LINKEDIN.COM/IN/MARIFULISLAM</span>
                 </div>
               </div>
+              {showImage && (
+                <div className="relative w-44 h-44 rounded-xl overflow-hidden border-2 border-white shadow-md bg-white shrink-0">
+                  <Image 
+                    src={PERSONAL_INFO.images.resume} 
+                    alt={PERSONAL_INFO.name} 
+                    fill 
+                    className="object-contain" 
+                    unoptimized 
+                  />
+                </div>
+              )}
             </header>
 
             {activeLayout === 'single' && (
@@ -391,7 +391,7 @@ export const ResumeDialog = () => {
 
             <footer className="mt-auto pt-20 flex justify-end">
               <div className="text-right border-t-2 border-slate-100 pt-8 min-w-[240px]">
-                <p className={cn("text-xl font-bold italic mb-1", styles.primaryText)}>{PERSONAL_INFO.name}</p>
+                <p className={cn("text-xl font-bold mb-1", styles.primaryText)}>{PERSONAL_INFO.name}</p>
                 <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-bold">Digital Professional Identity</p>
               </div>
             </footer>
