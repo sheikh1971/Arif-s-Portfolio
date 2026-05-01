@@ -77,6 +77,7 @@ export const Projects = () => {
                   projectName={project.title} 
                   projectDescription={project.description} 
                   projectTags={project.tags}
+                  reportData={(project as any).reportData}
                 />
               </CardContent>
             </Card>
