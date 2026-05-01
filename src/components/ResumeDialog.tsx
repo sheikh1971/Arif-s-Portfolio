@@ -58,28 +58,22 @@ export const ResumeDialog = () => {
       
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 10; // 10mm margin
-      const contentWidth = pageWidth - (margin * 2);
-      const contentHeight = pageHeight - (margin * 2);
       
-      const imgWidth = contentWidth;
+      const imgWidth = pageWidth;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       
       let heightLeft = imgHeight;
-      let position = margin;
-      let page = 1;
+      let position = 0;
 
-      // Add first page
-      pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight, undefined, 'FAST');
-      heightLeft -= contentHeight;
+      // Add pages sequentially
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+      heightLeft -= pageHeight;
 
-      // Add subsequent pages if needed
       while (heightLeft > 0) {
-        position = margin - (page * contentHeight);
+        position = heightLeft - imgHeight;
         pdf.addPage();
-        pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight, undefined, 'FAST');
-        heightLeft -= contentHeight;
-        page++;
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+        heightLeft -= pageHeight;
       }
       
       pdf.save(`${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`);
@@ -101,44 +95,40 @@ export const ResumeDialog = () => {
 
   const githubHandle = PERSONAL_INFO.github.split('/').pop()?.toUpperCase();
 
-  const renderHeader = () => {
-    const isExecutive = activeLayout === 'executive';
-    
-    return (
-      <header className={cn(
-        "mb-10 p-10 rounded-[2.5rem] relative overflow-hidden", 
-        styles.headerBg,
-        (activeLayout !== 'strategic' && showImage) && "flex items-center justify-between"
-      )}>
-        <div className="relative z-10 flex-1">
-          <div className="flex items-center gap-3 mb-4">
-            <div className={cn("h-1.5 w-12 rounded-full", styles.accentBg)} />
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">System Identity Protocol</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 mb-2 uppercase leading-none">
-            {PERSONAL_INFO.name.split(' ').map((word, i) => (
-              <span key={i} className={cn(word === "(Md.)" && "text-2xl opacity-40 font-light")}>{word} </span>
-            ))}
-          </h1>
-          <p className={cn("text-lg font-medium mb-6 flex items-center gap-2", styles.primaryText)}>
-             <Zap size={18} /> {PERSONAL_INFO.title}
-          </p>
-          <div className="flex flex-wrap gap-y-3 gap-x-6 text-[8.5px] text-slate-500 font-bold uppercase tracking-[0.15em]">
-            <span className="flex items-center gap-2"><MapPin size={12} className={styles.iconColor} /> {PERSONAL_INFO.location}</span>
-            <span className="flex items-center gap-2"><Globe size={12} className={styles.iconColor} /> LI/MARIFULISLAM</span>
-            <span className="flex items-center gap-2"><Github size={12} className={styles.iconColor} /> GH/{githubHandle}</span>
-            <span className="flex items-center gap-2"><Mail size={12} className={styles.iconColor} /> {PERSONAL_INFO.email}</span>
-            <span className="flex items-center gap-2"><Phone size={12} className={styles.iconColor} /> {PERSONAL_INFO.phone}</span>
-          </div>
+  const renderHeader = () => (
+    <header className={cn(
+      "mb-10 p-10 rounded-[2.5rem] relative overflow-hidden", 
+      styles.headerBg,
+      activeLayout !== 'strategic' && "flex items-center justify-between"
+    )}>
+      <div className="relative z-10 flex-1">
+        <div className="flex items-center gap-3 mb-4">
+          <div className={cn("h-1.5 w-12 rounded-full", styles.accentBg)} />
+          <span className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-60">System Identity Protocol</span>
         </div>
-        {(activeLayout !== 'strategic' && showImage) && (
-          <div className="relative w-40 aspect-square rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-white ml-8">
-            <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
-          </div>
-        )}
-      </header>
-    );
-  };
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 mb-2 uppercase leading-none">
+          {PERSONAL_INFO.name.split(' ').map((word, i) => (
+            <span key={i} className={cn(word === "(Md.)" && "text-2xl opacity-40 font-light")}>{word} </span>
+          ))}
+        </h1>
+        <p className={cn("text-lg font-medium mb-6 flex items-center gap-2", styles.primaryText)}>
+           <Zap size={18} /> {PERSONAL_INFO.title}
+        </p>
+        <div className="flex flex-wrap gap-y-3 gap-x-6 text-[8.5px] text-slate-500 font-bold uppercase tracking-[0.15em]">
+          <span className="flex items-center gap-2"><MapPin size={12} className={styles.iconColor} /> {PERSONAL_INFO.location}</span>
+          <span className="flex items-center gap-2"><Globe size={12} className={styles.iconColor} /> LI/MARIFULISLAM</span>
+          <span className="flex items-center gap-2"><Github size={12} className={styles.iconColor} /> GH/{githubHandle}</span>
+          <span className="flex items-center gap-2"><Mail size={12} className={styles.iconColor} /> {PERSONAL_INFO.email}</span>
+          <span className="flex items-center gap-2"><Phone size={12} className={styles.iconColor} /> {PERSONAL_INFO.phone}</span>
+        </div>
+      </div>
+      {(activeLayout !== 'strategic' && showImage) && (
+        <div className="relative w-40 aspect-square rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-white ml-8">
+          <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
+        </div>
+      )}
+    </header>
+  );
 
   const renderStrategic = () => (
     <div className="flex-1 grid grid-cols-12 gap-10">
@@ -179,18 +169,6 @@ export const ResumeDialog = () => {
               </div>
             ))}
           </div>
-        </section>
-
-        <section>
-          <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.3em] mb-5 flex items-center gap-2 border-b-2 pb-1.5", styles.accentBorder, styles.primaryText)}>
-            <Heart size={14} /> Social Impact
-          </h2>
-          {IMPACT.map((imp, i) => (
-            <div key={i} className="mb-4">
-              <h3 className="font-bold text-[10px] text-slate-900 leading-tight mb-1">{imp.organization}</h3>
-              <p className={cn("text-[8.5px] font-bold uppercase tracking-wider", styles.primaryText)}>{imp.role}</p>
-            </div>
-          ))}
         </section>
       </div>
 
@@ -460,7 +438,7 @@ export const ResumeDialog = () => {
 
               <footer className="mt-auto pt-12 flex justify-end">
                 <div className="text-right border-t border-slate-50 pt-8 opacity-20 w-full">
-                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Neural Systems Profile Protocol v3.0 • International Standard</p>
+                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Neural Systems Profile Protocol v4.0 • International Standard</p>
                 </div>
               </footer>
             </div>
