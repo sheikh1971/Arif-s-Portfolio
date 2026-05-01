@@ -2,7 +2,7 @@ export const PERSONAL_INFO = {
   name: "Mohammad (Md.) Ariful Islam",
   title: "Applied AI & Machine Learning Engineer",
   tagline: "Architecting intelligent healthcare and vision-based systems with real-world impact.",
-  subtext: "Engineer, Interior Designer, and Social Activist. Currently leading AI/ML initiatives at WIOCARE and CottonsWorld, specializing in healthcare AI platforms and computer vision systems. Dedicated to bridging the gap between research-grade AI and production-ready systems.",
+  subtext: "Engineer, Interior Designer, and Social Activist. Currently leading AI/ML initiatives at WIOCARE and CottonsWorld, specializing in healthcare AI platforms and computer vision systems. Beyond ML, I leverage my skills as an AI-powered web developer to build seamless, intelligent digital experiences.",
   email: "sheikharif5264@gmail.com",
   secondaryEmail: "Islam@wiocare.com",
   phone: "+880 1835674339",
@@ -146,24 +146,24 @@ export const SKILLS = [
     items: ["Computer Vision", "Machine Learning", "Deep Learning", "Model Training", "Data Preprocessing"]
   },
   {
-    category: "Applied AI Systems",
-    items: ["AI Architecture", "Healthcare AI", "Conversational AI", "Virtual Try-On System Design"]
+    category: "AI Powered Web",
+    items: ["Next.js", "React", "Node.js", "Express", "Tailwind CSS", "Firebase"]
+  },
+  {
+    category: "Frameworks & Libs",
+    items: ["TensorFlow", "PyTorch", "OpenCV", "Scikit-learn", "Flutter"]
   },
   {
     category: "Languages & Tools",
-    items: ["Python", "JavaScript", "C", "Java", "HTML/CSS", "CAD"]
-  },
-  {
-    category: "Frameworks",
-    items: ["TensorFlow", "PyTorch", "OpenCV", "Scikit-learn", "Flutter"]
+    items: ["Python", "JavaScript", "C", "Java", "HTML/CSS", "AutoCAD", "SketchUp"]
   },
   {
     category: "Languages",
     items: ["Bengali (Mother tongue)", "English (Fluent)", "Urdu-Hindi (Conversational)"]
   },
   {
-    category: "Design & Social",
-    items: ["Interior Design", "AutoCAD", "SketchUp", "Leadership", "Public Speaking", "Grant Writing"]
+    category: "Soft Skills & Leadership",
+    items: ["Applied AI Architecture", "Interior Design", "Public Speaking", "Grant Writing", "Social Leadership"]
   }
 ];
 
