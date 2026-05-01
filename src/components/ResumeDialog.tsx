@@ -54,30 +54,15 @@ export const ResumeDialog = () => {
       });
       
       const imgData = canvas.toDataURL('image/png', 1.0);
-      const pdf = new jsPDF('p', 'mm', 'a4');
       
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      
-      const imgWidth = pageWidth;
+      // Calculate dimensions in mm for a single continuous page
+      const imgWidth = 210;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      // Add first page
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
-      heightLeft -= pageHeight;
-
-      // Add additional pages if content spans beyond one A4 page
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        // The slice approach might still cut lines if we're not careful, 
-        // but with break-inside-avoid and standard container sizes, it looks much cleaner.
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
-        heightLeft -= pageHeight;
-      }
+      // Create a PDF with a dynamic height to "show in one" without cuts
+      const pdf = new jsPDF('p', 'mm', [imgWidth, imgHeight]);
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
       
       pdf.save(`${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`);
     } catch (error) {
@@ -110,9 +95,7 @@ export const ResumeDialog = () => {
           <span className="text-[9px] font-bold uppercase tracking-[0.3em] opacity-50">Applied AI Profile Protocol</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-2 uppercase">
-          {PERSONAL_INFO.name.split(' ').map((word, i) => (
-            <span key={i} className={cn(word === "(Md.)" && "text-xl opacity-40 font-light lowercase")}>{word} </span>
-          ))}
+          {PERSONAL_INFO.name}
         </h1>
         <p className={cn("text-base font-medium mb-5 flex items-center gap-2", styles.primaryText)}>
            <Zap size={16} /> {PERSONAL_INFO.title}
@@ -183,7 +166,7 @@ export const ResumeDialog = () => {
           <p className="text-[10.5px] leading-relaxed text-slate-600 font-medium italic">"{PERSONAL_INFO.subtext}"</p>
         </section>
 
-        <section>
+        <section className="space-y-6">
           <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
             <Briefcase size={13} /> Professional Path
           </h2>
@@ -209,7 +192,7 @@ export const ResumeDialog = () => {
           </div>
         </section>
 
-        <section>
+        <section className="space-y-4">
           <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
             <Layers size={13} /> Applied Research
           </h2>
@@ -395,7 +378,7 @@ export const ResumeDialog = () => {
               <Brain className="h-5 w-5 text-primary" />
               Applied AI Profile Designer
             </DialogTitle>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">International A4 Standard Protocol v5.0</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold opacity-60">International Architecture Protocol v6.0</p>
           </div>
           
           <div className="flex flex-wrap items-center gap-4 bg-muted/30 p-2 md:p-3 rounded-2xl border w-full md:w-auto overflow-x-auto">
@@ -432,7 +415,7 @@ export const ResumeDialog = () => {
 
         <div className="flex-1 overflow-auto bg-muted/20 p-4 md:p-12 flex justify-center scrollbar-hide">
           <div className="scale-[0.4] sm:scale-75 md:scale-90 lg:scale-100 origin-top transition-transform duration-500">
-            <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] min-h-[297mm] flex flex-col font-sans transition-all pb-[25mm]")}>
+            <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] flex flex-col font-sans transition-all pb-[25mm] min-h-fit")}>
               {renderHeader()}
               
               <div className="flex-1">
@@ -443,7 +426,7 @@ export const ResumeDialog = () => {
 
               <footer className="mt-8 pt-8 flex justify-end break-inside-avoid">
                 <div className="text-right border-t border-slate-50 pt-4 opacity-20 w-full">
-                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Systems Profile Protocol v5.0 • A4 International Standard</p>
+                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Systems Profile Protocol v6.0 • A4 Architecture</p>
                 </div>
               </footer>
             </div>
