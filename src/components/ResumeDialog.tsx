@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Download, Loader2, Mail, Phone, MapPin, Globe, Layout, UserMinus, User, Heart, Brain, Zap, Target, Github, Layers, Briefcase, FileText } from 'lucide-react';
+import { Download, Loader2, Mail, Phone, MapPin, Globe, Layout, UserMinus, User, Heart, Brain, Zap, Target, Github, Layers, Briefcase, FileText, Image as ImageIcon, FileType } from 'lucide-react';
 import { PERSONAL_INFO, EXPERIENCE, EDUCATION, SKILLS, IMPACT, PROJECTS } from '@/lib/portfolio-data';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -22,7 +22,7 @@ type ResumeLayout = 'strategic' | 'executive' | 'architect';
 
 export const ResumeDialog = () => {
   const resumeRef = useRef<HTMLDivElement>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isGenerating, setIsGenerating] = useState<string | null>(null);
   const [activeTheme, setActiveTheme] = useState<ResumeTheme>('applied-ai');
   const [activeLayout, setActiveLayout] = useState<ResumeLayout>('strategic');
   const [showImage, setShowImage] = useState(true);
@@ -40,35 +40,82 @@ export const ResumeDialog = () => {
     { id: 'architect', name: 'System Architect', icon: Brain },
   ];
 
-  const handleDownload = async () => {
-    if (!resumeRef.current) return;
-    setIsGenerating(true);
+  const captureCanvas = async () => {
+    if (!resumeRef.current) return null;
+    return await html2canvas(resumeRef.current, {
+      scale: 3,
+      useCORS: true,
+      logging: false,
+      backgroundColor: '#ffffff',
+      width: resumeRef.current.offsetWidth,
+      height: resumeRef.current.offsetHeight,
+      onclone: (clonedDoc) => {
+        const el = clonedDoc.getElementById('resume-container');
+        if (el) el.style.boxShadow = 'none';
+      }
+    });
+  };
 
+  const handleDownloadPDF = async () => {
+    setIsGenerating('pdf');
     try {
-      const canvas = await html2canvas(resumeRef.current, {
-        scale: 3, 
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-        width: 794, // 210mm at 96 DPI
-      });
+      const canvas = await captureCanvas();
+      if (!canvas) return;
       
       const imgData = canvas.toDataURL('image/png', 1.0);
-      
-      // Calculate dimensions in mm for a single continuous page
       const imgWidth = 210;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       
-      // Create a PDF with a dynamic height to "show in one" without cuts
       const pdf = new jsPDF('p', 'mm', [imgWidth, imgHeight]);
-      
       pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
-      
       pdf.save(`${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.pdf`);
     } catch (error) {
       console.error("PDF generation failed:", error);
     } finally {
-      setIsGenerating(false);
+      setIsGenerating(null);
+    }
+  };
+
+  const handleDownloadJPG = async () => {
+    setIsGenerating('jpg');
+    try {
+      const canvas = await captureCanvas();
+      if (!canvas) return;
+      
+      const link = document.createElement('a');
+      link.download = `${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.jpg`;
+      link.href = canvas.toDataURL('image/jpeg', 0.9);
+      link.click();
+    } catch (error) {
+      console.error("JPG generation failed:", error);
+    } finally {
+      setIsGenerating(null);
+    }
+  };
+
+  const handleDownloadDOC = () => {
+    if (!resumeRef.current) return;
+    setIsGenerating('doc');
+    try {
+      const content = resumeRef.current.innerHTML;
+      const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Resume</title><style>body { font-family: sans-serif; }</style></head><body>";
+      const footer = "</body></html>";
+      const source = header + content + footer;
+      
+      const blob = new Blob(['\ufeff', source], {
+        type: 'application/msword'
+      });
+      
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${PERSONAL_INFO.name.replace(/\s+/g, '_')}_Resume.doc`;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("DOC generation failed:", error);
+    } finally {
+      setIsGenerating(null);
     }
   };
 
@@ -109,8 +156,8 @@ export const ResumeDialog = () => {
         </div>
       </div>
       {(activeLayout !== 'strategic' && showImage) && (
-        <div className="relative w-36 h-36 rounded-3xl overflow-hidden border-4 border-white shadow-lg bg-white ml-8 shrink-0">
-          <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
+        <div className="relative w-32 h-32 rounded-3xl overflow-hidden border-4 border-white shadow-lg bg-white ml-8 shrink-0">
+          <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-cover" unoptimized />
         </div>
       )}
     </header>
@@ -121,7 +168,7 @@ export const ResumeDialog = () => {
       <div className="col-span-4 space-y-8">
         {showImage && (
           <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden border-[6px] border-slate-50 shadow-md bg-slate-50 break-inside-avoid">
-            <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
+            <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-cover" unoptimized />
           </div>
         )}
 
@@ -191,20 +238,6 @@ export const ResumeDialog = () => {
             ))}
           </div>
         </section>
-
-        <section className="space-y-4">
-          <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
-            <Layers size={13} /> Applied Research
-          </h2>
-          <div className="space-y-4">
-            {PROJECTS.slice(0, 3).map((proj, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 break-inside-avoid">
-                <h3 className="font-bold text-[10px] text-slate-900 mb-1">{proj.title}</h3>
-                <p className="text-[9px] text-slate-600 leading-relaxed italic line-clamp-2">"{proj.description.split('.')[0]}."</p>
-              </div>
-            ))}
-          </div>
-        </section>
       </div>
     </div>
   );
@@ -246,32 +279,6 @@ export const ResumeDialog = () => {
           ))}
         </div>
       </section>
-
-      <div className="grid grid-cols-2 gap-10">
-        <section className="break-inside-avoid">
-          <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
-            <Layers size={13} /> Technical Arsenal
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {SKILLS.flatMap(s => s.items).slice(0, 15).map((skill, i) => (
-              <span key={i} className="text-[8.5px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 font-bold text-slate-600 uppercase">{skill}</span>
-            ))}
-          </div>
-        </section>
-        <section className="break-inside-avoid">
-          <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
-            <Target size={13} /> Academic Track
-          </h2>
-          <div className="space-y-3">
-            {EDUCATION.map((edu, i) => (
-              <div key={i} className="break-inside-avoid">
-                <h3 className="font-bold text-[9px] text-slate-900 leading-tight mb-0.5">{edu.degree}</h3>
-                <p className="text-[8.5px] text-slate-500 font-bold">{edu.school} • {edu.period}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
     </div>
   );
 
@@ -326,7 +333,7 @@ export const ResumeDialog = () => {
         <div className="col-span-4 space-y-8">
           {(showImage) && (
             <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden border-2 border-slate-100 shadow-md bg-slate-50 break-inside-avoid">
-               <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-contain" unoptimized />
+               <Image src={PERSONAL_INFO.images.resume} alt={PERSONAL_INFO.name} fill className="object-cover" unoptimized />
             </div>
           )}
 
@@ -346,18 +353,6 @@ export const ResumeDialog = () => {
                 </div>
               ))}
             </div>
-          </section>
-
-          <section className="break-inside-avoid">
-            <h2 className={cn("text-[10px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 border-b-2 pb-1", styles.accentBorder, styles.primaryText)}>
-              <Target size={13} /> Credentials
-            </h2>
-            {EDUCATION.map((edu, i) => (
-              <div key={i} className="mb-3 break-inside-avoid">
-                <h3 className="font-bold text-[9px] text-slate-900 leading-tight mb-0.5">{edu.degree}</h3>
-                <p className="text-[8px] text-slate-500 font-bold">{edu.school}</p>
-              </div>
-            ))}
           </section>
         </div>
       </div>
@@ -406,16 +401,26 @@ export const ResumeDialog = () => {
               </div>
             </div>
             <div className="w-px h-8 bg-border hidden md:block" />
-            <Button onClick={handleDownload} disabled={isGenerating} className="gap-2 rounded-full px-6 h-10 ml-auto shadow-lg shadow-primary/20 font-headline font-bold uppercase text-[9px] tracking-widest">
-              {isGenerating ? <Loader2 className="h-3 w-3 animate-spin" /> : <Download size={14} />}
-              Generate PDF
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button onClick={handleDownloadPDF} disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 shadow-lg shadow-primary/20 font-headline font-bold uppercase text-[9px] tracking-widest">
+                {isGenerating === 'pdf' ? <Loader2 className="h-3 w-3 animate-spin" /> : <Download size={14} />}
+                PDF
+              </Button>
+              <Button onClick={handleDownloadJPG} variant="outline" disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 border-primary/20 hover:bg-primary/5 font-headline font-bold uppercase text-[9px] tracking-widest">
+                {isGenerating === 'jpg' ? <Loader2 className="h-3 w-3 animate-spin" /> : <ImageIcon size={14} />}
+                JPG
+              </Button>
+              <Button onClick={handleDownloadDOC} variant="outline" disabled={!!isGenerating} className="gap-2 rounded-full px-4 h-10 border-primary/20 hover:bg-primary/5 font-headline font-bold uppercase text-[9px] tracking-widest">
+                {isGenerating === 'doc' ? <Loader2 className="h-3 w-3 animate-spin" /> : <FileType size={14} />}
+                DOC
+              </Button>
+            </div>
           </div>
         </DialogHeader>
 
         <div className="flex-1 overflow-auto bg-muted/20 p-4 md:p-12 flex justify-center scrollbar-hide">
           <div className="scale-[0.4] sm:scale-75 md:scale-90 lg:scale-100 origin-top transition-transform duration-500">
-            <div ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] flex flex-col font-sans transition-all pb-[25mm] min-h-fit")}>
+            <div id="resume-container" ref={resumeRef} className={cn("bg-white text-[#1f2937] p-[15mm] shadow-2xl mx-auto w-[210mm] flex flex-col font-sans transition-all pb-[25mm] min-h-fit")}>
               {renderHeader()}
               
               <div className="flex-1">
@@ -426,7 +431,7 @@ export const ResumeDialog = () => {
 
               <footer className="mt-8 pt-8 flex justify-end break-inside-avoid">
                 <div className="text-right border-t border-slate-50 pt-4 opacity-20 w-full">
-                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Systems Profile Protocol v6.0 • A4 Architecture</p>
+                  <p className="text-[7px] uppercase tracking-[0.8em] text-slate-400 font-bold">Systems Profile Protocol v6.0 • Continuous Architecture</p>
                 </div>
               </footer>
             </div>
@@ -436,3 +441,4 @@ export const ResumeDialog = () => {
     </Dialog>
   );
 };
+
