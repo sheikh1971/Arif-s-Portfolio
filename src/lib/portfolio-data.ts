@@ -3,7 +3,7 @@ export const PERSONAL_INFO = {
   title: "Applied AI & Machine Learning Engineer",
   tagline: "Architecting intelligent healthcare and vision-based systems with real-world impact.",
   subtext: "Engineer, Interior Designer, and Social Activist. Currently leading AI/ML initiatives at WIOCARE and CottonsWorld, specializing in healthcare AI platforms and computer vision systems. Beyond ML, I leverage my skills as an AI-powered web developer to build seamless, intelligent digital experiences.",
-  email: "sheikharif5264@gmail.com",
+  email: "sm.islam.ariful@gmail.com",
   secondaryEmail: "Islam@wiocare.com",
   phone: "+880 1835674339",
   github: "https://github.com/sheikh1971",
