@@ -73,7 +73,7 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags }
           Technical Report
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-5xl max-h-[95vh] bg-card border-primary/20 shadow-2xl p-0 overflow-hidden flex flex-col">
+      <DialogContent className="sm:max-w-5xl h-[95vh] max-h-[95vh] bg-card border-primary/20 shadow-2xl p-0 overflow-hidden flex flex-col">
         <DialogHeader className="p-8 pb-0">
           <div className="flex items-center justify-between">
             <DialogTitle className="flex items-center gap-4 text-3xl font-headline font-bold">
@@ -113,14 +113,16 @@ export const AIInsightButton = ({ projectName, projectDescription, projectTags }
               <div className="grid md:grid-cols-12 gap-8">
                 <div className="md:col-span-8">
                   <div className="prose prose-sm dark:prose-invert max-w-none">
-                    <div className="p-8 rounded-2xl bg-muted/30 border border-primary/5 leading-relaxed font-body text-base text-foreground/90 whitespace-pre-wrap shadow-inner relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-2 opacity-5">
-                        <Database size={120} />
+                    <ScrollArea className="h-[450px] w-full rounded-2xl bg-muted/30 border border-primary/5 shadow-inner">
+                      <div className="p-8 leading-relaxed font-body text-base text-foreground/90 whitespace-pre-wrap relative">
+                        <div className="absolute top-0 right-0 p-2 opacity-5 pointer-events-none">
+                          <Database size={120} />
+                        </div>
+                        <p className="relative z-10 first-letter:text-4xl first-letter:font-bold first-letter:text-primary first-letter:mr-2 first-letter:float-left">
+                          {projectDescription}
+                        </p>
                       </div>
-                      <p className="relative z-10 first-letter:text-4xl first-letter:font-bold first-letter:text-primary first-letter:mr-2 first-letter:float-left">
-                        {projectDescription}
-                      </p>
-                    </div>
+                    </ScrollArea>
                   </div>
                 </div>
                 <div className="md:col-span-4 space-y-6">
