@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -32,7 +33,7 @@ export const Hero = () => {
                 key={i} 
                 className={cn(
                   "block",
-                  i === 1 && "text-3xl lg:text-4xl opacity-50 font-light",
+                  word === "(Md.)" && "text-3xl lg:text-4xl opacity-50 font-light",
                   i === 2 && "gradient-text"
                 )}
               >

@@ -1,3 +1,4 @@
+
 export const PERSONAL_INFO = {
   name: "Mohammad (Md.) Ariful Islam",
   title: "Applied AI & Machine Learning Engineer",
@@ -97,11 +98,7 @@ export const EXPERIENCE = [
         "Data Orchestration Pipeline",
         "Model Monitoring Dashboard"
       ],
-      impact: [
-        "Improved model accuracy by 15% through optimized preprocessing",
-        "Shortened prototyping cycles for enterprise AI features",
-        "Enhanced data reliability for cross-departmental analytics"
-      ]
+      impact: []
     },
     secondaryProject: {
       name: "BITM Web Training",
