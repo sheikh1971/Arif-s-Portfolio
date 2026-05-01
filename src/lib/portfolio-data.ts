@@ -124,7 +124,7 @@ Technical Stack: Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn �
 
 Key Contributions: Designed and implemented a custom SE-enhanced CNN architecture with batch normalization, dropout regularization, and global average pooling. Conducted comprehensive comparative benchmarking and ablation studies to empirically validate the impact of attention mechanisms. Evaluated model performance using multi-class precision, recall, F1-score, confusion matrices, and ROC-AUC curves. Proposed future directions including multimodal learning (integrating patient metadata), clinical validation workflows, and edge-device optimization for real-world deployment.`,
     tags: ["AI", "ML", "Computer Vision", "HealthTech"],
-    image: "https://picsum.photos/seed/skin/600/400",
+    image: "/skindisease.jpeg",
     reportData: {
       architecture: "SE-CNN Custom",
       dataset: "68,568 Clinical Images",
