@@ -1,14 +1,14 @@
 
 export const PERSONAL_INFO = {
   name: "Mohammad (Md.) Ariful Islam",
-  title: "Applied AI & Machine Learning Engineer",
+  title: "Chief Architect (AI & ML)",
   tagline: "Architecting intelligent healthcare and vision-based systems with real-world impact.",
   subtext: "Engineer, Interior Designer, and Social Activist. Currently leading AI/ML initiatives at WIOCARE and CottonsWorld, specializing in healthcare AI platforms and computer vision systems. Beyond ML, I leverage my skills as an AI-powered web developer to build seamless, intelligent digital experiences.",
   email: "sm.islam.ariful@gmail.com",
   secondaryEmail: "Islam@wiocare.com",
   phone: "+880 1835674339",
   github: "https://github.com/sheikh1971",
-  linkedin: "https://linkedin.com/in/marifulislam",
+  linkedin: "https://www.linkedin.com/in/mohammadarifbd",
   location: "Chittagong, Bangladesh",
   images: {
     hero: "/halfgif.gif",
@@ -111,82 +111,45 @@ export const PROJECTS = [
   {
     id: "skin-disease",
     title: "🔬 Skin Disease Detection",
-    description: `Overview This project presents a custom deep learning solution for automated multi-class skin disease classification, addressing the global shortage of dermatological expertise—particularly in underserved and rural regions. Built from scratch using TensorFlow/Keras, the architecture centers on a novel Convolutional Neural Network (CNN) enhanced with Squeeze-and-Excitation (SE) blocks, which perform dynamic channel-wise feature recalibration to mimic the selective focus of a dermatologist. The model was trained and evaluated on a curated dataset of 68,568 clinical and dermoscopic images spanning 23 distinct skin disease classes, sourced from a public Kaggle repository. Rigorous preprocessing (resizing, normalization, and real-time augmentation) was combined with an 80/20 train-test split to ensure robust generalization. The SE-CNN was benchmarked against four established architectures—MobileNetV2, DenseNet121, ResNet50, and EfficientNetB0—under identical training conditions. Key Results Achieved 88.55% test accuracy on the full dataset, significantly outperforming all baseline models (best baseline: 51.56%). Ablation study demonstrated an ~9% accuracy improvement attributable solely to SE blocks versus an identical baseline CNN. Delivered strong discriminative performance with AUC > 0.90 for major disease classes, supported by detailed confusion matrices and ROC analysis. Maintained a moderate parameter count (~5M), balancing performance with deployability for telemedicine and mobile health platforms. Technical Stack Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn · Matplotlib · Pandas Key Contributions Designed and implemented a custom SE-enhanced CNN architecture with batch normalization, dropout regularization, and global average pooling. Conducted comprehensive comparative benchmarking and ablation studies to empirically validate the impact of attention mechanisms. Evaluated model performance using multi-class precision, recall, F1-score, confusion matrices, and ROC-AUC curves. Proposed future directions including multimodal learning (integrating patient metadata), clinical validation workflows, and edge-device optimization for real-world deployment.`,
+    description: `Overview A compact convolutional neural network with Squeeze-and-Excitation (SE) channel attention for classifying 24 skin conditions from clinical photographs, aimed at settings where dermatologists are scarce. Built from scratch in TensorFlow/Keras with about 5.01M parameters. Key Results 88.55% accuracy and a macro F1 of 0.888 on 13,728 held-out images across 24 classes, with per-class error analysis. Publication Sole-author preprint on Research Square (2026), doi.org/10.21203/rs.3.rs-11656703/v1 (not yet peer reviewed). Technical Stack Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn · Matplotlib · Pandas`,
     tags: ["CV", "ML", "Computer Vision", "HealthTech"],
     image: "/skindisease.jpeg",
     reportData: {
       architecture: "SE-CNN Custom",
-      dataset: "68,568 Clinical Images",
+      dataset: "24 classes · clinical photos",
       accuracy: "88.55%",
-      accuracyLabel: "Peak Accuracy",
+      accuracyLabel: "Held-out accuracy",
       summary: "Leveraging custom SE-enhanced CNN architectures to automate multi-class skin disease classification for underserved and rural regions.",
       pipeline: {
-        ingestion: "Kaggle Repository",
+        ingestion: "Clinical photographs",
         preprocessing: "Resizing & Augment",
         engine: "SE-CNN Engine",
-        analytics: "ROC / AUC Analysis"
+        analytics: "Macro F1 0.888"
       },
       benchmarks: [
-        { model: "SE-CNN", accuracy: 88.55 },
-        { model: "MobileNetV2", accuracy: 51.56 },
-        { model: "DenseNet121", accuracy: 48.20 },
-        { model: "ResNet50", accuracy: 45.10 },
-        { model: "EfficientNetB0", accuracy: 42.80 },
+        { model: "SE-CNN (macro F1 88.8)", accuracy: 88.55 },
       ]
     }
   },
   {
     id: "brain-disease",
     title: "🧠 Brain Disease Classification",
-    description: `Brain Disease Classification from fMRI-Derived Imaging Data using 3D Convolutional Neural Networks Overview This project addresses the critical need for early and accurate diagnosis of neurodegenerative disorders—specifically Alzheimer's Disease (AD), Mild Cognitive Impairment (MCI), Early MCI (EMCI), and Cognitively Normal (CN)—by leveraging deep learning on volumetric neuroimaging data. Unlike conventional approaches that rely on complex time-series fMRI analysis, this work utilizes static fMRI-derived images to significantly reduce computational overhead while maintaining high diagnostic accuracy. A custom 3D Convolutional Neural Network was designed and implemented from scratch to capture spatial hierarchies within 64×64×64 voxel brain volumes. The architecture processes raw grayscale volumetric data through stacked 3D convolutional and max-pooling layers, followed by fully connected layers with ReLU activation and dropout regularization (rate=0.5) to prevent overfitting. The model outputs four-class probabilities via softmax activation. Key Results Achieved 99% training accuracy and 100% validation accuracy on a dataset of 191,428 preprocessed fMRI-derived images (153,142 training / 38,286 validation). Delivered strong per-class performance with 96% precision/recall for AD, 97% for CN, and ~90-92% for MCI/EMCI classes. Implemented 5-fold cross-validation and data augmentation (random rotations, shifts) to ensure robustness and generalization across patient subsets. Standardized preprocessing pipeline including resizing, intensity normalization [0,1], and quality-controlled data curation from the ADNI database. Technical Stack Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn · Matplotlib · Pandas · 3D CNN Architectures Key Contributions Designed a lightweight yet effective 3D CNN architecture optimized for volumetric brain classification without relying on pre-trained models or transfer learning. Demonstrated that static fMRI-derived images, when processed through 3D convolutions, can achieve comparable or superior accuracy to multimodal approaches (MRI+PET) reported in literature. Applied rigorous regularization techniques including early stopping (patience=12 epochs), dropout, and cross-validation to mitigate overfitting risks inherent in high-dimensional medical imaging. Established a scalable preprocessing and augmentation framework for 3D neuroimaging data, enabling reproducible training pipelines for future clinical deployment. Proposed future integration of dynamic functional connectivity and multimodal imaging to further enhance early-stage detection capabilities.`,
+    description: `Overview My undergraduate thesis built a custom 3D CNN to classify Alzheimer's disease stages (AD, MCI, EMCI, CN) from fMRI-derived volumes in the ADNI database. It was accepted at ICICCS 2025 after major revision. Key Finding The thesis reported near-perfect accuracy, and I later traced the cause: scans from the same person appeared on both sides of the train/test split (subject-level data leakage), so the reported accuracy does not reflect real performance. I wrote this up as a sole-author case study on how leakage inflates results in neuroimaging AI; it was cleared by the ADNI Data and Publications Committee in November 2026. Lesson Evaluation must split by person, not by image. Technical Stack Python · TensorFlow/Keras · NumPy · 3D CNN · ADNI`,
     tags: ["CV", "fMRI", "3D-CNN", "Neuroscience"],
     image: "/ML.jpeg",
     reportData: {
       architecture: "3D CNN (Custom)",
-      dataset: "191,428 fMRI Images",
-      accuracy: "100%",
-      accuracyLabel: "Validation Accuracy",
-      summary: "Utilizing 3D Convolutional Neural Networks on volumetric fMRI data to achieve high-precision diagnosis of neurodegenerative disorders.",
+      dataset: "ADNI fMRI-derived volumes",
+      accuracy: "Leakage found",
+      accuracyLabel: "Key finding",
+      summary: "A 3D CNN thesis on ADNI fMRI, then a case study showing how subject-level leakage inflated its accuracy.",
       pipeline: {
         ingestion: "ADNI Database",
         preprocessing: "3D Voxel Norm",
         engine: "3D Convolutional Net",
-        analytics: "5-Fold Cross Val"
+        analytics: "Subject-level audit"
       },
-      benchmarks: [
-        { model: "3D CNN (Custom)", accuracy: 100.00 },
-        { model: "ResNet3D-50", accuracy: 94.20 },
-        { model: "DenseNet3D-121", accuracy: 92.50 },
-        { model: "VGG16-3D", accuracy: 88.10 },
-        { model: "2D CNN Baseline", accuracy: 85.30 },
-      ]
-    }
-  },
-  {
-    id: "4d-mri",
-    title: "🧬 4D MRI Segmentation",
-    description: "Brain Disease Classification from fMRI-Derived Imaging Data using 3D Convolutional Neural Networks Overview This project addresses the critical need for early and accurate diagnosis of neurodegenerative disorders—specifically Alzheimer's Disease (AD), Mild Cognitive Impairment (MCI), Early MCI (EMCI), and Cognitively Normal (CN)—by leveraging deep learning on volumetric neuroimaging data. Unlike conventional approaches that rely on complex time-series fMRI analysis, this work utilizes static fMRI-derived images to significantly reduce computational overhead while maintaining high diagnostic accuracy. A custom 3D Convolutional Neural Network was designed and implemented from scratch to capture spatial hierarchies within 64×64×64 voxel brain volumes. The architecture processes raw grayscale volumetric data through stacked 3D convolutional and max-pooling layers, followed by fully connected layers with ReLU activation and dropout regularization (rate=0.5) to prevent overfitting. The model outputs four-class probabilities via softmax activation. Key Results Achieved 99% training accuracy and 100% validation accuracy on a dataset of 191,428 preprocessed fMRI-derived images (153,142 training / 38,286 validation). Delivered strong per-class performance with 96% precision/recall for AD, 97% for CN, and ~90-92% for MCI/EMCI classes. Implemented 5-fold cross-validation and data augmentation (random rotations, shifts) to ensure robustness and generalization across patient subsets. Standardized preprocessing pipeline including resizing, intensity normalization [0,1], and quality-controlled data curation from the ADNI database. Technical Stack Python · TensorFlow/Keras · NumPy · OpenCV · Scikit-learn · Matplotlib · Pandas · 3D CNN Architectures Key Contributions Designed a lightweight yet effective 3D CNN architecture optimized for volumetric brain classification without relying on pre-trained models or transfer learning. Demonstrated that static fMRI-derived images, when processed through 3D convolutions, can achieve comparable or superior accuracy to multimodal approaches (MRI+PET) reported in literature. Applied rigorous regularization techniques including early stopping (patience=12 epochs), dropout, and cross-validation to mitigate overfitting risks inherent in high-dimensional medical imaging. Established a scalable preprocessing and augmentation framework for 3D neuroimaging data, enabling reproducible training pipelines for future clinical deployment. Proposed future integration of dynamic functional connectivity and multimodal imaging to further enhance early-stage detection capabilities.",
-    tags: ["CV", "Deep Learning", "Thesis"],
-    image: "/4D.jpeg",
-    reportData: {
-      architecture: "Spatial-Temporal Net",
-      dataset: "4D MRI Sequences",
-      accuracy: "94.2%",
-      accuracyLabel: "Segmentation Dice",
-      summary: "Developing high-precision segmentation of 4D MRI sequences using advanced spatial-temporal architectures to analyze structural biological changes.",
-      pipeline: {
-        ingestion: "Clinical MRI Scans",
-        preprocessing: "Temporal Alignment",
-        engine: "4D-CNN / Transformer",
-        analytics: "Dice Score Validation"
-      },
-      benchmarks: [
-        { model: "Proposed 4D-Net", accuracy: 94.20 },
-        { model: "3D-UNet", accuracy: 89.50 },
-        { model: "V-Net", accuracy: 87.20 },
-        { model: "2D SegNet", accuracy: 81.00 },
-        { model: "Baseline FCN", accuracy: 75.40 },
-      ]
+      benchmarks: []
     }
   },
   {
@@ -295,21 +258,30 @@ export const EDUCATION = [
 
 export const IMPACT = [
   {
-    role: "Founder & President",
-    organization: "Human Welfare Organisation",
+    role: "Founder (2015) · still leading",
+    organization: "Human Welfare Organisation (HWO)",
     achievements: [
-      "Leading resource distribution and social change since 2015",
-      "Featured in media outlets including Dainik Azadi and Dainik Suprobhat",
-      "Successfully secured funding and grants for non-profit initiatives"
+      "Crowd-funded winter-clothes, blanket and food drives in Chattogram for 11+ years",
+      "Reported by Kaler Kantho, Dainik Azadi and Suprabhat Bangladesh",
+      "An estimated 1,000+ children and adults helped; drives still running"
     ]
   },
   {
-    role: "President / Member of Youth Parliament",
-    organization: "Dhrubotara / Youth Parliament",
+    role: "Founder (2023) · programmes ongoing",
+    organization: "Ayna Youth Development Foundation (AYDF)",
     achievements: [
-      "Led divisional conferences for youth development (2018–2021)",
-      "Served as Power and Energy Minister (ctg 07) in Youth Parliament",
-      "Organized the Chittagong Divisional Youth Conference (2020)"
+      "Cloth of Joy: Eid clothes for 100+ orphaned children and others at one event (News Garden 24)",
+      "Project Sohay: sewing machines for three widowed women to earn a living",
+      "Covered by Rajdhani TV, Eye TV Bangla and Dainik Purbokone"
+    ]
+  },
+  {
+    role: "Divisional Vice-President & acting President, Chattogram",
+    organization: "Dhrubotara Youth Development Foundation (DYDF)",
+    achievements: [
+      "One of eight divisional leaders of a 20,000+ member national youth network (from 2019)",
+      "Organised the Chattogram Divisional Youth Conference 2020 (500+ people)",
+      "Model Youth Parliament: MP for Chattogram-7 and Minister of Power and Energy"
     ]
   }
 ];
