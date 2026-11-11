@@ -46,6 +46,7 @@ export const Navigation = () => {
     { name: 'Experience', href: '#experience' },
     { name: 'Skills', href: '#skills' },
     { name: 'Contact', href: '#contact' },
+    { name: 'Leadership ↗', href: 'https://sheikh1971.github.io/ariful-islam-portfolio/' },
   ];
 
   return (
