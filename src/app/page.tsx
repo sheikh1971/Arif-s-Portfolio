@@ -65,6 +65,16 @@ export default function Home() {
                     </ul>
                   </div>
                 ))}
+                <a
+                  href="https://sheikh1971.github.io/ariful-islam-portfolio/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block p-6 md:p-8 border border-primary/40 rounded-[2rem] bg-primary/10 hover:bg-primary/20 transition-all"
+                >
+                  <p className="text-[10px] font-headline uppercase tracking-widest text-primary mb-2">Youth Leadership Portfolio</p>
+                  <p className="font-headline font-bold text-lg">11+ years of youth leadership, with photos and press coverage &rarr;</p>
+                  <p className="text-sm text-muted-foreground mt-2">HWO, AYDF and DYDF: one of eight divisional leaders, 7 media reports, an estimated 1,000+ people helped.</p>
+                </a>
               </div>
             </div>
           </div>
